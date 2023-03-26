@@ -14,7 +14,7 @@ if(isset($_POST['login'])){
       
   }
 }
-
+// All Setted Shiva and this is sending to git as All set SHiva
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +30,7 @@ if(isset($_POST['login'])){
   <link rel="icon" type="image/png" href="images/favicon.png">
 
   <!-- CSS Assets -->
-  <link rel="stylesheet" href="Bhavani/css/app.css">
+  <link rel="stylesheet" href="css/app.css">
 
   <!-- Javascript Assets -->
   <script src="js/app.js" defer=""></script>

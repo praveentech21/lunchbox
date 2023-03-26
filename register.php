@@ -22,12 +22,13 @@ if(isset($_POST['submit'])){
 }
 ?>
 <!DOCTYPE html>
+<!-- All Setted Shiva and this is sending to git as All set SHiva -->
 <!-- Created By CodingLab - www.codinglabweb.com -->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
     <!---<title> Responsive Registration Form | CodingLab </title>--->
-    <link rel="stylesheet" href="Bhavani/css/hello.css">
+    <link rel="stylesheet" href="hello.css">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
   <script>

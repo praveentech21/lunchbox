@@ -28,8 +28,8 @@ $resellt= mysqli_fetch_assoc(mysqli_query($con,"select sname,pmobile from day"))
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="Bhavani/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="Bhavani/lib/animate/animate.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -321,11 +321,11 @@ $resellt= mysqli_fetch_assoc(mysqli_query($con,"select sname,pmobile from day"))
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="Bhavani/lib/wow/wow.min.js"></script>
+    <script src="Bhavani/lib/easing/easing.min.js"></script>
+    <script src="Bhavani/lib/waypoints/waypoints.min.js"></script>
+    <script src="Bhavani/lib/counterup/counterup.min.js"></script>
+    <script src="Bhavani/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

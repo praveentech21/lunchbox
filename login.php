@@ -30,7 +30,7 @@ if(isset($_POST['login'])){
   <link rel="icon" type="image/png" href="images/favicon.png">
 
   <!-- CSS Assets -->
-  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="Bhavani/css/app.css">
 
   <!-- Javascript Assets -->
   <script src="js/app.js" defer=""></script>

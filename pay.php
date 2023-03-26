@@ -28,45 +28,20 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="Bhavani/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="Bhavani/lib/animate/animate.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="Bhavani/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="Bhavani/css/style.css" rel="stylesheet">
 </head>
 
 <body >
-<!-- <div class="container-fluid position-relative p-0">
-        <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
-            <a href="index.html" class="navbar-brand p-0">
-               <table>
-                    <tr>
-                        <td><h1 class="m-0"><i class="fa fa-user-tie me-lg-4"></i>LUNCH BOX</h1> </td>
-                    </tr>
-                 </table>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="fa fa-bars"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="#aboutus" class="nav-item nav-link">About</a>
-                    <a href="#prices" class="nav-item nav-link">Price Plan</a>
-                    <a href="#contact" class="nav-item nav-link">Contact</a>
-                </div>
-                <a style="border-radius: 15px" href="login.php" class="btn btn-primary py-2 px-4 ms-3">Login</a>
-                <a style="border-radius: 15px" href="register.php" class="btn btn-primary py-2 px-4 ms-3">Register</a>
-            </div>
-        </nav>
 
-    </div> -->
     <section id="prices">
 
-    <!-- Pricing Plan Start -->
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
@@ -134,7 +109,6 @@ session_start();
             </div>
         </div>
     </div>
-    <!-- Pricing Plan End -->
 </section>
 
 
@@ -207,6 +181,5 @@ session_start();
             </div>
         </div>
     </div>
-    <!-- Pricing Plan End -->
     
 </body>

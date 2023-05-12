@@ -60,12 +60,11 @@ if(isset($_POST['submit'])){
         <div class="user-details">
           <div class="input-box">
             <span class="details">Parent Name</span>
-            <input type="text" name="pname" placeholder="full name" required>
+            <input type="text" name="pname" placeholder="Full name" required>
           </div>
           <div class="input-box">
             <span class="details">Mobile Number</span>
-            <input type="tel" id="phone" name="pmobile" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"required>
-            <small>Format: 123456 7890</small>
+            <input type="tel" id="phone" name="pmobile" placeholder="Format: 1234567890" pattern="[0-9]{10}" required>
           </div>
           <div class="input-box">
             <span class="details">Email</span>
@@ -122,17 +121,7 @@ if(isset($_POST['submit'])){
             </label>
           </div>
         </div>
-        <!-- <div class="button">
-          <div class="razorpay-embed-btn" data-url="https://pages.razorpay.com/pl_LUzFSL4vDJemYo/view" data-text="Pay for Lunch Box" data-color="#F05151" data-size="large">
-          <script>
-            (function(){
-              var d=document; var x=!d.getElementById('razorpay-embed-btn-js')
-              if(x){ var s=d.createElement('script'); s.defer=!0;s.id='razorpay-embed-btn-js';
-              s.src='https://cdn.razorpay.com/static/embed_btn/bundle.js';d.body.appendChild(s);} else{var rzp=window['__rzp__'];
-              rzp && rzp.init && rzp.init()}})();
-          </script>
-        </div>   
-        </div> -->
+        
         <div class="button">
           <input type="submit" name="submit" value="Register">
         </div>  

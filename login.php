@@ -30,7 +30,7 @@ if(isset($_POST['login'])){
   <link rel="icon" type="image/png" href="images/favicon.png">
 
   <!-- CSS Assets -->
-  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="Bhavani/css/app.css">
 
   <!-- Javascript Assets -->
   <script src="js/app.js" defer=""></script>
@@ -41,13 +41,8 @@ if(isset($_POST['login'])){
   <link
     href="css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
     rel="stylesheet">
-  <script>
-    /**
-     * THIS SCRIPT REQUIRED FOR PREVENT FLICKERING IN SOME BROWSERS
-     */
-    localStorage.getItem("_x_darkMode_on") === "true" &&
-      document.documentElement.classList.add("dark");
-  </script>
+  
+ 
 </head>
 
 <body x-data="" class="is-header-blur" x-bind="$store.global.documentBody">

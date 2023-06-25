@@ -16,7 +16,7 @@ $resellt= mysqli_fetch_assoc(mysqli_query($con,"select sname,pmobile from day"))
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="Bhavani/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,14 +28,14 @@ $resellt= mysqli_fetch_assoc(mysqli_query($con,"select sname,pmobile from day"))
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="Bhavani/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="Bhavani/lib/animate/animate.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="Bhavani/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="Bhavani/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -199,7 +199,7 @@ $resellt= mysqli_fetch_assoc(mysqli_query($con,"select sname,pmobile from day"))
                  <!---->
                 <div class="col-lg-5" style="min-height: 500px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s" src="img/about.png" style="object-fit: cover;">
+                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s" src="Bhavani/img/about.png" style="object-fit: cover;">
                     </div>
                 </div>
             </div>
@@ -214,15 +214,15 @@ $resellt= mysqli_fetch_assoc(mysqli_query($con,"select sname,pmobile from day"))
         <div class="container py-5 mb-5">
             <div class="bg-white">
                 <div class="owl-carousel vendor-carousel">
-                    <img src="img/bvrm.png" alt="">
-                    <img src="img/srkr.png" alt="">
-                    <img src="img/idealab.png" alt="">
-                    <img src="img/tech.png" alt="">
-                    <img src="img/csd.png" alt="">
-                    <img src="img/bio.png" alt="">
-                    <img src="img/mcr.jpeg" alt="">
-                    <img src="img/startup.jpeg" alt="">
-                    <img src="img/srkr.png" alt="">
+                    <img src="Bhavani/img/bvrm.png" alt="">
+                    <img src="Bhavani/img/srkr.png" alt="">
+                    <img src="Bhavani/img/idealab.png" alt="">
+                    <img src="Bhavani/img/tech.png" alt="">
+                    <img src="Bhavani/img/csd.png" alt="">
+                    <img src="Bhavani/img/bio.png" alt="">
+                    <img src="Bhavani/img/mcr.jpeg" alt="">
+                    <img src="Bhavani/img/startup.jpeg" alt="">
+                    <img src="Bhavani/img/srkr.png" alt="">
                 </div>
             </div>
         </div>
@@ -321,14 +321,14 @@ $resellt= mysqli_fetch_assoc(mysqli_query($con,"select sname,pmobile from day"))
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="Bhavani/lib/wow/wow.min.js"></script>
+    <script src="Bhavani/lib/easing/easing.min.js"></script>
+    <script src="Bhavani/lib/waypoints/waypoints.min.js"></script>
+    <script src="Bhavani/lib/counterup/counterup.min.js"></script>
+    <script src="Bhavani/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="Bhavani/js/main.js"></script>
 </body>
 
 </html>

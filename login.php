@@ -27,13 +27,13 @@ if(isset($_POST['login'])){
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
   <title>Parent Login</title>
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="icon" type="image/png" href="Bhavani/images/favicon.png">
 
   <!-- CSS Assets -->
-  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="Bhavani/css/app.css">
 
   <!-- Javascript Assets -->
-  <script src="js/app.js" defer=""></script>
+  <script src="Bhavani/js/app.js" defer=""></script>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,7 +61,7 @@ if(isset($_POST['login'])){
     <main class="grid w-full grow grid-cols-1 place-items-center">
       <div class="w-full max-w-[26rem] p-4 sm:px-5">
         <div class="text-center">
-          <img class="mx-auto h-16 w-16" src="images/mlogo-removebg-preview.png" style="height: 150px;  width: 350px;"
+          <img class="mx-auto h-16 w-16" src="Bhavani/images/mlogo-removebg-preview.png" style="height: 150px;  width: 350px;"
             alt="logo">
           <div class="mt-4">
             <h2 class="text-2xl font-semibold text-slate-600 dark:text-navy-100">
@@ -132,7 +132,7 @@ if(isset($_POST['login'])){
           <div class="flex space-x-4">
            <button
               class="btn w-full space-x-3 border border-slate-300 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90">
-              <!-- <img class="h-5.5 w-5.5" src="images/logos/google.svg" alt="logo"> -->
+              <!-- <img class="h-5.5 w-5.5" src="Bhavani/images/logos/google.svg" alt="logo"> -->
               <a href="delivary.php"><span>Delivery Agent</span></a> 
             </button>
           </div>

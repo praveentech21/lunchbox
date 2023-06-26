@@ -30,27 +30,7 @@ if(isset($_POST['submit'])){
     <!---<title> Responsive Registration Form | CodingLab </title>--->
     <link rel="stylesheet" href="Bhavani/css/hello.css">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
-  <script>
-    function initMap() {
-      var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 37.7749, lng: -122.4194},
-        zoom: 8
-      });
-
-      var marker = new google.maps.Marker({
-        position: {lat: 37.7749, lng: -122.4194},
-        map: map,
-        draggable: true
-      });
-
-      google.maps.event.addListener(marker, 'dragend', function() {
-        var position = marker.getPosition();
-        document.getElementById('lat').value = position.lat();
-        document.getElementById('lng').value = position.lng();
-      });
-    }
-  </script>
+  
    </head>
 <body>
   <div class="container">
@@ -65,7 +45,7 @@ if(isset($_POST['submit'])){
           <div class="input-box">
             <span class="details">Mobile Number</span>
             <input type="tel" id="phone" name="pmobile" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"required>
-            <small>Format: 123456 7890</small>
+            <!-- <small>Format: 123456 7890</small> -->
           </div>
           <div class="input-box">
             <span class="details">Email</span>
@@ -82,7 +62,12 @@ if(isset($_POST['submit'])){
 
           <div class="input-box">
             <span class="details"> School Name</span>
-            <input type="text" name="school" placeholder="School Name" required>
+            <!-- <input type="text" name="school" placeholder="School Name" required> -->
+            <select name="school" id="school">
+              <option value="">--School-- </option>
+              <option value="Bharathi Vidya Bhavanis">Bharathi Vidya Bhavanis</option>
+              <option value="West Berry">West Berry</option>
+            </select>
           </div>
           <div class="input-box">
             <span class="details">Roll No</span>

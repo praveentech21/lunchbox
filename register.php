@@ -16,12 +16,12 @@ if(isset($_POST['submit'])){
   $gender = $_POST['gender'];
   $run1 = mysqli_query($con,"insert into parent values ('$pmobile','$pass','$pname','$email','$address','$school','$rollno') ");
   $run2 = mysqli_query($con,"insert into student values ('$pmobile','$sname','$school','$rollno','$sclass','$gender')");
-  $run3 = mysqli_query($con,"insert into day values ('$pmobile',0)");
+  $run3 = mysqli_query($con,"insert into day values ('$pmobile','$sname',0)");
   $_SESSION['uname'] = $uname;
   header("location:pay.php");
 }
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <!-- All Setted Shiva and this is sending to git as All set SHiva -->
 <!-- Created By CodingLab - www.codinglabweb.com -->
 <html lang="en" dir="ltr">
@@ -40,11 +40,11 @@ if(isset($_POST['submit'])){
         <div class="user-details">
           <div class="input-box">
             <span class="details">Parent Name</span>
-            <input type="text" name="pname" placeholder="full name" required>
+            <input type="text" name="pname" placeholder="Full name" required>
           </div>
           <div class="input-box">
             <span class="details">Mobile Number</span>
-            <input type="tel" id="phone" name="pmobile" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"required>
+            <input type="tel" id="phone" name="pmobile" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="Format: 123456 7890 " required>
             <!-- <small>Format: 123456 7890</small> -->
           </div>
           <div class="input-box">

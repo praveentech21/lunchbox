@@ -77,7 +77,7 @@ if(isset($_POST['login'])){
           <label class="relative flex">
             <input name="uname"
               class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-              placeholder="Username" type="text">
+              placeholder="Mobile Number" type="text">
             <span
               class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-colors duration-200" fill="none"
@@ -124,18 +124,18 @@ if(isset($_POST['login'])){
                 <a class="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent" href="pages-login-1.html">Sign In</a>
               </p>
             </div> -->
-          <div class="my-7 flex items-center space-x-3">
+          <!-- <div class="my-7 flex items-center space-x-3">
             <div class="h-px flex-1 bg-slate-200 dark:bg-navy-500"></div>
             <p class="text-tiny+ uppercase">or <a href="#" class="text-slate-400 hover:underline dark:text-navy-300">Register Now as a Parent</a> as a parent</p>
             <div class="h-px flex-1 bg-slate-200 dark:bg-navy-500"></div>
-          </div>
-          <div class="flex space-x-4">
+          </div> -->
+          <!-- <div class="flex space-x-4">
            <button
-              class="btn w-full space-x-3 border border-slate-300 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90">
+              class="btn w-full space-x-3 border border-slate-300 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90"> -->
               <!-- <img class="h-5.5 w-5.5" src="Bhavani/images/logos/google.svg" alt="logo"> -->
-              <a href="delivary.php"><span>Delivery Agent</span></a> 
+              <!-- <a href="delivary.php"><span>Delivery Agent</span></a> 
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
     </main>

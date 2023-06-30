@@ -6,12 +6,15 @@ session_start();
 if(isset($_POST['login'])){
   $uname = $_POST['uname'];
   $pass = $_POST['pass'];
-  $run = mysqli_fetch_assoc(mysqli_query($con ,"select * from parent where pmobile = '$uname'"));
+  $run = mysqli_fetch_assoc(mysqli_query($con ,"select * from parent where pid = '$uname'"));
   if($run['pass']==$pass){
     $_SESSION['uname'] = $uname;
     $_SESSION['pass'] = $pass;
     header("location:parent.php");
       
+  }
+  else {
+    echo "<script>alert('You had Entered Invalid Username or Password');</script>";
   }
 }
 // All Setted Shiva and this is sending to git as All set SHiva

@@ -3,7 +3,7 @@
 include "connect.php";
 session_start();
 if(isset($_POST['submit'])){
-  $pmobile = $_POST['pmobile'];
+  $pid = $_POST['pid'];
   $pass = $_POST['pass'];
   $pname = $_POST['pname'];
   $email = $_POST['email'];
@@ -12,12 +12,14 @@ if(isset($_POST['submit'])){
   $school = $_POST['school'];
   $rollno = $_POST['rollno'];
   $sclass = $_POST['sclass'];
-  $saddr = $_POST['saddr'];
+  $sec = $_POST['sec'];
   $gender = $_POST['gender'];
-  $run1 = mysqli_query($con,"insert into parent values ('$pmobile','$pass','$pname','$email','$address','$school','$rollno') ");
-  $run2 = mysqli_query($con,"insert into student values ('$pmobile','$sname','$school','$rollno','$sclass','$gender')");
-  $run3 = mysqli_query($con,"insert into day values ('$pmobile','$sname',0)");
-  $_SESSION['uname'] = $uname;
+  $run1 = mysqli_query($con,"insert into parent (`pid`, `pass`, `pname`, `email`) values ('$pid','$pass','$pname','$email') ");
+  $run2 = mysqli_query($con,"insert into student (`sname`, `school`, `rollno`, `sclass`, `sec`, `gender`) VALUES ('$sname', '$school', '$rollno', '$sclass', '$sec','$gender');");
+  $run3 = mysqli_fetch_assoc(mysqli_query($con,"select stdid from student where sname='$sname' and school='$school' and rollno='$rollno' and sclass='$sclass' and sec='$sec' and gender='$gender' "));
+  $stdid = $run3['stdid'];
+  $run4 = mysqli_query($con,"insert into subscriptions (`pid`, `stdid`, `school`  ) values ('$pid', '$stdid', '$school')");
+  $_SESSION['pid'] = $pid;
   header("location:pay.php");
 }
 ?>
@@ -44,7 +46,7 @@ if(isset($_POST['submit'])){
           </div>
           <div class="input-box">
             <span class="details">Mobile Number</span>
-            <input type="tel" id="phone" name="pmobile" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="Format: 123456 7890 " required>
+            <input type="tel" id="phone" name="pid" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="Format: 123456 7890 " required>
             <!-- <small>Format: 123456 7890</small> -->
           </div>
           <div class="input-box">
@@ -65,8 +67,9 @@ if(isset($_POST['submit'])){
             <!-- <input type="text" name="school" placeholder="School Name" required> -->
             <select name="school" id="school">
               <option value="">--School-- </option>
-              <option value="Bharathi Vidya Bhavanis">Bharathi Vidya Bhavanis</option>
-              <option value="West Berry">West Berry</option>
+              <option value=1>West Berry</option>
+              <option value=2>Bharathi Vidya Bhavanis</option>
+              <option value=3>Euro Kids</option>
             </select>
           </div>
           <div class="input-box">
@@ -79,8 +82,8 @@ if(isset($_POST['submit'])){
           </div>
 
           <div class="input-box">
-            <span class="details">School Address</span>
-            <input type="text" name="saddr" placeholder="School Address" required>
+            <span class="details">Section</span>
+            <input type="text" name="sec" placeholder="Student Section" required>
           </div>
           <div class="input-box">
             <span class="details">Password</span>

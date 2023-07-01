@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1deb5ubuntu1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 30, 2023 at 01:05 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: localhost:3306
+-- Generation Time: Jul 01, 2023 at 07:58 AM
+-- Server version: 8.0.33-0ubuntu0.22.04.2
+-- PHP Version: 8.1.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `address` (
-  `pid` varchar(15) NOT NULL,
-  `area` varchar(30) NOT NULL,
-  `appartment` varchar(25) NOT NULL,
-  `door_no` varchar(10) NOT NULL,
-  `address` varchar(30) NOT NULL,
-  `pincode` varchar(6) NOT NULL
+  `pid` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
+  `area` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `appartment` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `door_no` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `pincode` varchar(6) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -111,11 +111,11 @@ INSERT INTO `address` (`pid`, `area`, `appartment`, `door_no`, `address`, `pinco
 --
 
 CREATE TABLE `delivary` (
-  `pid` varchar(15) NOT NULL,
+  `pid` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
   `date` date NOT NULL,
-  `status` int(5) NOT NULL DEFAULT 0,
-  `trp_id` int(5) NOT NULL,
-  `std_id` varchar(5) NOT NULL
+  `status` int NOT NULL DEFAULT '0',
+  `trpid` int NOT NULL,
+  `stdid` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -125,11 +125,11 @@ CREATE TABLE `delivary` (
 --
 
 CREATE TABLE `parent` (
-  `pid` varchar(15) NOT NULL,
-  `pass` varchar(10) NOT NULL,
-  `pname` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `address` varchar(50) DEFAULT NULL
+  `pid` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
+  `pass` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
+  `pname` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -146,11 +146,11 @@ INSERT INTO `parent` (`pid`, `pass`, `pname`, `email`, `address`) VALUES
 --
 
 CREATE TABLE `schools` (
-  `sid` int(11) NOT NULL,
+  `sid` int NOT NULL,
   `school_name` varchar(200) NOT NULL,
   `track_address` varchar(50) NOT NULL,
   `adress` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `schools`
@@ -168,12 +168,12 @@ INSERT INTO `schools` (`sid`, `school_name`, `track_address`, `adress`) VALUES
 --
 
 CREATE TABLE `student` (
-  `stdid` varchar(5) NOT NULL,
-  `sname` varchar(30) NOT NULL,
-  `school` int(2) NOT NULL,
-  `rollno` varchar(15) NOT NULL,
-  `sclass` int(2) NOT NULL,
-  `gender` int(1) NOT NULL
+  `stdid` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
+  `sname` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `school` int NOT NULL,
+  `rollno` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
+  `sclass` int NOT NULL,
+  `gender` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -184,82 +184,82 @@ CREATE TABLE `student` (
 
 CREATE TABLE `subscriptions` (
   `pid` varchar(15) NOT NULL,
-  `child_id` varchar(5) NOT NULL,
-  `school` int(3) NOT NULL,
+  `stdid` varchar(5) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `school` int NOT NULL,
   `alternate_mobile` varchar(15) DEFAULT NULL,
-  `delivery_partner` int(11) NOT NULL,
-  `subscribed_on` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `delivery_partner` int NOT NULL,
+  `subscription_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subscriptions`
 --
 
-INSERT INTO `subscriptions` (`pid`, `child_id`, `school`, `alternate_mobile`, `delivery_partner`, `subscribed_on`) VALUES
-('7093525985', 'Child', 1, '', 4, '2023-06-24 16:57:45'),
-('7702014847', 'Child', 1, '', 3, '2023-06-24 16:57:74'),
-('7989264811', 'Child', 1, '', 4, '2023-06-24 16:57:46'),
-('8008833997', 'Child', 1, '', 5, '2023-06-24 16:57:34'),
-('8297999699', 'Child', 1, '', 3, '2023-06-24 16:57:90'),
-('8328621506', 'Child', 1, '', 3, '2023-06-24 16:57:81'),
-('8374665666', 'Child', 1, '', 6, '2023-06-24 16:57:61'),
-('8754448634', 'Child', 1, '', 6, '2023-06-24 16:57:58'),
-('8886088449', 'Child', 1, '', 3, '2023-06-24 16:57:86'),
-('8978411400', 'Child', 1, '', 5, '2023-06-24 16:57:41'),
-('8985321414', 'Child', 1, '', 4, '2023-06-24 16:57:53'),
-('9000057688', 'Child', 1, '', 5, '2023-06-24 16:57:35'),
-('9000188551', 'Child', 1, '', 5, '2023-06-24 16:57:30'),
-('9052727402', '1', 1, NULL, 1, NULL),
-('9052727402', '2', 1, NULL, 1, NULL),
-('9059114499', 'Child', 1, '', 4, '2023-06-24 16:57:50'),
-('9100634444', 'Child', 1, '', 6, '2023-06-24 16:57:59'),
-('9177155457', 'Tanvi', 1, '', 6, '2023-06-24 16:57:67'),
-('9391887888', 'Child', 1, '', 5, '2023-06-24 16:57:32'),
-('9393234119', 'Child', 1, '', 3, '2023-06-24 16:57:85'),
-('9397676677', 'Child', 1, '', 3, '2023-06-24 16:57:89'),
-('9440622003', 'Child', 1, '', 5, '2023-06-24 16:57:38'),
-('9441116444', 'Child', 1, '', 3, '2023-06-24 16:57:91'),
-('9441235555', 'Child', 1, '', 3, '2023-06-24 16:57:80'),
-('9493475111', 'Child', 1, '', 3, '2023-06-24 16:57:77'),
-('9493855599', 'Child', 1, '', 3, '2023-06-24 16:57:88'),
-('9494266789', 'Child', 1, '', 6, '2023-06-24 16:57:65'),
-('9494492599', 'Child', 1, '', 5, '2023-06-24 16:57:39'),
-('9494923625', 'Child', 1, '', 4, '2023-06-24 16:57:43'),
-('9505421188', 'Child', 1, '', 3, '2023-06-24 16:57:82'),
-('9515851883', 'Child', 1, '', 6, '2023-06-24 16:57:64'),
-('9542672234', 'Child', 1, '', 3, '2023-06-24 16:57:83'),
-('9553444457', 'Child', 1, '', 4, '2023-06-24 16:57:55'),
-('9554522222', 'Child', 1, '', 6, '2023-06-24 16:57:56'),
-('9573407666', 'Child', 1, '', 6, '2023-06-24 16:57:62'),
-('9577595776', 'Child', 1, '', 3, '2023-06-24 16:57:87'),
-('9618110459', 'Child', 1, '', 3, '2023-06-24 16:57:79'),
-('9642803277', 'Child', 1, '', 4, '2023-06-24 16:57:48'),
-('9652753739', 'Child', 1, '', 5, '2023-06-24 16:57:33'),
-('9652822235', 'Child', 1, '', 5, '2023-06-24 16:57:31'),
-('9676222224', 'Child', 1, '', 4, '2023-06-24 16:57:51'),
-('9701314877', 'Child', 1, '', 6, '2023-06-24 16:57:63'),
-('9704534455', 'Child', 1, '', 4, '2023-06-24 16:57:49'),
-('9866136008', 'Child', 1, '', 3, '2023-06-24 16:57:84'),
-('9885394144', 'Child', 1, '', 4, '2023-06-24 16:57:47'),
-('9885670571', 'Child', 1, '', 5, '2023-06-24 16:57:40'),
-('9908034500', 'Child', 1, '', 4, '2023-06-24 16:57:44'),
-('9908144655', 'Child', 1, '', 3, '2023-06-24 16:57:76'),
-('9908954783', 'Child', 1, '', 3, '2023-06-24 16:57:71'),
-('9948817092', 'Child', 1, '', 4, '2023-06-24 16:57:42'),
-('9949414757', 'Child', 1, '', 6, '2023-06-24 16:57:66'),
-('9949432244', 'Child', 1, '', 3, '2023-06-24 16:57:73'),
-('9949700007', 'Child', 1, '', 6, '2023-06-24 16:57:57'),
-('9949834977', 'Child', 1, '', 6, '2023-06-24 16:57:60'),
-('9949899498', 'Child', 1, '', 5, '2023-06-24 16:57:36'),
-('9949941133', 'Child', 1, '', 4, '2023-06-24 16:57:54'),
-('9959611117', 'Child', 1, '', 3, '2023-06-24 16:57:75'),
-('9963609788', 'Child', 1, '', 6, '2023-06-24 16:57:69'),
-('9966028333', 'Child', 1, '', 6, '2023-06-24 16:57:68'),
-('9966066668', 'Child', 1, '', 3, '2023-06-24 16:57:70'),
-('9966775218', 'Child', 1, '', 4, '2023-06-24 16:57:52'),
-('9985921927', 'Child', 1, '', 5, '2023-06-24 16:57:37'),
-('9989804141', 'Child', 1, '', 3, '2023-06-24 16:57:78'),
-('9989994199', 'Child', 1, '', 3, '2023-06-24 16:57:72');
+INSERT INTO `subscriptions` (`pid`, `stdid`, `school`, `alternate_mobile`, `delivery_partner`, `subscription_date`) VALUES
+('7093525985', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('7702014847', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('7989264811', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('8008833997', 'Child', 1, '', 5, '2023-07-01 07:57:56'),
+('8297999699', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('8328621506', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('8374665666', 'Child', 1, '', 6, '2023-07-01 07:57:56'),
+('8754448634', 'Child', 1, '', 6, '2023-07-01 07:57:56'),
+('8886088449', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('8978411400', 'Child', 1, '', 5, '2023-07-01 07:57:56'),
+('8985321414', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('9000057688', 'Child', 1, '', 5, '2023-07-01 07:57:56'),
+('9000188551', 'Child', 1, '', 5, '2023-07-01 07:57:56'),
+('9052727402', '1', 1, NULL, 1, '2023-07-01 07:57:56'),
+('9052727402', '2', 1, NULL, 1, '2023-07-01 07:57:56'),
+('9059114499', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('9100634444', 'Child', 1, '', 6, '2023-07-01 07:57:56'),
+('9177155457', 'Tanvi', 1, '', 6, '2023-07-01 07:57:56'),
+('9391887888', 'Child', 1, '', 5, '2023-07-01 07:57:56'),
+('9393234119', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9397676677', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9440622003', 'Child', 1, '', 5, '2023-07-01 07:57:56'),
+('9441116444', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9441235555', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9493475111', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9493855599', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9494266789', 'Child', 1, '', 6, '2023-07-01 07:57:56'),
+('9494492599', 'Child', 1, '', 5, '2023-07-01 07:57:56'),
+('9494923625', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('9505421188', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9515851883', 'Child', 1, '', 6, '2023-07-01 07:57:56'),
+('9542672234', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9553444457', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('9554522222', 'Child', 1, '', 6, '2023-07-01 07:57:56'),
+('9573407666', 'Child', 1, '', 6, '2023-07-01 07:57:56'),
+('9577595776', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9618110459', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9642803277', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('9652753739', 'Child', 1, '', 5, '2023-07-01 07:57:56'),
+('9652822235', 'Child', 1, '', 5, '2023-07-01 07:57:56'),
+('9676222224', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('9701314877', 'Child', 1, '', 6, '2023-07-01 07:57:56'),
+('9704534455', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('9866136008', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9885394144', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('9885670571', 'Child', 1, '', 5, '2023-07-01 07:57:56'),
+('9908034500', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('9908144655', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9908954783', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9948817092', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('9949414757', 'Child', 1, '', 6, '2023-07-01 07:57:56'),
+('9949432244', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9949700007', 'Child', 1, '', 6, '2023-07-01 07:57:56'),
+('9949834977', 'Child', 1, '', 6, '2023-07-01 07:57:56'),
+('9949899498', 'Child', 1, '', 5, '2023-07-01 07:57:56'),
+('9949941133', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('9959611117', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9963609788', 'Child', 1, '', 6, '2023-07-01 07:57:56'),
+('9966028333', 'Child', 1, '', 6, '2023-07-01 07:57:56'),
+('9966066668', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9966775218', 'Child', 1, '', 4, '2023-07-01 07:57:56'),
+('9985921927', 'Child', 1, '', 5, '2023-07-01 07:57:56'),
+('9989804141', 'Child', 1, '', 3, '2023-07-01 07:57:56'),
+('9989994199', 'Child', 1, '', 3, '2023-07-01 07:57:56');
 
 -- --------------------------------------------------------
 
@@ -268,11 +268,11 @@ INSERT INTO `subscriptions` (`pid`, `child_id`, `school`, `alternate_mobile`, `d
 --
 
 CREATE TABLE `team` (
-  `eid` int(11) NOT NULL,
+  `eid` int NOT NULL,
   `name` varchar(200) NOT NULL,
   `mobile` varchar(15) NOT NULL,
   `type` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `team`
@@ -293,14 +293,14 @@ INSERT INTO `team` (`eid`, `name`, `mobile`, `type`) VALUES
 --
 
 CREATE TABLE `trips` (
-  `tripid` int(11) NOT NULL,
+  `tripid` int NOT NULL,
   `pid` varchar(15) NOT NULL,
-  `school` int(11) DEFAULT NULL,
+  `school` int DEFAULT NULL,
   `date` date NOT NULL,
   `pickup_time` timestamp NULL DEFAULT NULL,
   `drop_time` timestamp NULL DEFAULT NULL,
   `delivery_by` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `trips`
@@ -355,7 +355,7 @@ ALTER TABLE `address`
 -- Indexes for table `delivary`
 --
 ALTER TABLE `delivary`
-  ADD PRIMARY KEY (`pid`,`date`,`std_id`);
+  ADD PRIMARY KEY (`pid`,`date`,`stdid`);
 
 --
 -- Indexes for table `parent`
@@ -379,7 +379,7 @@ ALTER TABLE `student`
 -- Indexes for table `subscriptions`
 --
 ALTER TABLE `subscriptions`
-  ADD PRIMARY KEY (`pid`,`child_id`);
+  ADD PRIMARY KEY (`pid`,`stdid`);
 
 --
 -- Indexes for table `team`
@@ -401,7 +401,7 @@ ALTER TABLE `trips`
 -- AUTO_INCREMENT for table `trips`
 --
 ALTER TABLE `trips`
-  MODIFY `tripid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `tripid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 01, 2023 at 07:58 AM
+-- Generation Time: Jul 01, 2023 at 03:38 PM
 -- Server version: 8.0.33-0ubuntu0.22.04.2
--- PHP Version: 8.1.20
+-- PHP Version: 8.1.2-1ubuntu2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `address` (
-  `pid` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
-  `area` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
-  `appartment` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
-  `door_no` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
-  `address` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
-  `pincode` varchar(6) COLLATE utf8mb4_general_ci NOT NULL
+  `pid` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `area` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `appartment` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `door_no` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pincode` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -111,7 +111,7 @@ INSERT INTO `address` (`pid`, `area`, `appartment`, `door_no`, `address`, `pinco
 --
 
 CREATE TABLE `delivary` (
-  `pid` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
+  `pid` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date` date NOT NULL,
   `status` int NOT NULL DEFAULT '0',
   `trpid` int NOT NULL,
@@ -125,11 +125,11 @@ CREATE TABLE `delivary` (
 --
 
 CREATE TABLE `parent` (
-  `pid` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
-  `pass` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
-  `pname` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `address` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `pid` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pass` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -168,11 +168,12 @@ INSERT INTO `schools` (`sid`, `school_name`, `track_address`, `adress`) VALUES
 --
 
 CREATE TABLE `student` (
-  `stdid` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
-  `sname` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `stdid` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `sname` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `school` int NOT NULL,
-  `rollno` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
+  `rollno` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `sclass` int NOT NULL,
+  `sec` varchar(15) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'A',
   `gender` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

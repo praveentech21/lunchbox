@@ -86,7 +86,9 @@
     <div class="demo-page">
        
         <main class="demo-page-content">
-          <section>
+            <br><br><br><br><br><br><br><br>
+            <form action="#" method="post">
+          <section id="Parent_Details">
             <div class="href-target" id="structure"></div>
             <h1>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
@@ -99,35 +101,78 @@
             <p>Basic Details about parents</p>
       
             <div class="nice-form-group">
-              <label>Parent Name</label>
+              <label>Name</label>
               <input type="text" placeholder="Parent Name" />
             </div>
-      
+
             <div class="nice-form-group">
-              <label>Basic form group</label>
-              <small>With additional information below the label</small>
-              <input type="text" placeholder="Your name" />
-            </div>
+                <label>Phone Number</label>
+                <input type="tel" placeholder="Parent phonenumber"  class="icon-left" />
+              </div>
+
+              <div class="nice-form-group">
+                <label>Email</label>
+                <input type="email" placeholder="Your email" value="" class="icon-left" />
+              </div>
+        
+
+              <div class="nice-form-group">
+                <label>Password</label>
+                <input type="password" placeholder="Your password" class="icon-left" />
+              </div>
+           
       
-            <div class="nice-form-group">
-              <label>My form group label</label>
-              <input type="text" placeholder="Your name" />
-              <small>Or additional text below</small>
-            </div>
-      
-            <details>
-              <summary>
-                <div class="toggle-code">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-code">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
-                  </svg>
-                  Toggle code
-                </div>
-              </summary>
-              <script src="https://gist.github.com/nielsVoogt/a00c2c8b6b7acfacce6d50926379e722.js"></script>
-            </details>
+            
           </section>
+          <section id="Parent_Details">
+            <div class="href-target" id="structure"></div>
+            <h1>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
+                <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                <polyline points="2 17 12 22 22 17" />
+                <polyline points="2 12 12 17 22 12" />
+              </svg>
+              Child Details
+            </h1>
+            <p>Basic Details about their Child</p>
+      
+            <div class="nice-form-group">
+              <label>Name</label>
+              <input type="text" placeholder="Child Name" />
+            </div>
+
+            <div class="nice-form-group">
+                <label>Child School</label>
+                <select>
+                  <option>Please select Your Child School</option>
+                  <option>West Berry</option>
+                  <option>Bhavanis</option>
+                  <option>Euro Kids</option>
+                </select>
+            </div>
+
+            <div class="nice-form-group">
+                <label>Roll Number</label>
+                <input type="text" placeholder="Child Roll Number" />
+            </div>
+
+            <div class="nice-form-group">
+                <label>Class/label>
+                <select>
+                  <option>Please select Your Child Class</option>
+                  <option>First Class/option>
+                  <option>Bhavanis</option>
+                  <option>Euro Kids</option>
+                </select>
+            </div>
+           
+            <div class="nice-form-group">
+                <label>Roll Number</label>
+                <input type="text" placeholder="Child Name" />
+            </div>
+            
+          </section>
+            </form>
       
         </main>
         </div>

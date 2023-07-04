@@ -18,7 +18,7 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
       }   
       else{
         echo "<script>alert('You have uploding wrong type data')</script>";
-      }
+      }   
     }
     else{
         echo "<script>alert('Unknow Error Occured')</script>";

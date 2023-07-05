@@ -4,7 +4,6 @@ session_start();
 if(empty($_SESSION["uname"])){
     header("location:login.php");
 }
-else {
     $pid = $_SESSION['uname'];
     $run1 = mysqli_fetch_assoc(mysqli_query($con,"select pname,email,altphone,address from parent where pid='$pid'"));
     $run2 = mysqli_query($con,"select * from subscriptions where pid='$pid'");
@@ -12,10 +11,7 @@ else {
     while ($row = mysqli_fetch_assoc($run2)){
         array_push($stdids,"$row[stdid]"); 
     }
-    foreach ($stdids as $stdid) {
-        $run3 = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid ='$stdid'"));
-    }
-}
+    $run3 = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid ='$stdids[0]'"));
 
 ?>
 <!DOCTYPE html>
@@ -51,33 +47,22 @@ else {
     <link rel="stylesheet" href="Bhavani/css/form.css">
     <style>
 
-table {
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        tr:nth-child(even) {
+        background-color: #dddddd;
+        }
 
-  font-family: arial, sans-serif;
-
-  border-collapse: collapse;
-
-  width: 100%;
-
-}
-
-td, th {
-
-  border: 1px solid #dddddd;
-
-  text-align: left;
-
-  padding: 8px;
-
-}
-
-tr:nth-child(even) {
-
-  background-color: #dddddd;
-
-}
-
-</style>
+    </style>
 </head>
 
 <body style="background-color: white;">
@@ -143,121 +128,70 @@ tr:nth-child(even) {
         <main class="demo-page-content">
             <br><br><br><br><br>
             <!-- profile Starts Hear Shiva -->
-                <section id="profile" style="background-color:  #f1ebea ;">
-                    <h2>Student Profile</h2>
-                    <div class="row">
+            <div id="profile" class="row">
+                <section id="profile">
+                <h2>Student Profile</h2>
+                <div class="row">
+                    <?php
+                        echo '<h3>Parent Name:'.$run1["pname"].'</h3>
+                        <h3>Parent Mobile:'.$pid.'</h3>';
+                        if(isset($run1["address"]))
+                        echo '<h3>Parent Address:'.$run1["address"].'</h3>';
+                    ?>
+                </div>
+                <div class="row">
+                    <div>
                         <?php
-                            echo '<h3>Parent Name:'.$run1["pname"].'</h3>
-                            <h3>Parent Mobile:'.$pid.'</h3>';
-                            if(isset($run1["address"]))
-                            echo '<h3>Parent Address:'.$run1["address"].'</h3>';
+                            foreach ($stdids as $stdid) {
+                                $run3 = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid ='$stdid'"));
+                                $run4 = mysqli_fetch_assoc(mysqli_query($con,"select * from schools where sid ='{$run3["school"]}'"));
                         ?>
-                    </div>  
-                    <h2>Student Details</h2>
-                    <div class="row">
-                        <?php
-                           foreach ($stdids as $stdid) {
-                            $run3 = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid ='$stdid'"));
-                            $run4 = mysqli_fetch_assoc(mysqli_query($con,"select * from schools where sid ='{$run3["school"]}'"));
-                            echo '<div><section style="box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;">
-                            <div class="container-fluid">
-                                <div style=" display:flex; flex-direction:row; flex-wrap: wrap; ">
-                                    <div>
-                                    <img style="height: 180px; width: 180px;" src="Upload/'.$run3["photo"].'" style="border-radius:10px;">
+                            <section style="box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;">
+                                <div class="container-fluid">
+                                    <div style=" display:flex; flex-direction:row; flex-wrap: wrap; ">
+                                        <div>
+                                            <img src="Upload/<?php echo $run3['photo'] ?>" width="200px" height="200px" style="border-radius:10px; ">
+                                         </div>
+                                        <div class="p-2 m-3" style="padding-left: 0px;">
+                                        <h2><?php echo $run3["sname"] ?></h2>
+                                        <p>School: <?php echo $run4["school_name"] ?></ </p>
+                                        <p>Roll No: <?php echo $run3["rollno"] ?></ </p>
+                                        <p>Class: <?php echo $run3["sclass"] ?></ </p>
+                                        </div>
                                     </div>
-                                   <div class="p-2 m-3">
-                                   <h2>'.$run3["sname"].'</h2>
-                                   <p>School Name:'.$run4["school_name"].'</p>
-                                   <p>Roll NO: '.$run3["rollno"].'</p>
-                                   <p>Class: '.$run3["sclass"].'</p>
-                                   </div>
-                                   </div>
-                               </div>
-                               </section>
-                               </div>';
-                        } 
-                        ?>
-                    </div>                        
-                </section> <br>
-                <!-- Profile Ends Hear Shiva -->
-                       
-                <!-- Status Strats Hear Shiva -->
+                                </div>
+                            </section><?php } ?>
+                    </div>
+                </div>
+                </section>
+            </div>                        
+            <!-- Profile Ends Hear Shiva -->
+                   
+            <!-- Status Strats Hear Shiva -->
             <section style="background-color:  #f1ebea ;" id="status">
-                 <table style="background-color: #ffffff;">
+                    <?php
+                        foreach ($stdids as $stdid) {
+                            $run3 = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid ='$stdid'"));
+                            $date = date("Y-m-d");
+                            $run4 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where stdid ='$stdid' and date='$date'"));
+                    ?>
+                    <h2>Student Name : <?php $run3['sname'] ?></h2>
+                    <p>Box Status : 
+                    <?php 
+                    if(!isset($run4['pickup_time'])) {
+                    echo " <i class='fa fa-circle' style='color:red;font-size:10px;'></i> <b style='color:red;font-size:10px;'>NOT PICKED UP</b></p>";}
+                    else if(isset($run4['pickup_time']) and !isset($run4['drop_time'])){
+                    echo " <i class='fa fa-circle' style='color:orange;font-size:10px;'></i> <b style='color:orange;font-size:10px;'>IN TRANSIT</b></p>"."<p>PickUp Time : ".$run4['pickup_time']."</p>";}
+                    else if(isset($run4['pickup_time']) and isset($run4['drop_time'])){
+                    echo " <i class='fa fa-circle' style='color:green;font-size:10px;'></i> <b style='color:green;font-size:10px;'>DELIVERED</b></p>"."<p>PickUp Time : ".$run4['pickup_time']."</p><p>Drop Time : ".$run4['drop_time']."</p>";}
+                    ?>
+                    
+                    
+                    <?php } ?>
+                    
 
-                <tr>
 
-                  <th>Action</th>
-                                    
-                  <th>Status</th>
-                                    
-                 <th>Time</th>
-
-                </tr>
-
-                <tr>
-
-                 <td>PickUp</td>
-
-                 <td>Maria Anders</td>
-
-                 <td>Germany</td>
-
-                </tr>
-
-                <tr>
-
-                    <td>Drop </td>
-
-                    <td>Francisco Chang</td>
-
-                    <td>Mexico</td>
-
-                </tr>
-                </table>
-            </section> <br>
-                <!-- Status Ends Hear SHiva -->
-                
-                <!-- Track Starts Hear Shiva -->
-                <section id="track" style="background-color:  #f1ebea ;">
-                <h3>Track Your Child Lunch Box : <button type="button" class="btn btn-danger">Track</button></h3>
-                </section> <br>
-                <!-- Track Ends Hear Shiva -->
-                        
-                <!-- Daily status Starts Hear Shiva -->
-                <section style="background-color:  #f1ebea ;" id="daily">
-                    <table style="background-color: #ffffff;">
-
-                        <tr>
-                                            
-                          <th>Action</th>
-                                            
-                          <th>Status</th>
-                                            
-                         <th>Pick Up Time</th>
-
-                         <th>Drop Time</th>
-                                            
-                        </tr>
-
-                        <tr>                        
-
-                         <td>PickUp</td>                        
-
-                         <td>Maria Anders</td>                      
-
-                         <td>Germany</td>
-                         
-                         <td>Germany</td>
-
-                        </tr>                       
-                    </table>
-                </section> <br>
-                <!-- Daily Ends Starts Hear Shiva -->
-
-                <!-- Subscription Detais Starts Hear SHiva -->
-                <section id="subscription" style="background-color:  #f1ebea ;">
-                <table style="background-color: #ffffff;">
+                     <!-- <table style="background-color: #ffffff;">
 
                     <tr>
 
@@ -288,11 +222,84 @@ tr:nth-child(even) {
                         <td>Mexico</td>
 
                     </tr>
-                </table>
-                </section>
-                <!-- Subscription Detais Starts Ends SHiva -->
-            </main>
-        </div>
+                    </table> -->
+            </section> <br>
+            <!-- Status Ends Hear SHiva -->
+            
+            <!-- Track Starts Hear Shiva -->
+            <section id="track" style="background-color:  #f1ebea ;">
+            <h3>Track Your Child Lunch Box : <button type="button" class="btn btn-danger">Track</button></h3>
+            </section> <br>
+            <!-- Track Ends Hear Shiva -->
+                    
+            <!-- Daily status Starts Hear Shiva -->
+            <section style="background-color:  #f1ebea ;" id="daily">
+                    <table style="background-color: #ffffff;">
+
+                        <tr>
+                                            
+                          <th>Action</th>
+                                            
+                          <th>Status</th>
+                                            
+                         <th>Pick Up Time</th>
+
+                         <th>Drop Time</th>
+                                            
+                        </tr>
+
+                        <tr>                        
+
+                         <td>PickUp</td>                        
+
+                         <td>Maria Anders</td>                      
+
+                         <td>Germany</td>
+                         
+                         <td>Germany</td>
+
+                        </tr>                       
+                    </table>
+            </section> <br>
+            <!-- Daily Ends Starts Hear Shiva -->
+            <!-- Subscription Detais Starts Hear SHiva -->
+            <section id="subscription" style="background-color:  #f1ebea ;">
+                    <table style="background-color: #ffffff;">
+
+                    <tr>
+
+                      <th>Action</th>
+
+                      <th>Status</th>
+
+                     <th>Time</th>
+
+                    </tr>
+
+                    <tr>
+
+                     <td>PickUp</td>
+
+                     <td>Maria Anders</td>
+
+                     <td>Germany</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Drop </td>
+
+                        <td>Francisco Chang</td>
+
+                        <td>Mexico</td>
+
+                    </tr>
+                    </table>
+            </section>
+            <!-- Subscription Detais Starts Ends SHiva -->
+        </main>
+    </div>
     
 
 <!-- !-- Vendor Start -->
@@ -415,4 +422,4 @@ tr:nth-child(even) {
 <script src="Bhavani/js/main.js"></script>
 </body>
 
-</html> 
+</html>

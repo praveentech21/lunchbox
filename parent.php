@@ -1,8 +1,20 @@
 <?php
-
+include "connect.php";
 session_start();
 if(empty($_SESSION["uname"])){
     header("location:login.php");
+}
+else {
+    $pid = $_SESSION['uname'];
+    $run1 = mysqli_fetch_assoc(mysqli_query($con,"select pname,email,altphone,address from parent where pid='$pid'"));
+    $run2 = mysqli_query($con,"select * from subscriptions where pid='$pid'");
+    $stdids = array();
+    while ($row = mysqli_fetch_assoc($run2)){
+        array_push($stdids,"$row[stdid]"); 
+    }
+    foreach ($stdids as $stdid) {
+        $run3 = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid ='$stdid'"));
+    }
 }
 
 ?>
@@ -88,7 +100,6 @@ if(empty($_SESSION["uname"])){
                 <a href="subscription.php" class="nav-item nav-link">Subscription Details</a>
                 <a href="logout.php" class="nav-item nav-link">Logout</a>
             </div>
-            style="border-radius: 15px" href="register.php" class="btn btn-primary py-2 px-4 ms-3">Register</a>
         </div>
     </nav>
 </div>
@@ -100,32 +111,47 @@ if(empty($_SESSION["uname"])){
             <br><br><br><br><br>
             <!-- profile Starts Hear Shiva -->
                 <section id="profile">
+                    <h2>Student Profile</h2>
                     <div class="row">
-                        <div>
-                            <section style="box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;">
+                        <?php
+                            echo '<h3>Parent Name:'.$run1["pname"].'</h3>
+                            <h3>Parent Mobile:'.$pid.'</h3>';
+                            if(isset($run1["address"]))
+                            echo '<h3>Parent Address:'.$run1["address"].'</h3>';
+                        ?>
+                    
+                    
+                        <?php
+                           foreach ($stdids as $stdid) {
+                            $run3 = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid ='$stdid'"));
+                            $run4 = mysqli_fetch_assoc(mysqli_query($con,"select * from schools where sid ='{$run3["school"]}'"));
+                            echo '<div><section style="box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;">
                             <div class="container-fluid">
                                 <div style=" display:flex; flex-direction:row; flex-wrap: wrap; ">
                                     <div>
-                                        <img src="https://picsum.photos/200/200" style="border-radius:10px;">
-                                     </div>
-                                    <div class="p-2 m-3">
-                                    <h2>John Doe</h2>
-                                    <p>Mobile: <a href="tel:+1234567890">+1 234 567 890</a></p>
-                                    <p>Parent name: Jane Doe</p>
-                                    <button type="button" class="btn btn-danger">Drop</button>
-                                    <button type="button" class="btn btn-primary">Pickup</button>
+                                    <img style="height: 180px; width: 180px;" src="Upload/'.$run3["photo"].'" style="border-radius:10px;">
                                     </div>
-                                </div>
-                            </div>
-                            </section>
-                        </div>
-                    </div>
+                                   <div class="p-2 m-3">
+                                   <h2>'.$run3["sname"].'</h2>
+                                   <p>School Name:'.$run4["school_name"].'</p>
+                                   <p>Roll NO: '.$run3["rollno"].'</p>
+                                   <p>Class: '.$run3["sclass"].'</p>
+                                   <button type="button" class="btn btn-danger">Drop</button>
+                                   <button type="button" class="btn btn-primary">Pickup</button>
+                                   </div>
+                                   </div>
+                               </div>
+                               </section>
+                               </div>';
+                        } 
+                        ?>
+                    </div>                        
                 </section>
                 <!-- Profile Ends Hear Shiva -->
 
                 <!-- Status Strats Hear Shiva -->
                 <section id="status">
-
+                        
                 </section>
                 <!-- Status Ends Hear SHiva -->
 

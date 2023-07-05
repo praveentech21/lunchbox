@@ -29,25 +29,25 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
   $pname = $_POST['pname'];
   $email = $_POST['email'];
   $altphone = $_POST['altphone'];
-  $address = $_POST['address'];
   $sname = $_POST['sname'];
   $school = $_POST['school'];
   $rollno = $_POST['rollno'];
   $sclass = $_POST['sclass'];
   $sec = $_POST['sec'];
   $gender = $_POST['gender'];
+  $photo = $image_new_name;
   $area = $_POST['area'];
   $appartment = $_POST['appartment'];
   $doorno = $_POST['doorno'];
   $pincode = $_POST['pincode'];
-  $photo = $image_new_name;
   $run1 = mysqli_query($con,"insert into parent (`pid`, `pass`, `pname`, `email`,`altphone`) values ('$pid','$pass','$pname','$email','$altphone') ");
-  $run2 = mysqli_query($con,"insert into student (`sname`, `school`, `rollno`, `sclass`, `sec`, `gender`,`photo`) VALUES ('$sname', '$school', '$rollno', '$sclass', '$sec','$gender','$photo');");
+  $run2 = mysqli_query($con,"insert into student (`sname`, `school`, `rollno`, `sclass`, `sec`, `gender`,`photo`) VALUES ('$sname', '$school', '$rollno', '$sclass', '$sec','$gender','$photo')");
   $run3 = mysqli_fetch_assoc(mysqli_query($con,"select stdid from student where sname='$sname' and school='$school' and rollno='$rollno' and sclass='$sclass' and sec='$sec' and gender='$gender' "));
   $stdid = $run3['stdid'];
   $run4 = mysqli_query($con,"insert into subscriptions (`pid`, `stdid` ) values ('$pid', '$stdid')");
+  $run5 = mysqli_query($con,"INSERT INTO `address` (`pid`, `area`, `appartment`, `doorno`, `pincode`) VALUES ('$pid', '$area', '$appartment', '$doorno', '$pincode')");
   $_SESSION['uname'] = $pid;
-  header("location:pay.php");
+  header("location:parent.php");
 }
 ?>
 <!DOCTYPE html>
@@ -112,30 +112,36 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
 <!-- Topbar End -->
 
 <!-- Navbar & Carousel Start -->
-<div class="container-fluid position-fixed p-0" style="z-index: 2">
-<nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
-            <a href="index.html" class="navbar-brand p-0">
-               <table>
-                    <tr>
-                        <td><h1 class="m-0"><i class="fa fa-user-tie me-lg-4"></i>LUNCH BOX</h1> </td>
-                    </tr>
-                 </table>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="fa fa-bars"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="#aboutus" class="nav-item nav-link">About</a>
-                    <a href="#prices" class="nav-item nav-link">Price Plan</a>
-                    <a href="#contact" class="nav-item nav-link">Contact</a>
+<div class="container-fluid position-relative p-0">
+    <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
+        <a href="index.html" class="navbar-brand p-0">
+           <table>
+                <tr>
+                    <td style="border: none;"><h1 class="m-0"><i class="fa fa-user-tie me-lg-4"></i>LUNCH BOX</h1> </td>
+                </tr>
+             </table>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a href="#profile" class="nav-item nav-link">Profile</a>
+                <a href="#status" class="nav-item nav-link">Box Status</a>
+                <a href="#track" class="nav-item nav-link">Box Tracking</a>
+                <a href="#daily" class="nav-item nav-link">Daily Status</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Account</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="addchild.php" class="dropdown-item">Add Child</a>
+                        <a href="pay.php" class="dropdown-item">Payment</a>
+                        <a href="subscription.php" class="dropdown-item">Subscription Details</a>
+                        <a href="logout.php" class="dropdown-item">Logout</a>
+                    </div>
                 </div>
-                <a style="border-radius: 15px" href="login.php" class="btn btn-primary py-2 px-4 ms-3">Login</a>
-                <a style="border-radius: 15px" href="register.php" class="btn btn-primary py-2 px-4 ms-3">Register</a>
             </div>
-        </nav>
-
+        </div>
+    </nav>
 </div>
 
     <!-- Body of the site -->

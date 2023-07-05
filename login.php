@@ -3,6 +3,9 @@
 include "connect.php";
 
 session_start();
+if(isset($_SESSION['uname'])){
+  header("location:parent.php");
+}
 if(isset($_POST['login'])){
   $uname = $_POST['uname'];
   $pass = $_POST['pass'];

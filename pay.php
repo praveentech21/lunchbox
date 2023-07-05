@@ -3,8 +3,6 @@ include "connect.php";
 session_start();
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +27,7 @@ session_start();
 
     <!-- Libraries Stylesheet -->
     <link href="Bhavani/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="Bhavani/lib/animate/animate.min.css" rel="stylesheet">
+    <!-- <link href="Bhavani/lib/animate/animate.min.css" rel="stylesheet"> -->
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="Bhavani/css/bootstrap.min.css" rel="stylesheet">
@@ -72,36 +70,36 @@ session_start();
 
     <!-- Navbar Start -->
     <div class="container-fluid position-relative p-0">
-        <nav class="navbar navbar-expand-lg navbar-dark px-3 py-3 py-lg-0" style=" background: rgb(29,253,241); background: linear-gradient(51deg, rgba(29,253,241,1) 0%, rgba(202,200,18,1) 100%); "  >
-        <a href="parent.php" class="navbar-brand p-0">
-               <table>
-                    <tr>
-                        <td><h1 class="m-0"><i class="fa fa-user-tie me-lg-4"></i>LUNCH BOX</h1> </td>
-                    </tr>
-                 </table>
-            </a>              
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto py-0">
-                    <a href="#profile" class="nav-item nav-link">Profile</a>
-                    <a href="#notify" class="nav-item nav-link ">Notification</a> 
-                    <a href="#track" class="nav-item nav-link">Live Track</a>
-                    <div class="nav-item dropdown">
-                   
-    <a  class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> Menu</a>
-    <div class="dropdown-menu m-0">
-        <a href="#contact" class="dropdown-item">Contact</a>
-        <!-- <a href="notification.html" class="dropdown-item">Price Plane</a> -->
-        <a href="pay.php" class="dropdown-item">Payment</a>
-        <a href="#track" class="dropdown-item">Live Track</a>
-        <a href="logout.php" class="dropdown-item">Log Out</a>
-    </div>
-    </div>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
+        <a href="index.html" class="navbar-brand p-0">
+           <table>
+                <tr>
+                    <td style="border: none;"><h1 class="m-0"><i class="fa fa-user-tie me-lg-4"></i>LUNCH BOX</h1> </td>
+                </tr>
+             </table>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a href="#profile" class="nav-item nav-link">Profile</a>
+                <a href="#status" class="nav-item nav-link">Box Status</a>
+                <a href="#track" class="nav-item nav-link">Box Tracking</a>
+                <a href="#daily" class="nav-item nav-link">Daily Status</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Account</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="addchild.php" class="dropdown-item">Add Child</a>
+                        <a href="pay.php" class="dropdown-item">Payment</a>
+                        <a href="subscription.php" class="dropdown-item">Subscription</a>
+                        <a href="logout.php" class="dropdown-item">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 </div>
-        </nav>
-
-        
-    </div>
     <!-- Navbar End -->
     <!-- Full Screen Search Start -->
     <div class="modal fade" id="searchModal" tabindex="-1">

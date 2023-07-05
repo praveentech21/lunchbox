@@ -49,7 +49,35 @@ else {
     <!-- Template Stylesheet -->
     <link href="Bhavani/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="Bhavani/css/form.css">
+    <style>
 
+table {
+
+  font-family: arial, sans-serif;
+
+  border-collapse: collapse;
+
+  width: 100%;
+
+}
+
+td, th {
+
+  border: 1px solid #dddddd;
+
+  text-align: left;
+
+  padding: 8px;
+
+}
+
+tr:nth-child(even) {
+
+  background-color: #dddddd;
+
+}
+
+</style>
 </head>
 
 <body style="background-color: white;">
@@ -82,7 +110,7 @@ else {
         <a href="index.html" class="navbar-brand p-0">
            <table>
                 <tr>
-                    <td><h1 class="m-0"><i class="fa fa-user-tie me-lg-4"></i>LUNCH BOX</h1> </td>
+                    <td style="border: none;"><h1 class="m-0"><i class="fa fa-user-tie me-lg-4"></i>LUNCH BOX</h1> </td>
                 </tr>
              </table>
         </a>
@@ -115,7 +143,7 @@ else {
         <main class="demo-page-content">
             <br><br><br><br><br>
             <!-- profile Starts Hear Shiva -->
-                <section id="profile">
+                <section id="profile" style="background-color:  #f1ebea ;">
                     <h2>Student Profile</h2>
                     <div class="row">
                         <?php
@@ -124,8 +152,9 @@ else {
                             if(isset($run1["address"]))
                             echo '<h3>Parent Address:'.$run1["address"].'</h3>';
                         ?>
-                    
-                    
+                    </div>  
+                    <h2>Student Details</h2>
+                    <div class="row">
                         <?php
                            foreach ($stdids as $stdid) {
                             $run3 = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid ='$stdid'"));
@@ -141,8 +170,6 @@ else {
                                    <p>School Name:'.$run4["school_name"].'</p>
                                    <p>Roll NO: '.$run3["rollno"].'</p>
                                    <p>Class: '.$run3["sclass"].'</p>
-                                   <button type="button" class="btn btn-danger">Drop</button>
-                                   <button type="button" class="btn btn-primary">Pickup</button>
                                    </div>
                                    </div>
                                </div>
@@ -151,28 +178,119 @@ else {
                         } 
                         ?>
                     </div>                        
-                </section>
+                </section> <br>
                 <!-- Profile Ends Hear Shiva -->
-
+                       
                 <!-- Status Strats Hear Shiva -->
-                <section id="status">
+            <section style="background-color:  #f1ebea ;" id="status">
+                 <table style="background-color: #ffffff;">
 
-                </section>
+                <tr>
+
+                  <th>Action</th>
+                                    
+                  <th>Status</th>
+                                    
+                 <th>Time</th>
+
+                </tr>
+
+                <tr>
+
+                 <td>PickUp</td>
+
+                 <td>Maria Anders</td>
+
+                 <td>Germany</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Drop </td>
+
+                    <td>Francisco Chang</td>
+
+                    <td>Mexico</td>
+
+                </tr>
+                </table>
+            </section> <br>
                 <!-- Status Ends Hear SHiva -->
-
+                
                 <!-- Track Starts Hear Shiva -->
-                <section id="track">
-
-                </section>
+                <section id="track" style="background-color:  #f1ebea ;">
+                <h3>Track Your Child Lunch Box : <button type="button" class="btn btn-danger">Track</button></h3>
+                </section> <br>
                 <!-- Track Ends Hear Shiva -->
-
+                        
                 <!-- Daily status Starts Hear Shiva -->
-                <section id="daily">
+                <section style="background-color:  #f1ebea ;" id="daily">
+                    <table style="background-color: #ffffff;">
 
-                </section>
+                        <tr>
+                                            
+                          <th>Action</th>
+                                            
+                          <th>Status</th>
+                                            
+                         <th>Pick Up Time</th>
+
+                         <th>Drop Time</th>
+                                            
+                        </tr>
+
+                        <tr>                        
+
+                         <td>PickUp</td>                        
+
+                         <td>Maria Anders</td>                      
+
+                         <td>Germany</td>
+                         
+                         <td>Germany</td>
+
+                        </tr>                       
+                    </table>
+                </section> <br>
                 <!-- Daily Ends Starts Hear Shiva -->
 
+                <!-- Subscription Detais Starts Hear SHiva -->
+                <section id="subscrpiton" style="background-color:  #f1ebea ;">
+                <table style="background-color: #ffffff;">
 
+                    <tr>
+
+                      <th>Action</th>
+
+                      <th>Status</th>
+
+                     <th>Time</th>
+
+                    </tr>
+
+                    <tr>
+
+                     <td>PickUp</td>
+
+                     <td>Maria Anders</td>
+
+                     <td>Germany</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Drop </td>
+
+                        <td>Francisco Chang</td>
+
+                        <td>Mexico</td>
+
+                    </tr>
+                </table>
+                </section>
+                <!-- Subscription Detais Starts Ends SHiva -->
             </main>
         </div>
     

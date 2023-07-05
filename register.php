@@ -18,7 +18,7 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
       }   
       else{
         echo "<script>alert('You have uploding wrong type data')</script>";
-      }   
+      }     
     }
     else{
         echo "<script>alert('Unknow Error Occured')</script>";
@@ -46,7 +46,7 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
   $run3 = mysqli_fetch_assoc(mysqli_query($con,"select stdid from student where sname='$sname' and school='$school' and rollno='$rollno' and sclass='$sclass' and sec='$sec' and gender='$gender' "));
   $stdid = $run3['stdid'];
   $run4 = mysqli_query($con,"insert into subscriptions (`pid`, `stdid` ) values ('$pid', '$stdid')");
-  $_SESSION['pid'] = $pid;
+  $_SESSION['uname'] = $pid;
   header("location:pay.php");
 }
 ?>
@@ -74,7 +74,7 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
 
     <!-- Libraries Stylesheet -->
     <link href="Bhavani/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="Bhavani/lib/animate/animate.min.css" rel="stylesheet">
+    <!-- <link href="Bhavani/lib/animate/animate.min.css" rel="stylesheet"> -->
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="Bhavani/css/bootstrap.min.css" rel="stylesheet">
@@ -82,6 +82,9 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
     <!-- Template Stylesheet -->
     <link href="Bhavani/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="Bhavani/css/form.css">
+    <style>
+
+    </style>
 </head>
 
 <body style="background-color: white;">
@@ -109,37 +112,38 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
 <!-- Topbar End -->
 
 <!-- Navbar & Carousel Start -->
-<div class="container-fluid position-relative p-0">
-    <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
-        <a href="index.html" class="navbar-brand p-0">
-           <table>
-                <tr>
-                    <td><h1 class="m-0"><i class="fa fa-user-tie me-lg-4"></i>LUNCH BOX</h1> </td>
-                </tr>
-             </table>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="fa fa-bars"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto py-0">
-                <a href="index.html" class="nav-item nav-link active">Home</a>
-                <a href="#aboutus" class="nav-item nav-link">About</a>
-                <a href="#prices" class="nav-item nav-link">Price Plan</a>
-                <a href="#contact" class="nav-item nav-link">Contact</a>
+<div class="container-fluid position-fixed p-0" style="z-index: 2">
+<nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
+            <a href="index.html" class="navbar-brand p-0">
+               <table>
+                    <tr>
+                        <td><h1 class="m-0"><i class="fa fa-user-tie me-lg-4"></i>LUNCH BOX</h1> </td>
+                    </tr>
+                 </table>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="#aboutus" class="nav-item nav-link">About</a>
+                    <a href="#prices" class="nav-item nav-link">Price Plan</a>
+                    <a href="#contact" class="nav-item nav-link">Contact</a>
+                </div>
+                <a style="border-radius: 15px" href="login.php" class="btn btn-primary py-2 px-4 ms-3">Login</a>
+                <a style="border-radius: 15px" href="register.php" class="btn btn-primary py-2 px-4 ms-3">Register</a>
             </div>
-            <a style="border-radius: 15px" href="login.php" class="btn btn-primary py-2 px-4 ms-3">Login</a>
-            <a style="border-radius: 15px" href="register.php" class="btn btn-primary py-2 px-4 ms-3">Register</a>
-        </div>
-    </nav>
+        </nav>
+
 </div>
 
     <!-- Body of the site -->
     <div class="demo-page">
        
         <main class="demo-page-content">
-            <br><br><br><br><br><br><br><br>
-            <form action="#" method="post" enctype="multipart/form-data">
+            
+            <form action="#" method="post" enctype="multipart/form-data" class="row m-5">
           <section id="Parent_Details">
             <div class="href-target" id="structure"></div>
             <h1>
@@ -149,6 +153,7 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
                 <polyline points="2 12 12 17 22 12" />
               </svg>
               Parent Details
+
             </h1>
             <p>Basic Details about parents</p>
       

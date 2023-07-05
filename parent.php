@@ -95,10 +95,15 @@ else {
                 <a href="#status" class="nav-item nav-link">Box Status</a>
                 <a href="#track" class="nav-item nav-link">Box Tracking</a>
                 <a href="#daily" class="nav-item nav-link">Daily Status</a>
-                <a href="addchild.php" class="nav-item nav-link">Add Child</a>
-                <a href="pay.php" class="nav-item nav-link">Payment</a>
-                <a href="subscription.php" class="nav-item nav-link">Subscription Details</a>
-                <a href="logout.php" class="nav-item nav-link">Logout</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Account</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="addchild.php" class="dropdown-item">Add Child</a>
+                        <a href="pay.php" class="dropdown-item">Payment</a>
+                        <a href="subscription.php" class="dropdown-item">Subscription Details</a>
+                        <a href="logout.php" class="dropdown-item">Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -151,7 +156,7 @@ else {
 
                 <!-- Status Strats Hear Shiva -->
                 <section id="status">
-                        
+
                 </section>
                 <!-- Status Ends Hear SHiva -->
 

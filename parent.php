@@ -128,7 +128,7 @@ tr:nth-child(even) {
                     <div class="dropdown-menu m-0">
                         <a href="addchild.php" class="dropdown-item">Add Child</a>
                         <a href="pay.php" class="dropdown-item">Payment</a>
-                        <a href="subscription.php" class="dropdown-item">Subscription Details</a>
+                        <a href="#subscription" class="dropdown-item">Subscription Details</a>
                         <a href="logout.php" class="dropdown-item">Logout</a>
                     </div>
                 </div>
@@ -256,7 +256,7 @@ tr:nth-child(even) {
                 <!-- Daily Ends Starts Hear Shiva -->
 
                 <!-- Subscription Detais Starts Hear SHiva -->
-                <section id="subscrpiton" style="background-color:  #f1ebea ;">
+                <section id="subscription" style="background-color:  #f1ebea ;">
                 <table style="background-color: #ffffff;">
 
                     <tr>

@@ -118,16 +118,16 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="#profile" class="nav-item nav-link">Profile</a>
-                <a href="#status" class="nav-item nav-link">Box Status</a>
-                <a href="#track" class="nav-item nav-link">Box Tracking</a>
-                <a href="#daily" class="nav-item nav-link">Daily Status</a>
+                <a href="parent.php#profile" class="nav-item nav-link">Profile</a>
+                <a href="parent.php#status" class="nav-item nav-link">Box Status</a>
+                <a href="parent.php#track" class="nav-item nav-link">Box Tracking</a>
+                <a href="parent.php#daily" class="nav-item nav-link">Daily Status</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Account</a>
                     <div class="dropdown-menu m-0">
                         <a href="addchild.php" class="dropdown-item">Add Child</a>
                         <a href="pay.php" class="dropdown-item">Payment</a>
-                        <a href="subscription.php" class="dropdown-item">Subscription</a>
+                        <a href="parent.php#subscription" class="dropdown-item">Subscription</a>
                         <a href="logout.php" class="dropdown-item">Logout</a>
                     </div>
                 </div>
@@ -216,6 +216,12 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
                 </div>
 
               </fieldset>
+              <details>
+                <summary>
+                    <button type="submit" name="submit" class="toggle-code" >submit</button>
+                </summary>
+            </details>
+
 
           </section>
       </section>

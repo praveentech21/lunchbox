@@ -113,7 +113,7 @@ if(empty($_SESSION["uname"])){
                     <div class="dropdown-menu m-0">
                         <a href="addchild.php" class="dropdown-item">Add Child</a>
                         <a href="pay.php" class="dropdown-item">Payment</a>
-                        <a href="#subscription" class="dropdown-item">Subscription Details</a>
+                        <a href="#subscription" class="dropdown-item">Subscription</a>
                         <a href="logout.php" class="dropdown-item">Logout</a>
                     </div>
                 </div>
@@ -183,62 +183,47 @@ if(empty($_SESSION["uname"])){
                     else if(isset($run4['pickup_time']) and !isset($run4['drop_time'])){
                     echo " <i class='fa fa-circle' style='color:orange;font-size:10px;'></i> <b style='color:orange;font-size:10px;'>IN TRANSIT</b></p>"."<p>PickUp Time : ".$run4['pickup_time']."</p>";}
                     else if(isset($run4['pickup_time']) and isset($run4['drop_time'])){
-                    echo " <i class='fa fa-circle' style='color:green;font-size:10px;'></i> <b style='color:green;font-size:10px;'>DELIVERED</b></p>"."<p>PickUp Time : ".$run4['pickup_time']."</p><p>Drop Time : ".$run4['drop_time']."</p>";}
+                    echo " <i class='fa fa-circle' style='color:green;font-size:10px;'></i> <b style='color:green;font-size:10px;'>DELIVERED</b></p>"."<p>PickUp Time : ".$run4['pickup_time']."</p><p>Drop Time : ".$run4['drop_time']."</p>";}}
                     ?>
                     
-                    
-                    <?php } ?>
-                    
-
-
-                     <!-- <table style="background-color: #ffffff;">
-
-                    <tr>
-
-                      <th>Action</th>
-
-                      <th>Status</th>
-
-                     <th>Time</th>
-
-                    </tr>
-
-                    <tr>
-
-                     <td>PickUp</td>
-
-                     <td>Maria Anders</td>
-
-                     <td>Germany</td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Drop </td>
-
-                        <td>Francisco Chang</td>
-
-                        <td>Mexico</td>
-
-                    </tr>
-                    </table> -->
             </section> <br>
             <!-- Status Ends Hear SHiva -->
             
             <!-- Track Starts Hear Shiva -->
-            <section id="track" style="background-color:  #f1ebea ;">
-            <h3>Track Your Child Lunch Box : <button type="button" class="btn btn-danger">Track</button></h3>
-            </section> <br>
+            <?php
+                foreach ($stdids as $stdid) {
+                    $run3 = mysqli_fetch_assoc(mysqli_query($con,"select delivery_partner from subscriptions where stdid ='$stdid'"));
+                    $date = date("Y-m-d");
+                    $run4 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where stdid ='$stdid' and date='$date'"));
+                    $run5 = mysqli_fetch_assoc(mysqli_query($con,"select name,address from team where eid ='{$run3["delivery_partner"]}'"));
+                if(isset($run4['pickup_time']) and !isset($run4['drop_time'])){
+                ?>
+                <section id="track" style="background-color:  #f1ebea ;">
+                    <h3>Track Your Child Lunch Box </h3>
+                    
+                    <p>Delivery Partner : <?php echo $run5['name'] ?></p>
+                    <iframe src="<?php $run5['address'] ?>" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </section> <br>
+            <?php }} ?>
             <!-- Track Ends Hear Shiva -->
                     
             <!-- Daily status Starts Hear Shiva -->
+            <?php
+                foreach ($stdids as $stdid) {
+                    $run3 = mysqli_fetch_assoc(mysqli_query($con,"select sname from student where stdid ='$stdid'"));
+                    $run4 = mysqli_fetch_assoc(mysqli_query($con,"select delivery_partner from subscriptions where stdid ='$stdid' "));
+                    $run5 = mysqli_fetch_assoc(mysqli_query($con,"select name from team where eid ='{$run4["delivery_partner"]}'"));
+                    $run6 = mysqli_query($con,"select trpid from delivary where stdid ='$stdid'");
+                    if(mysqli_num_rows($run6)>0){
+            ?>
             <section style="background-color:  #f1ebea ;" id="daily">
+                    <h2>Student : <?php echo $run3['sname'] ?> </h2>
+                    <h3>Delivary Agent : <?php echo $run5['name'] ?> </h3>
                     <table style="background-color: #ffffff;">
 
                         <tr>
                                             
-                          <th>Action</th>
+                          <th>Date</th>
                                             
                           <th>Status</th>
                                             
@@ -248,54 +233,36 @@ if(empty($_SESSION["uname"])){
                                             
                         </tr>
 
-                        <tr>                        
-
-                         <td>PickUp</td>                        
-
-                         <td>Maria Anders</td>                      
-
-                         <td>Germany</td>
-                         
-                         <td>Germany</td>
-
-                        </tr>                       
+                        <?php
+                            while( $result= mysqli_fetch_assoc($run6)){
+                                $run7 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where trpid ='{$result["trpid"]}'"));
+                                echo "<tr><td>".$run7['date']."</td>";
+                                if(!isset($run7['pickup_time'])) {
+                                    echo "<td style='color: red;'>Not Picked Up</td>";
+                                    echo "<td style='color: red;'>Not Picked Up</td>";
+                                    echo "<td style='color: red;'>Not Picked Up</td></tr>";
+                                }
+                                else if(isset($run7['pickup_time']) and !isset($run7['drop_time'])){
+                                    echo "<td style='color: yellow;''>In Transit</td>";
+                                    echo "<td>".$run7['pickup_time']."</td>";
+                                    echo "<td style='color: red;'>Not Delivered</td></tr>";
+                                }
+                                else if(isset($run7['pickup_time']) and isset($run7['drop_time'])){
+                                    echo "<td style='color: green;'>Delivered</td>";
+                                    echo "<td>".$run7['pickup_time']."</td>";
+                                    echo "<td>".$run7['drop_time']."</td></tr>";
+                                }
+                            }
+                            }}
+                        ?>
                     </table>
             </section> <br>
             <!-- Daily Ends Starts Hear Shiva -->
+
             <!-- Subscription Detais Starts Hear SHiva -->
             <section id="subscription" style="background-color:  #f1ebea ;">
-                    <table style="background-color: #ffffff;">
-
-                    <tr>
-
-                      <th>Action</th>
-
-                      <th>Status</th>
-
-                     <th>Time</th>
-
-                    </tr>
-
-                    <tr>
-
-                     <td>PickUp</td>
-
-                     <td>Maria Anders</td>
-
-                     <td>Germany</td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Drop </td>
-
-                        <td>Francisco Chang</td>
-
-                        <td>Mexico</td>
-
-                    </tr>
-                    </table>
+            <?php $run9 = mysqli_fetch_assoc(mysqli_query($con,"select * from subscriptions where pid='$pid'")); ?>
+            <h4>Your are Subscbried on  : <?php echo $run9['subscription_date'] ?> </h4>
             </section>
             <!-- Subscription Detais Starts Ends SHiva -->
         </main>

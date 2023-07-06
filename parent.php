@@ -263,8 +263,10 @@ if(empty($_SESSION["uname"])){
 
             <!-- Subscription Detais Starts Hear SHiva -->
             <section id="subscription" style="background-color:  #f1ebea ;">
-                <?php $run9 = mysqli_fetch_assoc(mysqli_query($con,"select * from subscriptions where pid='$pid'")); ?>
-                <h4>Your are Subscbried on  : <?php echo $run9['subscription_date'] ?> </h4>
+            <?php
+                foreach ($stdids as $stdid) {
+                    $run9 = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid='$stdid'")); ?>
+                <h4><?php echo $run9['sname'] ?> was Subscbried on  : <?php echo $run9['subscription_date'] ?> </h4> <?php } ?>
             </section>
             <!-- Subscription Detais Starts Ends SHiva -->
         </main>

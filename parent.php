@@ -121,12 +121,14 @@ if(empty($_SESSION["uname"])){
         </div>
     </nav>
 </div>
+<!-- Navbar & Carousel End -->
 
     <!-- Body of the site -->
     <div class="demo-page">
        
         <main class="demo-page-content">
             <br><br><br><br><br>
+
             <!-- profile Starts Hear Shiva -->
             <div id="profile" class="row">
                 <section id="profile">
@@ -175,7 +177,7 @@ if(empty($_SESSION["uname"])){
                             $date = date("Y-m-d");
                             $run4 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where stdid ='$stdid' and date='$date'"));
                     ?>
-                    <h2>Student Name : <?php $run3['sname'] ?></h2>
+                    <h2>Student Name : <?php echo $run3['sname'] ?></h2>
                     <p>Box Status : 
                     <?php 
                     if(!isset($run4['pickup_time'])) {
@@ -261,8 +263,8 @@ if(empty($_SESSION["uname"])){
 
             <!-- Subscription Detais Starts Hear SHiva -->
             <section id="subscription" style="background-color:  #f1ebea ;">
-            <?php $run9 = mysqli_fetch_assoc(mysqli_query($con,"select * from subscriptions where pid='$pid'")); ?>
-            <h4>Your are Subscbried on  : <?php echo $run9['subscription_date'] ?> </h4>
+                <?php $run9 = mysqli_fetch_assoc(mysqli_query($con,"select * from subscriptions where pid='$pid'")); ?>
+                <h4>Your are Subscbried on  : <?php echo $run9['subscription_date'] ?> </h4>
             </section>
             <!-- Subscription Detais Starts Ends SHiva -->
         </main>

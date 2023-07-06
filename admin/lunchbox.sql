@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2023 at 09:08 PM
+-- Generation Time: Jul 06, 2023 at 03:08 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -35,6 +35,13 @@ CREATE TABLE `address` (
   `pincode` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`pid`, `area`, `appartment`, `doorno`, `pincode`) VALUES
+('9052727402', 'Srkr College', 'Vinayal Classic', '1-149 third floor', '534247');
+
 -- --------------------------------------------------------
 
 --
@@ -63,6 +70,13 @@ CREATE TABLE `parent` (
   `altphone` varchar(15) DEFAULT NULL,
   `address` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `parent`
+--
+
+INSERT INTO `parent` (`pid`, `pass`, `pname`, `email`, `altphone`, `address`) VALUES
+('9052727402', '123', 'Shiva Bhavani', 'ravikumar_csd@srkrec.edu.in', '9866892957', NULL);
 
 -- --------------------------------------------------------
 
@@ -100,8 +114,18 @@ CREATE TABLE `student` (
   `sclass` int(11) NOT NULL,
   `sec` varchar(15) NOT NULL DEFAULT 'A',
   `gender` int(11) NOT NULL,
-  `photo` varchar(70) NOT NULL
+  `photo` varchar(70) NOT NULL,
+  `subscription_date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`stdid`, `sname`, `school`, `rollno`, `sclass`, `sec`, `gender`, `photo`, `subscription_date`) VALUES
+(5, 'Ravi Kumar', 2, '21B91A6206', 9, 'SEM1', 0, 'IMG-64a6a6fec4bd78.08972181.jpg', '2023-07-06'),
+(6, 'Bhanu Teja Ganesh', 2, '21B91A6207', 9, 'SE1', 0, 'IMG-64a6a7a978b545.95054770.jpg', '2023-07-06'),
+(7, 'Shiva Mani', 1, '98668929HB', 8, 'EIG3', 0, 'IMG-64a6b43819c969.64688265.jpg', '2023-07-06');
 
 -- --------------------------------------------------------
 
@@ -112,9 +136,17 @@ CREATE TABLE `student` (
 CREATE TABLE `subscriptions` (
   `pid` varchar(15) NOT NULL,
   `stdid` varchar(5) NOT NULL,
-  `delivery_partner` int(4) NOT NULL,
-  `subscription_date` timestamp NOT NULL DEFAULT current_timestamp()
+  `delivery_partner` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `subscriptions`
+--
+
+INSERT INTO `subscriptions` (`pid`, `stdid`, `delivery_partner`) VALUES
+('9052727402', '5', 0),
+('9052727402', '6', 0),
+('9052727402', '7', 0);
 
 -- --------------------------------------------------------
 
@@ -218,7 +250,7 @@ ALTER TABLE `trips`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `stdid` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `stdid` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `trips`

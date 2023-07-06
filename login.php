@@ -10,7 +10,10 @@ if(isset($_POST['login'])){
   $uname = $_POST['uname'];
   $pass = $_POST['pass'];
   $run = mysqli_fetch_assoc(mysqli_query($con ,"select * from parent where pid = '$uname'"));
-  if($run['pass']==$pass){
+  if(mysqli_num_rows(mysqli_query($con ,"select * from parent where pid = '$uname'"))==0){
+    echo "<script>alert('You had Entered Invalid Username or Password');</script>";
+  }
+  elseif($run['pass']==$pass){
     $_SESSION['uname'] = $uname;
     header("location:parent.php");
   }

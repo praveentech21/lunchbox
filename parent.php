@@ -215,7 +215,7 @@ if(empty($_SESSION["uname"])){
                     $run3 = mysqli_fetch_assoc(mysqli_query($con,"select sname from student where stdid ='$stdid'"));
                     $run4 = mysqli_fetch_assoc(mysqli_query($con,"select delivery_partner from subscriptions where stdid ='$stdid' "));
                     $run5 = mysqli_fetch_assoc(mysqli_query($con,"select name from team where eid ='{$run4["delivery_partner"]}'"));
-                    $run6 = mysqli_query($con,"select trpid from delivary where stdid ='$stdid'");
+                    $run6 = mysqli_query($con,"select tripid from delivary where stdid ='$stdid'");
                     if(mysqli_num_rows($run6)>0){
             ?>
             <section style="background-color:  #f1ebea ;" id="daily">
@@ -237,7 +237,7 @@ if(empty($_SESSION["uname"])){
 
                         <?php
                             while( $result= mysqli_fetch_assoc($run6)){
-                                $run7 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where trpid ='{$result["trpid"]}'"));
+                                $run7 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where tripid ='{$result["tripid"]}'"));
                                 echo "<tr><td>".$run7['date']."</td>";
                                 if(!isset($run7['pickup_time'])) {
                                     echo "<td style='color: red;'>Not Picked Up</td>";

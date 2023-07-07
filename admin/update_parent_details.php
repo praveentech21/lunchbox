@@ -93,7 +93,7 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="update_parent_details" class="menu-link">
+                  <a href="update_parent_details.php" class="menu-link">
                     <div data-i18n="Notifications">Update Parent Details</div>
                   </a>
                 </li>

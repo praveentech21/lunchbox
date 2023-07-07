@@ -249,11 +249,34 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="row">
-
-                <!-- Write Your Code Here Shiva -->
-                
+              <!-- Hoverable Table rows -->
+              <div class="card">
+                <h5 class="card-header">Subscribed Parent Details</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th>SUbscribed On</th>
+                        <th>View Profile</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
+                        <td>Albert Cook</td>
+                        <td>Email</td>
+                        <td>@Subscribed On</td>
+                        <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
+              <!--/ Hoverable Table rows -->
+
             </div>
             <!-- / Content -->
 

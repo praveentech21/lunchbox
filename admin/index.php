@@ -93,7 +93,7 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="update_parent_details" class="menu-link">
+                  <a href="update_parent_details.php" class="menu-link">
                     <div data-i18n="Notifications">Update Parent Details</div>
                   </a>
                 </li>
@@ -321,7 +321,7 @@
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="BHavani/img/icons/unicons/cc-primary.png" alt="Credit Card" class="rounded" />
+                              <img src="BHavani/img/icons/unicons/cc-warning.png" alt="Credit Card" class="rounded" />
                             </div>
                             <!-- <div class="dropdown">
                               <button

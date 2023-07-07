@@ -249,11 +249,332 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="row">
-
-                <!-- Write Your Code Here Shiva -->
+            
+            <div class="row">
                 
-              </div>
+                
+                <!-- Total Revenue -->
+                <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+                <div class="card">
+                <h5 class="card-header">Today Delivary Agent Report</h5>
+                <div class="card-body">
+                  <div class="table-responsive text-nowrap">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Agent Name</th>
+                          <th>Mobile</th>
+                          <th>Not Picked Up </th>
+                          <th>In Transition</th>
+                          <th>Delivered</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
+                          <td>Albert Cook</td>
+                          <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                          <td><span class="badge bg-label-primary me-1">Active</span></td>
+                          <td><span class="badge bg-label-success me-1">Scheduled</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                </div>
+                </div>
+                <!--/ Total Revenue -->
+                <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
+                  <div class="row">
+                    <div class="col-6 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <img src="BHavani/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                            </div>
+                            <!-- <div class="dropdown">
+                              <button
+                                class="btn p-0"
+                                type="button"
+                                id="cardOpt4"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                              >
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
+                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                              </div>
+                            </div> -->
+                          </div>
+                          <span class="d-block mb-1">Payments</span>
+                          <h3 class="card-title text-nowrap mb-2">$2,456</h3>
+                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <img src="BHavani/img/icons/unicons/cc-primary.png" alt="Credit Card" class="rounded" />
+                            </div>
+                            <!-- <div class="dropdown">
+                              <button
+                                class="btn p-0"
+                                type="button"
+                                id="cardOpt1"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                              >
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="cardOpt1">
+                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                              </div>
+                            </div> -->
+                          </div>
+                          <span class="fw-semibold d-block mb-1">Transactions</span>
+                          <h3 class="card-title mb-2">$14,857</h3>
+                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+                            <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                              <div class="card-title">
+                                <h5 class="text-nowrap mb-2">Profile Report</h5>
+                                <span class="badge bg-label-warning rounded-pill">Year 2021</span>
+                              </div>
+                              <div class="mt-sm-auto">
+                                <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> 68.2%</small>
+                                <h3 class="mb-0">$84,686k</h3>
+                              </div>
+                            </div>
+                            <div id="profileReportChart"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+              <div class="row">
+                <!-- Order Statistics -->
+                <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                <div class="card h-100">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="card-title m-0 me-2">Not Picked Up</h5>
+                    </div>
+                    <div class="card-body">
+                      <ul class="p-0 m-0">
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="BHavani/img/icons/unicons/paypal.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Paypal</small>
+                              <h6 class="mb-0">Send money</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <a href="tel:"><button type="button" class="btn btn-info">Call</button></a>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                </div>
+                </div>
+                <!--/ Order Statistics -->
+
+                <!-- Expense Overview -->
+                <div class="col-md-6 col-lg-4 order-1 mb-4">
+                  <div class="card h-100">
+                  <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="card-title m-0 me-2">In Transition</h5>
+                    </div>
+                    <div class="card-body">
+                      <ul class="p-0 m-0">
+                        <li class="d-flex">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="BHavani/img/icons/unicons/cc-warning.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Mastercard</small>
+                              <h6 class="mb-0">Ordered Food</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <a href="tel:"><button type="button" class="btn btn-info">call</button></a>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!--/ Expense Overview -->
+
+                <!-- Transactions -->
+                <div class="col-md-6 col-lg-4 order-2 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="card-title m-0 me-2">Delivered</h5>
+                    </div>
+                    <div class="card-body">
+                      <ul class="p-0 m-0">
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="BHavani/img/icons/unicons/cc-success.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Credit Card</small>
+                              <h6 class="mb-0">Ordered Food</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                                <a href="tel:"><button type="button" class="btn btn-info">call</button></a>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!--/ Transactions -->
+              </div>    
+
+            <!-- Striped Rows -->
+            <hr class="my-5" />
+            <div class="card">
+                <h5 class="card-header">Monthly Data Analysis</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Not Picked</th>
+                        <th>In Transition</th>
+                        <th>Delivared</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
+                        <td>Albert Cook</td>
+                        <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                        <td><span class="badge bg-label-primary me-1">Active</span></td>
+                        <td><span class="badge bg-label-success me-1">Completed</span></td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+            <hr class="my-5" />
+              <!--/ Striped Rows -->
+
+              <div class="row">
+                
+                
+                <!-- Total Revenue -->
+                <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+                <div class="card">
+                <h5 class="card-header">Deliverary Agent Analysis</h5>
+                <div class="card-body">
+                  <div class="table-responsive text-nowrap">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Agent Name</th>
+                          <th>Not Picked Up </th>
+                          <th>In Transition</th>
+                          <th>Delivered</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
+                          <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                          <td><span class="badge bg-label-primary me-1">Active</span></td>
+                          <td><span class="badge bg-label-success me-1">Scheduled</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                </div>
+                </div>
+                <!--/ Total Revenue -->
+                <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
+                  <div class="row">
+                    <div class="col-12 mb-4">
+                      <div class="card">
+                      <h5 class="card-header">Subscribed Parents</h5>
+                        <div class="card-body">
+                        <div class="table-responsive text-nowrap">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Parent Name</th>
+                          <th>Profile</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
+                          <td><span class="badge bg-label-info me-1">Scheduled</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+                <div class="card">
+                <h5 class="card-header">Student Deliverary Analysis</h5>
+                <div class="card-body">
+                  <div class="table-responsive text-nowrap">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Agent Name</th>
+                          <th>Not Picked Up </th>
+                          <th>In Transition</th>
+                          <th>Delivered</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
+                          <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                          <td><span class="badge bg-label-primary me-1">Active</span></td>
+                          <td><span class="badge bg-label-success me-1">Scheduled</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                </div>
+                </div>
+            </div>
+              
             </div>
             <!-- / Content -->
 

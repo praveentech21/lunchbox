@@ -1,23 +1,18 @@
 <?php
 session_start();
 include("connect.php");
-if(!empty($_SESSION['eid'])){
-  header("location: delivary.php");
-}
-elseif(!empty($_SESSION['supid'])){
+
+if(!empty($_SESSION['supid'])){
   header("location: index.php");
 }
 if(isset($_POST['submit'])){
-  $mobile=$_POST['mobile'];
-  $pass=$_POST['pass'];
-  $run1 = mysqli_query($con,"select * from team where mobile='$mobile' and pass='$pass'");
-  if(mysqli_num_rows($run1)>0){
-    $run2 = mysqli_fetch_array($run1);
-    $_SESSION['eid']=$run2['eid'];
-    header("location: delivary.php");
+  $pin=$_POST['pin'];
+  if($pin=="Sureshmcr"){
+    $_SESSION['supid']=1;
+    header("location: index.php");
   }
     else{
-      echo "<script>alert('Invalid Username or Password')</script>";
+      echo "<script>alert('Invalid PIN')</script>";
     }
 }
 
@@ -91,27 +86,16 @@ if(isset($_POST['submit'])){
               </div>
               <!-- /Logo -->
               <form id="formAuthentication" class="mb-3" action="#" method="POST">
-                <div class="mb-3">
-                  <label for="email" class="form-label">Mobile Number</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="email"
-                    name="mobile"
-                    placeholder="Enter your Mobile Number"
-                    autofocus
-                  />
-                </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
-                    <label class="form-label" for="password">Password</label>
+                    <label class="form-label" for="password">Secrite Pin</label>
                   </div>
                   <div class="input-group input-group-merge">
                     <input
                       type="password"
                       id="password"
                       class="form-control"
-                      name="pass"
+                      name="pin"
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"
                     />

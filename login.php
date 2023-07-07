@@ -17,9 +17,6 @@ if(isset($_POST['login'])){
     $_SESSION['uname'] = $uname;
     header("location:parent.php");
   }
-  else {
-    echo "<script>alert('You had Entered Invalid Username or Password');</script>";
-  }
 }
 // All Setted Shiva and this is sending to git as All set SHiva
 ?>

@@ -23,7 +23,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Lunch Box Dashboard</title>
 
     <meta name="description" content="" />
 
@@ -68,7 +68,7 @@
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
+          <div class="app-brand demo ">
             <a href="index.php" class="app-brand-link">
               <span class="app-brand-text demo menu-text fw-bolder ms-2">Lunch Box</span>
             </a>
@@ -80,7 +80,7 @@
             <!-- Dashboard -->
             
             <!-- Layouts -->
-            <li class="menu-item ">
+            <li class="menu-item active">
               <a href="index.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -257,11 +257,11 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-            
+            <!-- Today Report Starts Here Shiva -->
             <div class="row">
                 
                 
-                <!-- Total Revenue -->
+                <!-- Today Delivary Agent Report Starts Here Shiva -->
                 <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
                 <div class="card">
                 <h5 class="card-header">Today Delivary Agent Report</h5>
@@ -291,7 +291,8 @@
                 </div>
                 </div>
                 </div>
-                <!--/ Total Revenue -->
+                <!--/ Today Delivary Agent Report Ends Here Shiva -->
+                <!-- Data Cards Here Shiva -->
                 <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
                   <div class="row">
                     <div class="col-6 mb-4">
@@ -301,22 +302,9 @@
                             <div class="avatar flex-shrink-0">
                               <img src="BHavani/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
                             </div>
-                            <!-- <div class="dropdown">
-                              <button
-                                class="btn p-0"
-                                type="button"
-                                id="cardOpt4"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                              >
+                            <div class="dropdown">
                                 <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                              </div>
-                            </div> -->
+                            </div>
                           </div>
                           <span class="d-block mb-1">Not Picked Up</span>
                           <h3 class="card-title text-nowrap mb-2">n boxes</h3>
@@ -331,22 +319,9 @@
                             <div class="avatar flex-shrink-0">
                               <img src="BHavani/img/icons/unicons/cc-warning.png" alt="Credit Card" class="rounded" />
                             </div>
-                            <!-- <div class="dropdown">
-                              <button
-                                class="btn p-0"
-                                type="button"
-                                id="cardOpt1"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                              >
+                            <div class="dropdown">
                                 <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                              <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                              </div>
-                            </div> -->
+                            </div>
                           </div>
                           <span class="fw-semibold d-block mb-1">In Transition</span>
                           <h3 class="card-title mb-2">n Boxes</h3>
@@ -377,14 +352,16 @@
                     </div>
                   </div>
                 </div>
+                <!--/ Data Cards Here Shiva -->
             </div>
-
+            <!-- Today Report Ends Here Shiva -->
+              <!-- Boxes Details starts Here Shiva -->
               <div class="row">
-                <!-- Order Statistics -->
+                <!-- Not Picked Boxes -->
                 <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
                 <div class="card h-100">
                 <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="card-title m-0 me-2">Not Picked Up</h5>
+                      <h5 class="card-title m-0 me-2">Not Picked Boxes</h5>
                     </div>
                     <div class="card-body">
                       <ul class="p-0 m-0">
@@ -406,13 +383,13 @@
                     </div>
                 </div>
                 </div>
-                <!--/ Order Statistics -->
+                <!--/ Not Picked Boxes -->
 
-                <!-- Expense Overview -->
+                <!-- In Transition Boxes -->
                 <div class="col-md-6 col-lg-4 order-1 mb-4">
                   <div class="card h-100">
                   <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="card-title m-0 me-2">In Transition</h5>
+                      <h5 class="card-title m-0 me-2">In Transition Boxes</h5>
                     </div>
                     <div class="card-body">
                       <ul class="p-0 m-0">
@@ -434,13 +411,13 @@
                     </div>
                   </div>
                 </div>
-                <!--/ Expense Overview -->
+                <!--/ In Transition Boxes -->
 
-                <!-- Transactions -->
+                <!-- Delivered Boxes -->
                 <div class="col-md-6 col-lg-4 order-2 mb-4">
                   <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="card-title m-0 me-2">Delivered</h5>
+                      <h5 class="card-title m-0 me-2">Delivered Boxes</h5>
                     </div>
                     <div class="card-body">
                       <ul class="p-0 m-0">
@@ -462,13 +439,14 @@
                     </div>
                   </div>
                 </div>
-                <!--/ Transactions -->
-              </div>    
+                <!--/ Delivered Boxes -->
+              </div> 
+              <!--/ Boxes Details ends Here Shiva -->   
 
-            <!-- Striped Rows -->
+            <!-- This Month Delivery Agent Report Starts Here Shiva -->
             <hr class="my-5" />
-            <div class="card">
-                <h5 class="card-header">Monthly Data Analysis</h5>
+            <div class="card">  
+                <h5 class="card-header">This Month Delivery Agent Report</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-striped">
                     <thead>
@@ -494,40 +472,42 @@
                 </div>
             </div>
             <hr class="my-5" />
-              <!--/ Striped Rows -->
+              <!--/ This Month Delivery Agent Report Ends Here Shiva -->
+
+              <!-- Monthly Report Starts Here Shiva -->
 
               <div class="row">
-                
-                
-                <!-- Total Revenue -->
+                <!-- Day to Day Delivery Analysis -->
                 <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
-                <div class="card">
-                <h5 class="card-header">Deliverary Agent Analysis</h5>
-                <div class="card-body">
-                  <div class="table-responsive text-nowrap">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Agent Name</th>
-                          <th>Not Picked Up </th>
-                          <th>In Transition</th>
-                          <th>Delivered</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                          <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                          <td><span class="badge bg-label-primary me-1">Active</span></td>
-                          <td><span class="badge bg-label-success me-1">Scheduled</span></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <div class="card">
+                  <h5 class="card-header">Day to Day Delivery Analysis</h5>
+                  <div class="card-body">
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Not Picked Up </th>
+                            <th>In Transition</th>
+                            <th>Delivered</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>15-Aug-1947</strong></td>
+                            <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                            <td><span class="badge bg-label-primary me-1">Active</span></td>
+                            <td><span class="badge bg-label-success me-1">Scheduled</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                   </div>
                 </div>
-                </div>
-                </div>
-                <!--/ Total Revenue -->
+                <!--/ Day to Day Delivery Analysis -->
+
+                <!-- Student Wise Deliverary Analysis -->
                 <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
                   <div class="row">
                     <div class="col-12 mb-4">
@@ -555,35 +535,40 @@
                     </div>
                   </div>
                 </div>
+                <!--/ Student Wise Deliverary Analysis -->
 
+                <!-- Subscribed Parents -->
                 <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
-                <div class="card">
-                <h5 class="card-header">Student Deliverary Analysis</h5>
-                <div class="card-body">
-                  <div class="table-responsive text-nowrap">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Agent Name</th>
-                          <th>Not Picked Up </th>
-                          <th>In Transition</th>
-                          <th>Delivered</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                          <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                          <td><span class="badge bg-label-primary me-1">Active</span></td>
-                          <td><span class="badge bg-label-success me-1">Scheduled</span></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <div class="card">
+                  <h5 class="card-header">Student Wise Deliverary Analysis</h5>
+                  <div class="card-body">
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Student Name</th>
+                            <th>Not Picked Up </th> 
+                            <th>In Transition</th>
+                            <th>Delivered</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
+                            <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                            <td><span class="badge bg-label-primary me-1">Active</span></td>
+                            <td><span class="badge bg-label-success me-1">Scheduled</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                   </div>
                 </div>
-                </div>
-                </div>
+                <!--/ Subscribed Parents -->
+                
             </div>
+            <!--/ Monthly Report Ends Here Shiva -->
               
             </div>
             <!-- / Content -->

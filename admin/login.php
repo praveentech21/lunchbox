@@ -124,7 +124,7 @@ if(isset($_POST['submit'])){
 
               <p class="text-center">
                 <span>Sig in as Super Admin</span>
-                <a href="auth-register-basic.html">
+                <a href="suplogin.php">
                   <span>Super Admin Sign</span>
                 </a>
               </p>
@@ -137,14 +137,6 @@ if(isset($_POST['submit'])){
 
     <!-- / Content -->
 
-    <div class="buy-now">
-      <a
-        href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
-        target="_blank"
-        class="btn btn-danger btn-buy-now"
-        >Upgrade to Pro</a
-      >
-    </div>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

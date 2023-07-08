@@ -93,7 +93,7 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="update_parent_details" class="menu-link">
+                  <a href="update_parent_details.php" class="menu-link">
                     <div data-i18n="Notifications">Update Parent Details</div>
                   </a>
                 </li>
@@ -189,8 +189,7 @@
 
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
+            id="layout-navbar">
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
@@ -259,7 +258,7 @@
                         <th>Name</th>
                         <th>Mobile</th>
                         <th>Email</th>
-                        <th>SUbscribed On</th>
+                        <th>No. of Childs</th>
                         <th>View Profile</th>
                       </tr>
                     </thead>
@@ -268,7 +267,7 @@
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
                         <td>Albert Cook</td>
                         <td>Email</td>
-                        <td>@Subscribed On</td>
+                        <td>2 childs</td>
                         <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
                       </tr>
                     </tbody>

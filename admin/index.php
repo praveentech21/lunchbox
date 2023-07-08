@@ -189,8 +189,7 @@
 
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
+            id="layout-navbar" >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
@@ -310,9 +309,9 @@
                               </div>
                             </div> -->
                           </div>
-                          <span class="d-block mb-1">Payments</span>
-                          <h3 class="card-title text-nowrap mb-2">$2,456</h3>
-                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
+                          <span class="d-block mb-1">Not Picked Up</span>
+                          <h3 class="card-title text-nowrap mb-2">n boxes</h3>
+                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> n %</small>
                         </div>
                       </div>
                     </div>
@@ -340,9 +339,9 @@
                               </div>
                             </div> -->
                           </div>
-                          <span class="fw-semibold d-block mb-1">Transactions</span>
-                          <h3 class="card-title mb-2">$14,857</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
+                          <span class="fw-semibold d-block mb-1">In Transition</span>
+                          <h3 class="card-title mb-2">n Boxes</h3>
+                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> n %</small>
                         </div>
                       </div>
                     </div>
@@ -351,13 +350,15 @@
                         <div class="card-body">
                           <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
                             <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <img src="BHavani/img/icons/unicons/cc-success.png" alt="Credit Card" class="rounded" />
+                            </div>
                               <div class="card-title">
-                                <h5 class="text-nowrap mb-2">Profile Report</h5>
-                                <span class="badge bg-label-warning rounded-pill">Year 2021</span>
+                                <h5 class="text-nowrap mb-2">Delivered Boxes</h5>
                               </div>
                               <div class="mt-sm-auto">
-                                <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> 68.2%</small>
-                                <h3 class="mb-0">$84,686k</h3>
+                                <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> n %</small>
+                                <h3 class="mb-0">n Boxes</h3>
                               </div>
                             </div>
                             <div id="profileReportChart"></div>
@@ -384,8 +385,8 @@
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <small class="text-muted d-block mb-1">Paypal</small>
-                              <h6 class="mb-0">Send money</h6>
+                              <small class="text-muted d-block mb-1">Student</small>
+                              <h6 class="mb-0">Parent</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
                               <a href="tel:"><button type="button" class="btn btn-info">Call</button></a>
@@ -412,8 +413,8 @@
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <small class="text-muted d-block mb-1">Mastercard</small>
-                              <h6 class="mb-0">Ordered Food</h6>
+                              <small class="text-muted d-block mb-1">Student</small>
+                              <h6 class="mb-0">Parent</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
                               <a href="tel:"><button type="button" class="btn btn-info">call</button></a>
@@ -440,8 +441,8 @@
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <small class="text-muted d-block mb-1">Credit Card</small>
-                              <h6 class="mb-0">Ordered Food</h6>
+                              <small class="text-muted d-block mb-1">Student</small>
+                              <h6 class="mb-0">Parent</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
                                 <a href="tel:"><button type="button" class="btn btn-info">call</button></a>

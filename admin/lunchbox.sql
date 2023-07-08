@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2023 at 10:54 PM
+-- Generation Time: Jul 08, 2023 at 09:21 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -66,7 +66,7 @@ CREATE TABLE `parent` (
   `pid` varchar(15) NOT NULL,
   `pass` varchar(10) NOT NULL,
   `pname` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
   `altphone` varchar(15) DEFAULT NULL,
   `address` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -144,9 +144,9 @@ CREATE TABLE `subscriptions` (
 --
 
 INSERT INTO `subscriptions` (`pid`, `stdid`, `delivery_partner`) VALUES
-('9052727402', '5', 0),
-('9052727402', '6', 0),
-('9052727402', '7', 0);
+('9052727402', '5', 2),
+('9052727402', '6', 2),
+('9052727402', '7', 2);
 
 -- --------------------------------------------------------
 
@@ -171,9 +171,10 @@ INSERT INTO `team` (`eid`, `name`, `mobile`, `pass`, `type`, `address`) VALUES
 (1, 'Suresh', '9866600002', '123', 'F', NULL),
 (2, 'Balu', '9010872333', '123', 'P', NULL),
 (3, 'Jagadish', '9581981888', '123', 'F', NULL),
-(4, 'Nani', '9010872333', '123', 'P', NULL),
+(4, 'Nani', '9010972333', '123', 'P', NULL),
 (5, 'Chaitanya', '8143234177', '123', 'P', NULL),
-(6, 'Madam', '9010872333', '123', 'P', NULL);
+(6, 'Madam', '9010772333', '123', 'P', NULL),
+(8, 'Sai Praveen', '9052727402', '123', 'F', NULL);
 
 -- --------------------------------------------------------
 
@@ -185,8 +186,8 @@ CREATE TABLE `trips` (
   `tripid` int(11) NOT NULL,
   `stdid` int(5) DEFAULT NULL,
   `date` date NOT NULL,
-  `pickup_time` timestamp NULL DEFAULT NULL,
-  `drop_time` timestamp NULL DEFAULT NULL,
+  `pickup_time` time DEFAULT NULL,
+  `drop_time` time DEFAULT NULL,
   `delivery_by` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -253,6 +254,12 @@ ALTER TABLE `trips`
 --
 ALTER TABLE `student`
   MODIFY `stdid` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `team`
+--
+ALTER TABLE `team`
+  MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `trips`

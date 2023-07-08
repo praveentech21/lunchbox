@@ -251,44 +251,44 @@
             <div class="container-xxl flex-grow-1 container-p-y">
             <div class="row">
 
-<div class="col-md-6">
-    <div class="card mb-4">
-      <h5 class="card-header">Select Parent</h5>
-      <div class="card-body">
-        <div>
-          <label for="defaultFormControlInput" class="form-label">Parent Mobile Number</label>
-          <input
-            type="text"
-            class="form-control"
-            id="defaultFormControlInput"
-            placeholder="John Doe"
-            aria-describedby="defaultFormControlHelp"
-          />
-        </div>
-        <div class="mt-3">
-          <button type="button" class="btn btn-primary">Get Details</button>
-        </div>
-      </div>
-    </div>
-  </div>
+              <div class="col-md-6">
+                  <div class="card mb-4">
+                    <h5 class="card-header">Select Parent</h5>
+                    <div class="card-body">
+                      <div>
+                        <label for="defaultFormControlInput" class="form-label">Parent Mobile Number</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="defaultFormControlInput"
+                          placeholder="John Doe"
+                          aria-describedby="defaultFormControlHelp"
+                        />
+                      </div>
+                      <div class="mt-3">
+                        <button type="button" class="btn btn-primary">Get Details</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
   
-</div>
-<div class="row">
-<div class="col-md-6">
-    <div class="card mb-4">
-      <h5 class="card-header">Update Student Subscription</h5>
-      <div class="card-body">
-        <div>
-          <label for="defaultFormControlInput" class="form-label">Subscribed Date</label>
-          <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" />
-        </div>
-        <div class="mt-3">
-          <button type="button" class="btn btn-primary">Update</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+              </div>
+              <div class="row">
+              <div class="col-md-6">
+                  <div class="card mb-4">
+                    <h5 class="card-header">Update Student Subscription</h5>
+                    <div class="card-body">
+                      <div>
+                        <label for="defaultFormControlInput" class="form-label">Subscribed Date</label>
+                        <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" />
+                      </div>
+                      <div class="mt-3">
+                        <button type="button" class="btn btn-primary">Update</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <!-- / Content -->
 

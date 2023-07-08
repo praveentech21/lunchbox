@@ -377,8 +377,8 @@
                   <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th>Agent Name</th>
-                        <th>Mobile Number</th>
+                        <th>Date</th>
+                        <th>Day</th>
                         <th>Not Picked</th>
                         <th>In Transition</th>
                         <th>Delivared</th>
@@ -386,8 +386,8 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>Albert Cook</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>15-Aug-1947</strong></td>
+                        <td>Monday</td>
                         <td><span class="badge bg-label-warning me-1">Pending</span></td>
                         <td><span class="badge bg-label-primary me-1">Active</span></td>
                         <td><span class="badge bg-label-success me-1">Completed</span></td>
@@ -401,13 +401,13 @@
               <!-- Hoverable Table rows -->
               <h3 class="mb-0">Students to Delivery Agents</h3><br>
               <div class="card">
-                <h5 class="card-header">Monthly Data Analysis</h5>
+                <h5 class="card-header">Delivery Agent</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th>Date</th>
-                        <th>Day</th>
+                        <th>Student Name</th>
+                        <th>Parent Name</th>
                         <th>Not Picked</th>
                         <th>In Transition</th>
                         <th>Delivared</th>
@@ -427,13 +427,13 @@
                 </div>
               </div><br>
               <div class="card">
-                <h5 class="card-header">Monthly Data Analysis</h5>
+                <h5 class="card-header">Delivery Agent</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th>Date</th>
-                        <th>Day</th>
+                        <th>Student Name</th>
+                        <th>Parent Name</th>
                         <th>Not Picked</th>
                         <th>In Transition</th>
                         <th>Delivared</th>

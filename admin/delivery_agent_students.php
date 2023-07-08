@@ -81,7 +81,7 @@ $run2 = mysqli_query($con,"select * from subscriptions where delivery_partner='$
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item active">
+            <li class="menu-item ">
               <a href="delivary.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -93,7 +93,7 @@ $run2 = mysqli_query($con,"select * from subscriptions where delivery_partner='$
                 <div data-i18n="Analytics">Profile</div>
               </a>
             </li>
-            <li class="menu-item ">
+            <li class="menu-item active">
               <a href="delivery_agent_students.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bxl-baidu "></i>
                 <div data-i18n="Analytics">Students</div>
@@ -175,72 +175,92 @@ $run2 = mysqli_query($con,"select * from subscriptions where delivery_partner='$
           <div class="content-wrapper">
             <!-- Content -->     
             <div class="container-xxl flex-grow-1 container-p-y">
+                <!-- Horizontal -->
+              <h5 class="pb-1 mb-4">Horizontal</h5>
               <div class="row mb-5">
-              <div class="col-md-6 col-lg-4">
-                <h4 class="mt-2 text-muted">Your Lunch Boxes</h4>
-                <?php
-                  if(mysqli_num_rows($run2)>0){
-                    while($row = mysqli_fetch_assoc($run2)){
-                      $run3 = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid='{$row['stdid']}'"));
-                      $run4 = mysqli_fetch_assoc(mysqli_query($con,"select * from schools where sid='{$run3['school']}'"));
-                      $date = date("Y-m-d");
-                      $run5 = mysqli_query($con,"select * from delivary where stdid='{$row['stdid']}' and date='$date'");
-                      $run7 = mysqli_fetch_assoc(mysqli_query($con,"select * from parent where pid='{$row['pid']}'"));
-                  ?>
-                <div class="card mb-4">
-                  <div class="card-body">
-                    <h5 class="card-title"><?php echo $run3['sname'] ?></h5>
-                    <div class="card-subtitle text-muted mb-3">
-                    <?php 
-                      if(mysqli_num_rows($run5) == 0){echo "<small style='color: red;' >Not Picked </small>";}
-                      else{
-                        $run6 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where tripid='{$run5['tripid']}'"));
-                        if($run5['status'] == 0)
-                        echo "<small style='color: Yellow;' >In Transtion </small>";
-                        else if($run5['status'] == 1)
-                        echo "<small style='color: Green;' >Delivered </small>";
-                      }
-                    ?>
+                <div class="col-md">
+                  <div class="card mb-3">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img class="card-img card-img-left" src="Bhavani/img/elements/12.jpg" alt="Card image" />
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">
+                            This is a wider card with supporting text below as a natural lead-in to additional content.
+                            This content is a little bit longer.
+                          </p>
+                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                      </div>
                     </div>
-                    <p class="card-text"><?php echo $run4['school_name'] ?></p>
-                    <p class="card-text"><?php echo $run7['pname'] ?></p>
-                    <?php 
-                      if(mysqli_num_rows($run5) != 0){
-                        $run6 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where tripid='{$run5['tripid']}'"));
-                        if($run5['status'] == 0)
-                        echo "<p class='card-text'>picked up @".$run6['pickup_time']." </p>";
-                        else if($run5['status'] == 1)
-                        echo "<p class='card-text'>picked up @".$run6['pickup_time']." </p>";
-                        echo "<p class='card-text'>Droped @".$run6['drop_time']." </p>";
-                      }
-                      ?>
-                    <a href="<?php echo $run7['address'] ?>" class="card-link">Address</a>
-                    <a href="tel:<?php echo $row['pid'] ?>" class="card-link">Call</a>
-                    <a href="#" onclick="change_status(<?php echo ($row['stdid'].','.$eid);?> );" class="card-link">
-                    <?php 
-                      if(mysqli_num_rows($run5) == 0){
-                        echo "<button type='button' class='btn btn-success'>Pick Up</button>";
-                      }
-                      else{
-                        $run6 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where tripid='{$run5['tripid']}'"));
-                        if($run5['status'] == 0)
-                        echo "<button type='button' class='btn btn-danger'>Drop Box</button>";
-                        else if($run5['status'] == 1)
-                        echo "<h3 style='color: green;'>Your Box was Delivered </h3>";
-                      }
-                    ?>
-                    </a>
                   </div>
                 </div>
-                <?php
-                    }
-                  }
-                  else{
-                    echo "<h3 style='color: red;'>No Lunch Boxes Assigned</h3>";
-                  }
-                ?>
+                <div class="col-md">
+                  <div class="card mb-3">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img class="card-img card-img-left" src="Bhavani/img/elements/12.jpg" alt="Card image" />
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">
+                            This is a wider card with supporting text below as a natural lead-in to additional content.
+                            This content is a little bit longer.
+                          </p>
+                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
               </div>
+              <div class="row mb-5">
+                <div class="col-md">
+                  <div class="card mb-3">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img class="card-img card-img-left" src="Bhavani/img/elements/12.jpg" alt="Card image" />
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">
+                            This is a wider card with supporting text below as a natural lead-in to additional content.
+                            This content is a little bit longer.
+                          </p>
+                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md">
+                  <div class="card mb-3">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img class="card-img card-img-left" src="Bhavani/img/elements/12.jpg" alt="Card image" />
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">
+                            This is a wider card with supporting text below as a natural lead-in to additional content.
+                            This content is a little bit longer.
+                          </p>
+                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
               </div>
+              <!--/ Horizontal -->
+
               
               <!-- <span class="badge bg-label-primary me-1">Active</span>
               <span class="badge bg-label-success me-1">Completed</span>

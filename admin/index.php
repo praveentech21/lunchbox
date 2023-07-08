@@ -1,3 +1,12 @@
+<?php
+  session_start();
+  if(empty($_SESSION['supid'])) header("location: login.php");
+  include("connect.php");
+  $run1 = mysqli_query($con,"SELECT * FROM `parent`");
+
+
+
+?>
 <!DOCTYPE html>
 <html
   lang="en"

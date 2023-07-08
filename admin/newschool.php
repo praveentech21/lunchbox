@@ -14,7 +14,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>New School</title>
 
     <meta name="description" content="" />
 
@@ -172,7 +172,7 @@
             <!-- Misc -->
             <!-- <li class="menu-header small text-uppercase"> -->
               <!-- <span class="menu-header-text">Schools</span></li> -->
-              <li class="menu-item ">
+              <li class="menu-item active">
                 <a href="newschool.php" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                   <div data-i18n="Analytics">New School</div>

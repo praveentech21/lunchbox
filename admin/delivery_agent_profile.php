@@ -25,7 +25,7 @@ $run2 = mysqli_query($con,"select * from subscriptions where delivery_partner='$
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Delivery Agent Profile</title>
 
     <meta name="description" content="" />
 
@@ -142,7 +142,7 @@ $run2 = mysqli_query($con,"select * from subscriptions where delivery_partner='$
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="delivery_agent_profile.php">
+                      <a class="dropdown-item active" href="delivery_agent_profile.php">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>

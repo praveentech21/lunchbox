@@ -14,7 +14,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Delivery Agent Report</title>
 
     <meta name="description" content="" />
 
@@ -156,7 +156,7 @@
                     <div data-i18n="Basic Inputs">New Delivary Agent</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="delivary_agent_report.php" class="menu-link">
                     <div data-i18n="Basic Inputs">Delivary Agent Report</div>
                   </a>
@@ -249,211 +249,189 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
               <div class="row">
-              <div class="row">
+                <div class="row">
                 
                 
-                <!-- Total Revenue -->
-                <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+                  <!-- Total Revenue -->
+                  <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+                  <div class="card">
+                  <h5 class="card-header">Monthly Delivary Agent Report</h5>
+                  <div class="card-body">
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Agent Name</th>
+                            <th>Mobile</th>
+                            <th>Not Picked Up </th>
+                            <th>In Transition</th>
+                            <th>Delivered</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
+                            <td>Albert Cook</td>
+                            <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                            <td><span class="badge bg-label-primary me-1">Active</span></td>
+                            <td><span class="badge bg-label-success me-1">Scheduled</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
+                  <!--/ Total Revenue -->
+
+                  <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
+                    <div class="row">
+                        <div class="col-6 mb-4">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="card-title d-flex align-items-start justify-content-between">
+                              <div class="avatar flex-shrink-0">
+                                <img src="BHavani/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                              </div>
+                              <!-- <div class="dropdown">
+                                <button
+                                  class="btn p-0"
+                                  type="button"
+                                  id="cardOpt4"
+                                  data-bs-toggle="dropdown"
+                                  aria-haspopup="true"
+                                  aria-expanded="false"
+                                >
+                                  <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
+                                  <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                  <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                </div>
+                              </div> -->
+                            </div>
+                            <span class="d-block mb-1">Not Picked Up</span>
+                            <h3 class="card-title text-nowrap mb-2">n boxes</h3>
+                            <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> n %</small>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="col-6 mb-4">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="card-title d-flex align-items-start justify-content-between">
+                              <div class="avatar flex-shrink-0">
+                                <img src="BHavani/img/icons/unicons/cc-warning.png" alt="Credit Card" class="rounded" />
+                              </div>
+                              <!-- <div class="dropdown">
+                                <button
+                                  class="btn p-0"
+                                  type="button"
+                                  id="cardOpt1"
+                                  data-bs-toggle="dropdown"
+                                  aria-haspopup="true"
+                                  aria-expanded="false"
+                                >
+                                  <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="cardOpt1">
+                                  <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                  <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                </div>
+                              </div> -->
+                            </div>
+                            <span class="fw-semibold d-block mb-1">In Transition</span>
+                            <h3 class="card-title mb-2">n Boxes</h3>
+                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> n %</small>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="col-12 mb-4">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+                              <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                              <div class="avatar flex-shrink-0">
+                                <img src="BHavani/img/icons/unicons/cc-success.png" alt="Credit Card" class="rounded" />
+                              </div>
+                                <div class="card-title">
+                                  <h5 class="text-nowrap mb-2">Delivered Boxes</h5>
+                                </div>
+                                <div class="mt-sm-auto">
+                                  <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> n %</small>
+                                  <h3 class="mb-0">n Boxes</h3>
+                                </div>
+                              </div>
+                              <div id="profileReportChart"></div>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+                <hr class="my-5" />
+
+                <h3 class="mb-0">Delivery Agent Name</h3><br>
+
                 <div class="card">
-                <h5 class="card-header">Monthly Delivary Agent Report</h5>
-                <div class="card-body">
+                  <h5 class="card-header">Day to Day Delivery Report </h5>
                   <div class="table-responsive text-nowrap">
-                    <table class="table table-bordered">
+                    <table class="table table-striped">
                       <thead>
                         <tr>
-                          <th>Agent Name</th>
-                          <th>Mobile</th>
-                          <th>Not Picked Up </th>
+                          <th>Date </th>
+                          <th>Day</th>
+                          <th>Not Picked</th>
                           <th>In Transition</th>
-                          <th>Delivered</th>
+                          <th>Delivared</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody class="table-border-bottom-0">
                         <tr>
                           <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
                           <td>Albert Cook</td>
                           <td><span class="badge bg-label-warning me-1">Pending</span></td>
                           <td><span class="badge bg-label-primary me-1">Active</span></td>
-                          <td><span class="badge bg-label-success me-1">Scheduled</span></td>
+                          <td><span class="badge bg-label-success me-1">Completed</span></td>
                         </tr>
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div> <br>
+
+                <div class="card">
+                  <h5 class="card-header">Student Wise Report</h5>
+                  <div class="table-responsive text-nowrap">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Student Name</th>
+                          <th>Parent Name</th>
+                          <th>Not Picked</th>
+                          <th>In Transition</th>
+                          <th>Delivared</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-border-bottom-0">
+                        <tr>
+                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
+                          <td>Albert Cook</td>
+                          <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                          <td><span class="badge bg-label-primary me-1">Active</span></td>
+                          <td><span class="badge bg-label-success me-1">Completed</span></td>
+                        </tr>
+                        
                       </tbody>
                     </table>
                   </div>
                 </div>
-                </div>
-                </div>
-                <!--/ Total Revenue -->
-                <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
-                  <div class="row">
-                    <div class="col-6 mb-4">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="card-title d-flex align-items-start justify-content-between">
-                            <div class="avatar flex-shrink-0">
-                              <img src="BHavani/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
-                            </div>
-                            <!-- <div class="dropdown">
-                              <button
-                                class="btn p-0"
-                                type="button"
-                                id="cardOpt4"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                              >
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                              </div>
-                            </div> -->
-                          </div>
-                          <span class="d-block mb-1">Not Picked Up</span>
-                          <h3 class="card-title text-nowrap mb-2">n boxes</h3>
-                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> n %</small>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6 mb-4">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="card-title d-flex align-items-start justify-content-between">
-                            <div class="avatar flex-shrink-0">
-                              <img src="BHavani/img/icons/unicons/cc-warning.png" alt="Credit Card" class="rounded" />
-                            </div>
-                            <!-- <div class="dropdown">
-                              <button
-                                class="btn p-0"
-                                type="button"
-                                id="cardOpt1"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                              >
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                              <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                              </div>
-                            </div> -->
-                          </div>
-                          <span class="fw-semibold d-block mb-1">In Transition</span>
-                          <h3 class="card-title mb-2">n Boxes</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> n %</small>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-12 mb-4">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
-                            <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
-                            <div class="avatar flex-shrink-0">
-                              <img src="BHavani/img/icons/unicons/cc-success.png" alt="Credit Card" class="rounded" />
-                            </div>
-                              <div class="card-title">
-                                <h5 class="text-nowrap mb-2">Delivered Boxes</h5>
-                              </div>
-                              <div class="mt-sm-auto">
-                                <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> n %</small>
-                                <h3 class="mb-0">n Boxes</h3>
-                              </div>
-                            </div>
-                            <div id="profileReportChart"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </div>
-              <hr class="my-5" />
-            <div class="card">
-                <h5 class="card-header">Monthly Data Analysis</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Date</th>
-                        <th>Day</th>
-                        <th>Not Picked</th>
-                        <th>In Transition</th>
-                        <th>Delivared</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>15-Aug-1947</strong></td>
-                        <td>Monday</td>
-                        <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                        <td><span class="badge bg-label-primary me-1">Active</span></td>
-                        <td><span class="badge bg-label-success me-1">Completed</span></td>
-                      </tr>
-                      
-                    </tbody>
-                  </table>
-                </div>
-            </div>
-              <hr class="my-5" />
-              <!-- Hoverable Table rows -->
-              <h3 class="mb-0">Students to Delivery Agents</h3><br>
-              <div class="card">
-                <h5 class="card-header">Delivery Agent</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Student Name</th>
-                        <th>Parent Name</th>
-                        <th>Not Picked</th>
-                        <th>In Transition</th>
-                        <th>Delivared</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>Albert Cook</td>
-                        <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                        <td><span class="badge bg-label-primary me-1">Active</span></td>
-                        <td><span class="badge bg-label-success me-1">Completed</span></td>
-                      </tr>
-                      
-                    </tbody>
-                  </table>
-                </div>
-              </div><br>
-              <div class="card">
-                <h5 class="card-header">Delivery Agent</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Student Name</th>
-                        <th>Parent Name</th>
-                        <th>Not Picked</th>
-                        <th>In Transition</th>
-                        <th>Delivared</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>Albert Cook</td>
-                        <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                        <td><span class="badge bg-label-primary me-1">Active</span></td>
-                        <td><span class="badge bg-label-success me-1">Completed</span></td>
-                      </tr>
-                      
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+                
 
-              <!--/ Hoverable Table rows -->
 
             </div>
             <!-- / Content -->

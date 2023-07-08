@@ -14,7 +14,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Update Parent Registration Details</title>
 
     <meta name="description" content="" />
 
@@ -87,12 +87,12 @@
                 <div data-i18n="Account Settings">Parents</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
+                <li class="menu-item ">
                   <a href="parent_registration_details.php" class="menu-link">
                     <div data-i18n="Account">Parent Registrations</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="update_parent_details.php" class="menu-link">
                     <div data-i18n="Notifications">Update Parent Details</div>
                   </a>

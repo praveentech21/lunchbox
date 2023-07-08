@@ -14,7 +14,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>DUpdate Agent Address Link</title>
 
     <meta name="description" content="" />
 
@@ -161,7 +161,7 @@
                     <div data-i18n="Basic Inputs">Delivary Agent Report</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="updating_delivary_agent_link.php" class="menu-link">
                     <div data-i18n="Input groups">Update Agent Link</div>
                   </a>
@@ -271,7 +271,7 @@
                     </div>
                   </div>
                 </div>
-              
+
               </div>
               <div class="row">
               <div class="col-md-6">

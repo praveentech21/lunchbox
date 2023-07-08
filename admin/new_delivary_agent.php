@@ -14,7 +14,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>New Delivary Agent</title>
 
     <meta name="description" content="" />
 
@@ -151,7 +151,7 @@
                     <div data-i18n="Basic Inputs">Delivary Agent Details</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="new_delivary_agent.php" class="menu-link">
                     <div data-i18n="Basic Inputs">New Delivary Agent</div>
                   </a>

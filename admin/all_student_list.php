@@ -251,16 +251,16 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <!-- Hoverable Table rows -->
               <div class="card">
-                <h5 class="card-header">Subscribed Parent Details</h5>
+                <h5 class="card-header">Student Details</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-hover">
                     <thead>
                       <tr>
                         <th>Student Name</th>
                         <th>Parent Name</th>
+                        <th>Parent Mobile</th>
+                        <th>School</th>
                         <th>SUbscribed On</th>
-                        <th>Not Picked Up</th>
-                        <th>Delivered</th>
                         <th>View Profile</th>
                       </tr>
                     </thead>
@@ -268,9 +268,9 @@
                       <tr>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
                         <td>Albert Cook</td>
+                        <td><a href="tel:9052727402">9052727402</a></td>
+                        <td><span class="badge bg-label-success me-1">School</span></td>
                         <td>@Subscribed On</td>
-                        <td><span class="badge bg-label-warning me-1">Not Picked</span></td>
-                        <td><span class="badge bg-label-success me-1">Delivered</span></td>
                         <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
                       </tr>
                     </tbody>

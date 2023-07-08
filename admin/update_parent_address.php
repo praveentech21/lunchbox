@@ -253,10 +253,10 @@
 
               <div class="col-md-6">
                   <div class="card mb-4">
-                    <h5 class="card-header">Update Parent Address Link</h5>
+                    <h5 class="card-header">Select Parent</h5>
                     <div class="card-body">
                       <div>
-                        <label for="defaultFormControlInput" class="form-label">Link</label>
+                        <label for="defaultFormControlInput" class="form-label">Parent Mobile Number</label>
                         <input
                           type="text"
                           class="form-control"
@@ -264,9 +264,6 @@
                           placeholder="John Doe"
                           aria-describedby="defaultFormControlHelp"
                         />
-                        <div id="defaultFormControlHelp" class="form-text">
-                          Set google embede link of location here.
-                        </div>
                       </div>
                       <div class="mt-3">
                         <button type="button" class="btn btn-primary">Update</button>

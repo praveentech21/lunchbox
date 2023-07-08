@@ -189,8 +189,7 @@
 
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
+            id="layout-navbar">
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
@@ -249,130 +248,35 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="row">
-
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="card mb-4">
-                    <h5 class="card-header">Update Parent Address Link</h5>
-                    <div class="card-body">
-                      <div>
-                        <label for="defaultFormControlInput" class="form-label">Link</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="defaultFormControlInput"
-                          placeholder="John Doe"
-                          aria-describedby="defaultFormControlHelp"
-                        />
-                        <div id="defaultFormControlHelp" class="form-text">
-                          Set google embede link of location here.
-                        </div>
-                      </div>
-                      <div class="mt-3">
-                        <button type="button" class="btn btn-primary">Get Details</button>
-                      </div>
-                    </div>
-                  </div>
+              <!-- Hoverable Table rows -->
+              <div class="card">
+                <h5 class="card-header">Subscribed Parent Details</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Student Name</th>
+                        <th>Area</th>
+                        <th>Delivery Agent</th>
+                        <th>Not Picked Up</th>
+                        <th>Delivered</th>
+                        <th>View Profile</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
+                        <td>Albert Cook</td>
+                        <td>Jagadish</td>
+                        <td><span class="badge bg-label-warning me-1">Not Picked</span></td>
+                        <td><span class="badge bg-label-success me-1">Delivered</span></td>
+                        <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-
-              <div class="row">
-
-                <div class="col-xl">
-                  <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                      <h5 class="mb-0">Update Parent Details</h5>
-                    </div>
-                    <div class="card-body">
-                      <form>
-                        <div class="mb-3">
-                          <label class="form-label" for="basic-icon-default-fullname">Parent Name</label>
-                          <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-fullname2" class="input-group-text"
-                              ><i class="bx bx-user"></i
-                            ></span>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="basic-icon-default-fullname"
-                              placeholder="John Doe"
-                              aria-label="John Doe"
-                              aria-describedby="basic-icon-default-fullname2"
-                            />
-                          </div>
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label" for="basic-icon-default-phone">Phone No</label>
-                          <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-phone2" class="input-group-text"
-                              ><i class="bx bx-phone"></i
-                            ></span>
-                            <input
-                              type="text"
-                              id="basic-icon-default-phone"
-                              class="form-control phone-mask"
-                              placeholder="658 799 8941"
-                              aria-label="658 799 8941"
-                              aria-describedby="basic-icon-default-phone2"
-                            />
-                          </div>
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label" for="basic-icon-default-phone">Alternative Phone</label>
-                          <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-phone2" class="input-group-text"
-                              ><i class="bx bx-phone"></i
-                            ></span>
-                            <input
-                              type="text"
-                              id="basic-icon-default-phone"
-                              class="form-control phone-mask"
-                              placeholder="658 799 8941"
-                              aria-label="658 799 8941"
-                              aria-describedby="basic-icon-default-phone2"
-                            />
-                          </div>
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label" for="basic-icon-default-email">Email</label>
-                          <div class="input-group input-group-merge">
-                            <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                            <input
-                              type="text"
-                              id="basic-icon-default-email"
-                              class="form-control"
-                              placeholder="john.doe"
-                              aria-label="john.doe"
-                              aria-describedby="basic-icon-default-email2"
-                            />
-                          </div>
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label" for="basic-icon-default-fullname">Password</label>
-                          <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-fullname2" class="input-group-text"
-                              ><i class="bx bx-lock-open-alt"></i
-                            ></span>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="basic-icon-default-fullname"
-                              placeholder="..........."
-                              aria-label="John Doe"
-                              aria-describedby="basic-icon-default-fullname2"
-                            />
-                          </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send</button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                
-              </div>
-                
-              </div>
+              <!--/ Hoverable Table rows -->
             </div>
             <!-- / Content -->
 

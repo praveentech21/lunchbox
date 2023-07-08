@@ -189,8 +189,7 @@
 
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
+            id="layout-navbar" >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
@@ -249,11 +248,54 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="row">
-
-                <!-- Write Your Code Here Shiva -->
-                
+              <!-- Hoverable Table rows -->
+              <div class="card">
+                <h5 class="card-header">Allocating Delivery Agent to Students</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Student Name</th>
+                        <th>Parent Name</th>
+                        <th>Area</th>
+                        <th>School</th>
+                        <th>Delivary Agent</th>
+                        <th>View Profile</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
+                        <td>Albert Cook</td>
+                        <td>China miram</td>
+                        <td><span class="badge bg-label-success me-1">School</span></td>
+                        <td><div class="btn-group dropup">
+                      <button
+                        class="btn btn-primary btn-sm dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Small button
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="javascript:void(0);">Action</a></li>
+                        <li><a class="dropdown-item" href="javascript:void(0);">Another action</a></li>
+                        <li><a class="dropdown-item" href="javascript:void(0);">Something else here</a></li>
+                        <li>
+                          <hr class="dropdown-divider" />
+                        </li>
+                        <li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
+                      </ul>
+                    </div></td>
+                        <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
               </div>
+              <!--/ Hoverable Table rows -->
             </div>
             <!-- / Content -->
 

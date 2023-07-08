@@ -249,11 +249,68 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="row">
-
-                <!-- Write Your Code Here Shiva -->
-                
+              <!-- Bordered Table -->
+              <div class="card">
+                <h5 class="card-header">Delivary Agent Details</h5>
+                <div class="card-body">
+                  <div class="table-responsive text-nowrap">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Agent Name</th>
+                          <th>Mobile</th>
+                          <th>No of Boxes</th>
+                          <th>Schools</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong>
+                          </td>
+                          <td>Albert Cook</td>
+                          <td><span class="badge bg-label-primary me-1">Active</span></td>
+                          <td>Shiva Bhavani School</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
+              <!--/ Bordered Table -->
+
+              <hr class="my-5" />
+
+              <!-- Hoverable Table rows -->
+              <h3 class="mb-0">Students to Delivery Agents</h3><br>
+              <div class="card">
+                <h5 class="card-header">Delivery Agent Name</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Student Name</th>
+                        <th>Parent Name</th>
+                        <th>Parent Mobile</th>
+                        <th>School</th>
+                        <th>Area</th>
+                        <th>View Profile</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
+                        <td>Albert Cook</td>
+                        <td><a href="tel:9052727402">9052727402</a></td>
+                        <td><span class="badge bg-label-success me-1">School</span></td>
+                        <td>Shiva Bhavani</td>
+                        <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!--/ Hoverable Table rows -->
             </div>
             <!-- / Content -->
 

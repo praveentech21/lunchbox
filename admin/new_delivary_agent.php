@@ -251,7 +251,53 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <div class="row">
 
-                <!-- Write Your Code Here Shiva -->
+              <div class="col-xxl">
+                  <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="mb-0">New Delivery Agent</h5>
+                    </div>
+                    <div class="card-body">
+                      <form>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="basic-default-name" placeholder="Shiva Bhavani" />
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">Phone No</label>
+                          <div class="col-sm-10">
+                            <input
+                              type="text"
+                              id="basic-default-phone"
+                              class="form-control phone-mask"
+                              placeholder="905 2727 402"
+                              aria-label="905 2727 402"
+                              aria-describedby="basic-default-phone"
+                            />
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-name">Password</label>
+                          <div class="col-sm-10">
+                            <input type="password" class="form-control" id="basic-default-name" placeholder="************" />
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-name">Agent Type</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="basic-default-name" placeholder="Agent Type" />
+                          </div>
+                        </div>
+                        <div class="row justify-content-end">
+                          <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
                 
               </div>
             </div>

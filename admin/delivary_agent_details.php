@@ -310,6 +310,35 @@
                   </table>
                 </div>
               </div>
+              <br>
+              <div class="card">
+                <h5 class="card-header">Delivery Agent Name</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Student Name</th>
+                        <th>Parent Name</th>
+                        <th>Parent Mobile</th>
+                        <th>School</th>
+                        <th>Area</th>
+                        <th>View Profile</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
+                        <td>Albert Cook</td>
+                        <td><a href="tel:9052727402">9052727402</a></td>
+                        <td><span class="badge bg-label-success me-1">School</span></td>
+                        <td>Shiva Bhavani</td>
+                        <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br>
               <!--/ Hoverable Table rows -->
             </div>
             <!-- / Content -->

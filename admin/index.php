@@ -464,8 +464,8 @@
                   <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th>Date</th>
-                        <th>Day</th>
+                        <th>Agent Name</th>
+                        <th>Mobile Number</th>
                         <th>Not Picked</th>
                         <th>In Transition</th>
                         <th>Delivared</th>

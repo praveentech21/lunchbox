@@ -1,9 +1,10 @@
 <?php
   session_start();
+  // Calculation for this Month
   if(empty($_SESSION['supid'])) header("location: login.php");
   include("connect.php");
   $subscriptions = mysqli_query($con,"select *,count(*) from subscriptions");
-  $team = mysqli_query($con,"select * from team ");
+  $team = mysqli_query($con,"select * from team");
   $date = date("Y-m-d");
   $total_scbscriptions = mysqli_fetch_assoc($subscriptions)['count(*)'];
   $total_not_pickes = 0;
@@ -11,6 +12,14 @@
   $total_Delivered = 0;
   $not_picked_students = mysqli_query($con,"select * from subscriptions where stdid not in (select stdid from delivary where date='$date')");
   $picked_students = mysqli_query($con,"select * from delivary where date='$date'");
+
+  // Calculation for this Month agent Report
+  $this_month = date("m");
+  $this_year = date("Y");
+  $this_month_working_days = mysqli_num_rows(mysqli_query($con,"SELECT count(*) FROM `delivary` WHERE month(date) = $this_month and year(date) = $this_year GROUP BY date; "));
+
+  // Calculation for day to day analysis
+
 ?>
 <!DOCTYPE html>
 <html
@@ -504,14 +513,25 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
+                      <?php
+                        $delivery_team = mysqli_query($con,"select * from team");
+                        while($row1 = mysqli_fetch_assoc($delivery_team)){
+                          $run1 = mysqli_query($con,"select count(*) from trips where delivery_by='{$row1['eid']}' and month(date)='$this_month' and year(date)='$this_year'");
+                          $total_scbscriptions_of_agent = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from subscriptions where delivery_partner='{$row1['eid']}'"))['count(*)'];
+                          $pickedup = mysqli_fetch_assoc($run1)['count(*)'];
+                          $not_picked =($total_scbscriptions_of_agent * $this_month_working_days) - $pickedup;
+                          $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select *,count(*) from trips where delivery_by='{$row1['eid']}' and month(date)='$this_month' and year(date)='$this_year' and drop_time is null"))['count(*)'];
+                          $Delivered =$pickedup - $In_Transtion;
+                          $delivery_agent = mysqli_fetch_assoc(mysqli_query($con,"select * from team where eid='{$row1['eid']}'"));
+                      ?>
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>Albert Cook</td>
-                        <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                        <td><span class="badge bg-label-primary me-1">Active</span></td>
-                        <td><span class="badge bg-label-success me-1">Completed</span></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $delivery_agent['name'] ?></strong></td>
+                        <td><a href="tel:<?php echo $delivery_agent['mobile'] ?>"></a><?php echo $delivery_agent['mobile'] ?></td>
+                        <td><span class="badge bg-label-warning me-1"><?php echo $not_picked ?> Boxes</span></td>
+                        <td><span class="badge bg-label-primary me-1"><?php echo $In_Transtion ?> Boxes</span></td>
+                        <td><span class="badge bg-label-success me-1"><?php echo $Delivered ?> Boxes</span></td>
                       </tr>
-                      
+                      <?php } ?>
                     </tbody>
                   </table>
                 </div>
@@ -538,12 +558,22 @@
                           </tr>
                         </thead>
                         <tbody>
+                          <?php
+                            $day_to_day = mysqli_query($con,"select *,count(*) from delivary where month(date)='$this_month' and year(date)='$this_year' group by date order by date asc");
+                            while($row = mysqli_fetch_assoc($day_to_day)){
+                              $pickedup = $row['count(*)'];
+                              $not_picked =$total_scbscriptions - $pickedup;
+                              $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from delivary where date = '{$row['date']}' and status = 0"))['count(*)'];
+                              $Delivered =$pickedup - $In_Transtion;
+
+                          ?>
                           <tr>
-                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>15-Aug-1947</strong></td>
-                            <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                            <td><span class="badge bg-label-primary me-1">Active</span></td>
-                            <td><span class="badge bg-label-success me-1">Scheduled</span></td>
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $row['date'] ?></strong></td>
+                            <td><span class="badge bg-label-warning me-1"><?php echo $not_picked ?> Boxes</span></td>
+                            <td><span class="badge bg-label-primary me-1"><?php echo $In_Transtion ?> Boxes</span></td>
+                            <td><span class="badge bg-label-success me-1"><?php echo $Delivered ?> Boxes</span></td>
                           </tr>
+                          <?php } ?>
                         </tbody>
                       </table>
                     </div>
@@ -564,14 +594,20 @@
                       <thead>
                         <tr>
                           <th>Parent Name</th>
-                          <th>Profile</th>
+                          <th>No of Child</th>
                         </tr>
                       </thead>
                       <tbody>
+                        <?php
+                          $subscribed_parents = mysqli_query($con,"select *,count(*) from subscriptions group by pid");
+                          while($row = mysqli_fetch_assoc($subscribed_parents)){
+                            $run1 = mysqli_fetch_assoc(mysqli_query($con,"select * from parent where pid='{$row['pid']}'"));
+                        ?>
                         <tr>
-                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                          <td><span class="badge bg-label-info me-1">Scheduled</span></td>
+                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $run1['pname'] ?></strong></td>
+                          <td><span class="badge bg-label-info me-1"><?php echo $row['count(*)'] ?> Childs</span></td>
                         </tr>
+                        <?php } ?>
                       </tbody>
                     </table>
                   </div>
@@ -598,12 +634,22 @@
                           </tr>
                         </thead>
                         <tbody>
+                          <?php
+                            $student_wise = mysqli_query($con,"select * from student ");
+                            while($row = mysqli_fetch_assoc($student_wise)){
+                              $run1 = mysqli_fetch_assoc(mysqli_query($con,"select status,count(*) from delivary where stdid='{$row['stdid']}'"));
+                              $pickedup = $run1['count(*)'];
+                              $not_picked =$this_month_working_days - $pickedup;
+                              $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from delivary where stdid = '{$row['stdid']}' and status = 0"))['count(*)'];
+                              $Delivered =$pickedup - $In_Transtion;
+                          ?>
                           <tr>
-                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                            <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                            <td><span class="badge bg-label-primary me-1">Active</span></td>
-                            <td><span class="badge bg-label-success me-1">Scheduled</span></td>
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $row['sname'] ?></strong></td>
+                            <td><span class="badge bg-label-warning me-1"><?php echo $not_picked ?> Pending</span></td>
+                            <td><span class="badge bg-label-primary me-1"><?php echo $In_Transtion ?> Active</span></td>
+                            <td><span class="badge bg-label-success me-1"><?php echo $Delivered ?> Scheduled</span></td>
                           </tr>
+                          <?php } ?>
                         </tbody>
                       </table>
                     </div>

@@ -1,3 +1,9 @@
+<?php
+  session_start();
+  // Calculation for this Month
+  if(empty($_SESSION['supid'])) header("location: login.php");
+  include("connect.php");
+  ?>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -263,13 +269,19 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
+                    <?php
+                          $subscribed_parents = mysqli_query($con,"select *,count(*) from subscriptions group by pid");
+                          while($row = mysqli_fetch_assoc($subscribed_parents)){
+                            $run1 = mysqli_fetch_assoc(mysqli_query($con,"select * from parent where pid='{$row['pid']}'"));
+                        ?>
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>Albert Cook</td>
-                        <td>Email</td>
-                        <td>2 childs</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $run1['pname'] ?></strong></td>
+                        <td><?php echo $run1['pid'] ?></td>
+                        <td><?php echo $run1['email'] ?></td>
+                        <td><?php echo $row['count(*)'] ?></td>
                         <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
                       </tr>
+                      <?php } ?>
                     </tbody>
                   </table>
                 </div>

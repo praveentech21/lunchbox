@@ -1,3 +1,32 @@
+<?php
+  session_start();
+  // Calculation for this Month
+  if(empty($_SESSION['supid'])) header("location: login.php");
+  include("connect.php");
+  $run1 = mysqli_query($con,"select * from parent where pid='0'");
+  if(isset($_POST['getdetails'])){
+    $pid=$_POST['pid'];
+    $run1 = mysqli_query($con,"select * from parent where pid='$pid'");
+    if(mysqli_num_rows($run1)==0){
+      echo "<script>alert('No Parent Found')</script>";
+    }  
+  }
+  if(isset($_POST['update'])){
+    $mobile=$_POST['pid'];
+    $pname=$_POST['pname'];
+    $altphone=$_POST['altphone'];
+    $email=$_POST['email'];
+    $pass=$_POST['pass'];
+    $run2 = mysqli_query($con,"update parent set pname='$pname',altphone='$altphone',email='$email',pass='$pass',pid='$mobile' where pid='$pid'");
+    if($run2){
+      echo "<script>alert('Parent Details Updated Successfully')</script>";
+    }
+    else{
+      echo "<script>alert('Parent Details Updation Failed')</script>";
+    }
+  }
+
+  ?>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -189,8 +218,7 @@
 
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
+            id="layout-navbar">
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
@@ -254,25 +282,31 @@
                 <div class="col-md-6">
                   <div class="card mb-4">
                     <h5 class="card-header">Select the Parent</h5>
-                    <div class="card-body">
-                      <div>
-                        <label for="defaultFormControlInput" class="form-label">Parent Mobile Number</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="defaultFormControlInput"
-                          placeholder="9052727402"
-                          aria-describedby="defaultFormControlHelp"
-                        />
+                    <form action="#" method="post">
+                      <div class="card-body">
+                        <div>
+                          <label for="defaultFormControlInput" class="form-label">Parent Mobile Number</label>
+                          <input type="text"
+                            class="form-control"
+                            id="defaultFormControlInput"
+                            placeholder="9052727402"
+                            aria-describedby="defaultFormControlHelp"
+                            name="pid"
+                          />
+                        </div>
+                        <div class="mt-3">
+                          <button type="submit" name="getdetails" class="btn btn-primary">Get Details</button>
+                        </div>
                       </div>
-                      <div class="mt-3">
-                        <button type="button" class="btn btn-primary">Get Details</button>
-                      </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
               </div>
 
+              <?php
+              if(mysqli_num_rows($run1)>0){
+                $run1 = mysqli_fetch_assoc($run1);
+              ?>
               <div class="row">
 
                 <div class="col-xl">
@@ -281,7 +315,7 @@
                       <h5 class="mb-0">Update Parent Details</h5>
                     </div>
                     <div class="card-body">
-                      <form>
+                      <form method="post" action="#">
                         <div class="mb-3">
                           <label class="form-label" for="basic-icon-default-fullname">Parent Name</label>
                           <div class="input-group input-group-merge">
@@ -292,9 +326,10 @@
                               type="text"
                               class="form-control"
                               id="basic-icon-default-fullname"
-                              placeholder="John Doe"
+                              placeholder="<?php echo $run1['pname']; ?>"
                               aria-label="John Doe"
                               aria-describedby="basic-icon-default-fullname2"
+                              name="pname"
                             />
                           </div>
                         </div>
@@ -308,9 +343,10 @@
                               type="text"
                               id="basic-icon-default-phone"
                               class="form-control phone-mask"
-                              placeholder="658 799 8941"
+                              placeholder="<?php echo $run1['pid']; ?>"
                               aria-label="658 799 8941"
                               aria-describedby="basic-icon-default-phone2"
+                              name="pid"
                             />
                           </div>
                         </div>
@@ -324,9 +360,10 @@
                               type="text"
                               id="basic-icon-default-phone"
                               class="form-control phone-mask"
-                              placeholder="658 799 8941"
+                              placeholder="<?php echo $run1['altphone']; ?>"
                               aria-label="658 799 8941"
                               aria-describedby="basic-icon-default-phone2"
+                              name="altphone"
                             />
                           </div>
                         </div>
@@ -338,18 +375,18 @@
                               type="text"
                               id="basic-icon-default-email"
                               class="form-control"
-                              placeholder="john.doe"
+                              placeholder="<?php echo $run1['email']; ?>"
                               aria-label="john.doe"
                               aria-describedby="basic-icon-default-email2"
+                              name="email"
                             />
                           </div>
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="basic-icon-default-fullname">Password</label>
                           <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-fullname2" class="input-group-text"
-                              ><i class="bx bx-lock-open-alt"></i
-                            ></span>
+                            <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-lock-open-alt"></i>
+                          </span>
                             <input
                               type="text"
                               class="form-control"
@@ -357,16 +394,21 @@
                               placeholder="..........."
                               aria-label="John Doe"
                               aria-describedby="basic-icon-default-fullname2"
+                              name="pass"
                             />
                           </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send</button>
+                        <button type="submit" name="update" class="btn btn-primary">Update</button>
                       </form>
                     </div>
                   </div>
                 </div>
                 
               </div>
+              <?php
+              }
+              ?>
+
               
             </div>
             <!-- / Content -->

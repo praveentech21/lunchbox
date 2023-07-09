@@ -582,7 +582,7 @@
                 </div>
                 <!--/ Day to Day Delivery Analysis -->
 
-                <!-- Student Wise Deliverary Analysis -->
+                <!-- Subscribed Parents -->
                 <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
                   <div class="row">
                     <div class="col-12 mb-4">
@@ -616,9 +616,10 @@
                     </div>
                   </div>
                 </div>
-                <!--/ Student Wise Deliverary Analysis -->
+                <!--/ Subscribed Parents -->
 
-                <!-- Subscribed Parents -->
+                
+                <!-- Student Wise Deliverary Analysis -->
                 <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
                   <div class="card">
                   <h5 class="card-header">Student Wise Deliverary Analysis</h5>
@@ -656,7 +657,7 @@
                   </div>
                   </div>
                 </div>
-                <!--/ Subscribed Parents -->
+                <!--/ Student Wise Deliverary Analysis -->
                 
             </div>
             <!--/ Monthly Report Ends Here Shiva -->

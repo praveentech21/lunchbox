@@ -2,10 +2,13 @@
   session_start();
   if(empty($_SESSION['supid'])) header("location: login.php");
   include("connect.php");
-  $run1 = mysqli_query($con,"SELECT * FROM `parent`");
-
-
-
+  $subscriptions = mysqli_query($con,"select *,count(*) from subscriptions");
+  $team = mysqli_query($con,"select * from team ");
+  $date = date("Y-m-d");
+  $total_scbscriptions = mysqli_fetch_assoc($subscriptions)['count(*)'];
+  $total_not_pickes = 0;
+  $total_In_Transtion = 0;
+  $total_Delivered = 0;
 ?>
 <!DOCTYPE html>
 <html
@@ -263,9 +266,9 @@
                 
                 <!-- Today Delivary Agent Report Starts Here Shiva -->
                 <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
-                <div class="card">
-                <h5 class="card-header">Today Delivary Agent Report</h5>
-                <div class="card-body">
+                  <div class="card">
+                  <h5 class="card-header">Today Delivary Agent Report</h5>
+                  <div class="card-body">
                   <div class="table-responsive text-nowrap">
                     <table class="table table-bordered">
                       <thead>
@@ -278,18 +281,35 @@
                         </tr>
                       </thead>
                       <tbody>
+                        <?php
+                          while($row = mysqli_fetch_assoc($team)){
+                            $run1 = mysqli_query($con,"select count(*) from trips where delivery_by='{$row['eid']}' and date='$date'");
+                            $total_scbscriptions_of_agent = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from subscriptions where delivery_partner='{$row['eid']}'"))['count(*)'];
+                            $pickedup = mysqli_fetch_assoc($run1)['count(*)'];
+                            $not_picked =$total_scbscriptions_of_agent - $pickedup;
+                            $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select *,count(*) from trips where delivery_by='{$row['eid']}' and date='$date' and drop_time is null"))['count(*)'];
+                            $Delivered =$pickedup - $In_Transtion;
+                            $total_not_pickes += $not_picked;
+                            $total_In_Transtion += $In_Transtion;
+                            $total_Delivered += $Delivered;
+                        ?>
                         <tr>
-                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                          <td>Albert Cook</td>
-                          <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                          <td><span class="badge bg-label-primary me-1">Active</span></td>
-                          <td><span class="badge bg-label-success me-1">Scheduled</span></td>
+                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $row['name'] ?></strong></td>
+                          <td><a href="tel:<?php echo $row['mobile'] ?>"><?php echo $row['mobile'] ?></a></td>
+                          <td><span class="badge bg-label-warning me-1"><?php echo $not_picked ?> Boxes</span></td>
+                          <td><span class="badge bg-label-primary me-1"><?php echo $In_Transtion ?> Boxes</span></td>
+                          <td><span class="badge bg-label-success me-1"><?php echo $Delivered ?> Boxes</span></td>
                         </tr>
+                        <?php }
+                            $not_picked_percentage = ($total_not_pickes/$total_scbscriptions)*100;
+                            $In_Transtion_percentage = ($total_In_Transtion/$total_scbscriptions)*100;
+                            $Delivered_percentage = ($total_Delivered/$total_scbscriptions)*100;
+                        ?>
                       </tbody>
                     </table>
                   </div>
-                </div>
-                </div>
+                  </div>
+                  </div>
                 </div>
                 <!--/ Today Delivary Agent Report Ends Here Shiva -->
                 <!-- Data Cards Here Shiva -->
@@ -307,8 +327,8 @@
                             </div>
                           </div>
                           <span class="d-block mb-1">Not Picked Up</span>
-                          <h3 class="card-title text-nowrap mb-2">n boxes</h3>
-                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> n %</small>
+                          <h3 class="card-title text-nowrap mb-2"><?php echo $total_not_pickes; ?> Boxes</h3>
+                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> <?php echo $not_picked_percentage ?> %</small>
                         </div>
                       </div>
                     </div>
@@ -324,8 +344,8 @@
                             </div>
                           </div>
                           <span class="fw-semibold d-block mb-1">In Transition</span>
-                          <h3 class="card-title mb-2">n Boxes</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> n %</small>
+                          <h3 class="card-title mb-2"><?php echo $total_In_Transtion; ?> Boxes</h3>
+                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> <?php echo $In_Transtion_percentage; ?> %</small>
                         </div>
                       </div>
                     </div>
@@ -341,8 +361,8 @@
                                 <h5 class="text-nowrap mb-2">Delivered Boxes</h5>
                               </div>
                               <div class="mt-sm-auto">
-                                <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> n %</small>
-                                <h3 class="mb-0">n Boxes</h3>
+                                <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> <?php echo $Delivered_percentage; ?> %</small>
+                                <h3 class="mb-0"><?php echo $total_Delivered; ?> Boxes</h3>
                               </div>
                             </div>
                             <div id="profileReportChart"></div>
@@ -360,9 +380,10 @@
                 <!-- Not Picked Boxes -->
                 <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
                 <div class="card h-100">
-                <div class="card-header d-flex align-items-center justify-content-between">
+                    <div div class="card-header d-flex align-items-center justify-content-between">
                       <h5 class="card-title m-0 me-2">Not Picked Boxes</h5>
                     </div>
+                    
                     <div class="card-body">
                       <ul class="p-0 m-0">
                         <li class="d-flex mb-4 pb-1">

@@ -1,4 +1,16 @@
-<!DOCTYPE html>
+
+<?php
+  session_start();
+  // Calculation for this Month
+  if(empty($_SESSION['supid'])) header("location: login.php");
+  include("connect.php");
+  // Calculation for this Month agent Report
+  $this_month = date("m");
+  $this_year = date("Y");
+  $this_month_working_days = mysqli_num_rows(mysqli_query($con,"SELECT count(*) FROM `delivary` WHERE month(date) = $this_month and year(date) = $this_year GROUP BY date; "));
+
+?>
+  <!DOCTYPE html>
 <html
   lang="en"
   class="light-style layout-menu-fixed"
@@ -259,19 +271,34 @@
                         <th>Area</th>
                         <th>Delivery Agent</th>
                         <th>Not Picked Up</th>
+                        <th>In Transtion</th>
                         <th>Delivered</th>
                         <th>View Profile</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
+                    <?php
+                      $student_wise = mysqli_query($con,"select * from student");
+                      while($row = mysqli_fetch_assoc($student_wise)){
+                        $run1 = mysqli_fetch_assoc(mysqli_query($con,"select status,count(*) from delivary where stdid='{$row['stdid']}'"));
+                        $pickedup = $run1['count(*)'];  
+                        $not_picked =$this_month_working_days - $pickedup;
+                        $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from delivary where stdid = '{$row['stdid']}' and status = 0"))['count(*)'];
+                        $Delivered =$pickedup - $In_Transtion;
+                        $subscription = mysqli_fetch_assoc(mysqli_query($con,"select * from subscriptions where stdid = '{$row['stdid']}'"));
+                        $delivery_agent = mysqli_fetch_assoc(mysqli_query($con,"select name from team where eid = '{$subscription['delivery_partner']}'"));
+                        $address = mysqli_fetch_assoc(mysqli_query($con,"select area from address where pid = '{$subscription['pid']}'"));
+                    ?>
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>Albert Cook</td>
-                        <td>Jagadish</td>
-                        <td><span class="badge bg-label-warning me-1">Not Picked</span></td>
-                        <td><span class="badge bg-label-success me-1">Delivered</span></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $row['sname'] ?></strong></td>
+                        <td><?php echo $address['area'] ?></td>
+                        <td><?php echo $delivery_agent['name'] ?></td>
+                        <td><span class="badge bg-label-warning me-1"><?php echo $not_picked ?> Pending</span></td>
+                        <td><span class="badge bg-label-primary me-1"><?php echo $In_Transtion ?> Active</span></td>
+                        <td><span class="badge bg-label-success me-1"><?php echo $Delivered ?> Scheduled</span></td>
                         <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
                       </tr>
+                      <?php } ?>
                     </tbody>
                   </table>
                 </div>

@@ -4,6 +4,7 @@
   if(empty($_SESSION['supid'])) header("location: login.php");
   include("connect.php");
   $run1 = mysqli_query($con,"select * from parent where pid='0'");
+  $pid=0;
   if(isset($_POST['getdetails'])){
     $pid=$_POST['pid'];
     $run1 = mysqli_query($con,"select * from parent where pid='$pid'");
@@ -17,7 +18,8 @@
     $altphone=$_POST['altphone'];
     $email=$_POST['email'];
     $pass=$_POST['pass'];
-    $run2 = mysqli_query($con,"update parent set pname='$pname',altphone='$altphone',email='$email',pass='$pass',pid='$mobile' where pid='$pid'");
+    echo $mobile.$pname.$altphone.$email.$pass.$pid;
+    $run2 = mysqli_query($con,"update parent set pid='11654',pname='jkbbh',altphone='53',email='email',pass='pass' where pid='9052727402'");
     if($run2){
       echo "<script>alert('Parent Details Updated Successfully')</script>";
     }
@@ -289,7 +291,7 @@
                           <input type="text"
                             class="form-control"
                             id="defaultFormControlInput"
-                            placeholder="9052727402"
+                            placeholder="905 2727 402"
                             aria-describedby="defaultFormControlHelp"
                             name="pid"
                           />

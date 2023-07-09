@@ -1,3 +1,11 @@
+<?php
+  session_start();
+  // Calculation for this Month
+  if(empty($_SESSION['supid'])) header("location: login.php");
+  include("connect.php");
+  $students = mysqli_query($con,"select * from student ");
+
+?>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -189,8 +197,7 @@
 
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
+            id="layout-navbar" >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
@@ -265,14 +272,23 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
+                      <?php
+                        while($row = mysqli_fetch_assoc($students)){
+                          $pid = mysqli_fetch_assoc(mysqli_query($con,"select pid from subscriptions where stdid = {$row['stdid']}"));
+                          $parent = mysqli_fetch_assoc(mysqli_query($con,"select pname from parent where pid='{$pid['pid']}'"));
+                          $school = mysqli_fetch_assoc(mysqli_query($con,"select school_name from schools where sid='{$row['school']}'"));
+                          $date = date_create($row['subscription_date']);
+                          $date = date_format($date,"d-m-Y");
+                      ?>  
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>Albert Cook</td>
-                        <td><a href="tel:9052727402">9052727402</a></td>
-                        <td><span class="badge bg-label-success me-1">School</span></td>
-                        <td>@Subscribed On</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $row['sname'] ?></strong></td>
+                        <td><?php echo $parent['pname'] ?></td>
+                        <td><a href="tel:<?php echo $pid['pid'] ?>"><?php echo $pid['pid'] ?></a></td>
+                        <td><span class="badge bg-label-success me-1"><?php echo $school['school_name'] ?></span></td>
+                        <td>Subscribed On : <?php echo $date ?></td>
                         <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
                       </tr>
+                      <?php } ?>
                     </tbody>
                   </table>
                 </div>

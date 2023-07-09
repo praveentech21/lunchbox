@@ -1,3 +1,31 @@
+<?php
+  session_start();
+  // Calculation for this Month
+  if(empty($_SESSION['supid'])) header("location: login.php");
+  include("connect.php");
+  $run1 = mysqli_query($con,"select * from parent where pid='0'");
+  $pid=0;
+  if(isset($_POST['getdetails'])){
+    global $pid;
+    $pid=$_POST['pid'];
+    $run1 = mysqli_query($con,"select * from parent where pid='$pid'");
+    if(mysqli_num_rows($run1)==0){
+      echo "<script>alert('No Parent Found')</script>";
+    }  
+  }
+  if(isset($_POST['update'])){
+    $subdate = $_POST['subdate']; 
+    $run2 = mysqli_query($con,"update student set subscription_date='$subdate' where stdid='$pid'");  
+    if($run2){
+      echo "<script>alert('Parent Details Updated Successfully')</script>";
+    }
+    else{
+      echo "<script>alert('Parent Details Updation Failed')</script>";
+    }
+  }
+
+
+?>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -189,8 +217,7 @@
 
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
+            id="layout-navbar" >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
@@ -249,8 +276,8 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
+              <form action="#" method="post">
             <div class="row">
-
               <div class="col-md-6">
                   <div class="card mb-4">
                     <h5 class="card-header">Select Parent</h5>
@@ -261,35 +288,45 @@
                           type="text"
                           class="form-control"
                           id="defaultFormControlInput"
-                          placeholder="John Doe"
+                          placeholder="905 2727 402"
                           aria-describedby="defaultFormControlHelp"
+                          name="pid"
                         />
                       </div>
                       <div class="mt-3">
-                        <button type="button" class="btn btn-primary">Get Details</button>
+                        <button type="submit" name="getdetails" class="btn btn-primary">Get Details</button>
                       </div>
                     </div>
                   </div>
-                </div>
-  
               </div>
-              <div class="row">
-              <div class="col-md-6">
-                  <div class="card mb-4">
-                    <h5 class="card-header">Update Student Subscription</h5>
-                    <div class="card-body">
-                      <div>
-                        <label for="defaultFormControlInput" class="form-label">Subscribed Date</label>
-                        <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" />
-                      </div>
-                      <div class="mt-3">
-                        <button type="button" class="btn btn-primary">Update</button>
-                      </div>
+            </div>
+            </form>
+
+            <?php
+              if(mysqli_num_rows($run1)>0){
+                $run1 = mysqli_fetch_assoc($run1);
+              ?>
+
+            <form action="#" method="post">
+            <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                  <h5 class="card-header">Update Student Subscription</h5>
+                  <div class="card-body">
+                    <div>
+                      <label for="defaultFormControlInput" class="form-label">Subscribed Date</label>
+                      <input class="form-control" name="subdate" type="date" value="2021-06-18" id="html5-date-input" />
+                    </div>
+                    <div class="mt-3">
+                      <button type="submit" name="update" class="btn btn-primary">Update</button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            </form>
+            <?php } ?>
+          </div>
             <!-- / Content -->
 
             <!-- Footer -->

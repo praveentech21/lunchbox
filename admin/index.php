@@ -9,6 +9,8 @@
   $total_not_pickes = 0;
   $total_In_Transtion = 0;
   $total_Delivered = 0;
+  $not_picked_students = mysqli_query($con,"select * from subscriptions where stdid not in (select stdid from delivary where date='$date')");
+  $picked_students = mysqli_query($con,"select * from delivary where date='$date'");
 ?>
 <!DOCTYPE html>
 <html
@@ -383,25 +385,31 @@
                     <div div class="card-header d-flex align-items-center justify-content-between">
                       <h5 class="card-title m-0 me-2">Not Picked Boxes</h5>
                     </div>
-                    
+                    <?php 
+                      foreach($not_picked_students as $stdid){
+                        $run1 = mysqli_fetch_assoc(mysqli_query($con,"select pid from subscriptions where stdid='{$stdid['stdid']}'"));
+                        $run2 = mysqli_fetch_assoc(mysqli_query($con,"select * from parent where pid='{$run1['pid']}'"));
+                        $run3 = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid='{$stdid['stdid']}'"));
+                    ?>
                     <div class="card-body">
                       <ul class="p-0 m-0">
                         <li class="d-flex mb-4 pb-1">
                           <div class="avatar flex-shrink-0 me-3">
-                            <img src="BHavani/img/icons/unicons/paypal.png" alt="User" class="rounded" />
+                            <img src="../Upload/<?php echo $run3['photo'] ?>" height="76px" width="76px" alt="User" class="rounded" />
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <small class="text-muted d-block mb-1">Student</small>
-                              <h6 class="mb-0">Parent</h6>
+                              <small class="text-muted d-block mb-1"><?php echo $run3['sname'] ?></small>
+                              <h6 class="mb-0"><?php echo $run2['pname'] ?></h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <a href="tel:"><button type="button" class="btn btn-info">Call</button></a>
+                              <a href="tel:<?php echo $run2['pid'] ?>"><button type="button" class="btn btn-info">Call</button></a>
                             </div>
                           </div>
                         </li>
                       </ul>
                     </div>
+                    <?php } ?>
                 </div>
                 </div>
                 <!--/ Not Picked Boxes -->
@@ -412,24 +420,32 @@
                   <div class="card-header d-flex align-items-center justify-content-between">
                       <h5 class="card-title m-0 me-2">In Transition Boxes</h5>
                     </div>
+                    <?php 
+                      foreach($picked_students as $stdid){
+                        if($stdid['status'] == 0) {
+                        $run1 = mysqli_fetch_assoc(mysqli_query($con,"select pid from subscriptions where stdid='{$stdid['stdid']}'"));
+                        $run2 = mysqli_fetch_assoc(mysqli_query($con,"select * from parent where pid='{$run1['pid']}'"));
+                        $run3 = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid='{$stdid['stdid']}'"));
+                    ?>
                     <div class="card-body">
                       <ul class="p-0 m-0">
                         <li class="d-flex">
                           <div class="avatar flex-shrink-0 me-3">
-                            <img src="BHavani/img/icons/unicons/cc-warning.png" alt="User" class="rounded" />
+                            <img src="../Upload/<?php echo $run3['photo'] ?>" alt="User" class="rounded" />
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <small class="text-muted d-block mb-1">Student</small>
-                              <h6 class="mb-0">Parent</h6>
+                              <small class="text-muted d-block mb-1"><?php echo $run3['sname'] ?></small>
+                              <h6 class="mb-0"><?php echo $run2['pname'] ?></h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <a href="tel:"><button type="button" class="btn btn-info">call</button></a>
+                              <a href="tel:<?php echo $run2['pid'] ?>"><button type="button" class="btn btn-info">call</button></a>
                             </div>
                           </div>
                         </li>
                       </ul>
                     </div>
+                    <?php }} ?>
                   </div>
                 </div>
                 <!--/ In Transition Boxes -->
@@ -440,24 +456,32 @@
                     <div class="card-header d-flex align-items-center justify-content-between">
                       <h5 class="card-title m-0 me-2">Delivered Boxes</h5>
                     </div>
+                    <?php 
+                      foreach($picked_students as $stdid){
+                        if($stdid['status'] == 1) {
+                        $run1 = mysqli_fetch_assoc(mysqli_query($con,"select pid from subscriptions where stdid='{$stdid['stdid']}'"));
+                        $run2 = mysqli_fetch_assoc(mysqli_query($con,"select * from parent where pid='{$run1['pid']}'"));
+                        $run3 = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid='{$stdid['stdid']}'"));
+                    ?>
                     <div class="card-body">
                       <ul class="p-0 m-0">
                         <li class="d-flex mb-4 pb-1">
                           <div class="avatar flex-shrink-0 me-3">
-                            <img src="BHavani/img/icons/unicons/cc-success.png" alt="User" class="rounded" />
+                            <img src="../Upload/<?php echo $run3['photo'] ?>" alt="User" class="rounded" />
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <small class="text-muted d-block mb-1">Student</small>
-                              <h6 class="mb-0">Parent</h6>
+                              <small class="text-muted d-block mb-1"><?php echo $run3['sname'] ?></small>
+                              <h6 class="mb-0"><?php echo $run2['pname'] ?></h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                                <a href="tel:"><button type="button" class="btn btn-info">call</button></a>
+                                <a href="tel:<?php echo $run2['pid'] ?>"><button type="button" class="btn btn-info">call</button></a>
                             </div>
                           </div>
                         </li>
                       </ul>
                     </div>
+                    <?php }} ?>
                   </div>
                 </div>
                 <!--/ Delivered Boxes -->

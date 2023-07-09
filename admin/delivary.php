@@ -188,16 +188,17 @@ $run2 = mysqli_query($con,"select * from subscriptions where delivery_partner='$
                       $run7 = mysqli_fetch_assoc(mysqli_query($con,"select * from parent where pid='{$row['pid']}'"));
                   ?>
                 <div class="card mb-4">
-                  <div class="card-body">
+                  <div class="card-body"> 
                     <h5 class="card-title"><?php echo $run3['sname'] ?></h5>
                     <div class="card-subtitle text-muted mb-3">
                     <?php 
                       if(mysqli_num_rows($run5) == 0){echo "<small style='color: red;' >Not Picked </small>";}
                       else{
-                        $run6 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where tripid='{$run5['tripid']}'"));
-                        if($run5['status'] == 0)
+                        $run8 = mysqli_fetch_assoc($run5);
+                        $run6 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where tripid='{$run8['tripid']}'"));
+                        if($run8['status'] == 0)
                         echo "<small style='color: Yellow;' >In Transtion </small>";
-                        else if($run5['status'] == 1)
+                        else if($run8['status'] == 1)
                         echo "<small style='color: Green;' >Delivered </small>";
                       }
                     ?>
@@ -206,15 +207,15 @@ $run2 = mysqli_query($con,"select * from subscriptions where delivery_partner='$
                     <p class="card-text"><?php echo $run7['pname'] ?></p>
                     <?php 
                       if(mysqli_num_rows($run5) != 0){
-                        $run6 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where tripid='{$run5['tripid']}'"));
-                        if($run5['status'] == 0)
+                        $run6 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where tripid='{$run8['tripid']}'"));
+                        if($run8['status'] == 0)
                         echo "<p class='card-text'>picked up @".$run6['pickup_time']." </p>";
-                        else if($run5['status'] == 1)
+                        else if($run8['status'] == 1)
                         echo "<p class='card-text'>picked up @".$run6['pickup_time']." </p>";
                         echo "<p class='card-text'>Droped @".$run6['drop_time']." </p>";
                       }
                       ?>
-                    <a href="<?php echo $run7['address'] ?>" class="card-link">Address</a>
+                    <a href="<?php echo $run7['address'] ?>" target="_blank" class="card-link">Address</a>
                     <a href="tel:<?php echo $row['pid'] ?>" class="card-link">Call</a>
                     <a href="#" onclick="change_status(<?php echo ($row['stdid'].','.$eid);?> );" class="card-link">
                     <?php 
@@ -222,11 +223,9 @@ $run2 = mysqli_query($con,"select * from subscriptions where delivery_partner='$
                         echo "<button type='button' class='btn btn-success'>Pick Up</button>";
                       }
                       else{
-                        $run6 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where tripid='{$run5['tripid']}'"));
-                        if($run5['status'] == 0)
+                        $run6 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where tripid='{$run8['tripid']}'"));
+                        if($run8['status'] == 0)
                         echo "<button type='button' class='btn btn-danger'>Drop Box</button>";
-                        else if($run5['status'] == 1)
-                        echo "<h3 style='color: green;'>Your Box was Delivered </h3>";
                       }
                     ?>
                     </a>
@@ -302,7 +301,6 @@ $run2 = mysqli_query($con,"select * from subscriptions where delivery_partner='$
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script>
       function change_status(stdid,eid){
-        alert("Function Called"+stdid+" "+eid);
         // axaj call to pickup.php
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
@@ -310,9 +308,10 @@ $run2 = mysqli_query($con,"select * from subscriptions where delivery_partner='$
            console.log(this.responseText);
           }
         };
-        xhttp.open("POST", "update_status.php", true);
-        var data = "stdid="+stdid+"&eid="+eid;
-        xhttp.send(data);
+        var data = "?stdid="+stdid+"&eid="+eid;
+        xhttp.open("GET", "update_status.php"+data, true);
+        xhttp.send();
+        window.location.reload();
       }
     </script>
   </body>

@@ -210,9 +210,10 @@ $run2 = mysqli_query($con,"select * from subscriptions where delivery_partner='$
                         $run6 = mysqli_fetch_assoc(mysqli_query($con,"select * from trips where tripid='{$run8['tripid']}'"));
                         if($run8['status'] == 0)
                         echo "<p class='card-text'>picked up @".$run6['pickup_time']." </p>";
-                        else if($run8['status'] == 1)
+                        else if($run8['status'] == 1){
                         echo "<p class='card-text'>picked up @".$run6['pickup_time']." </p>";
                         echo "<p class='card-text'>Droped @".$run6['drop_time']." </p>";
+                        }
                       }
                       ?>
                     <a href="<?php echo $run7['address'] ?>" target="_blank" class="card-link">Address</a>

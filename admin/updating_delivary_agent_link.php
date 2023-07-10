@@ -10,7 +10,7 @@
     if(mysqli_num_rows($run1)==0)  echo "<script>alert('No Agent Found')</script>";
   }
   if(isset($_POST['update'])){
-    echo  $addresslink = $_POST['addresslink'];
+    $addresslink = $_POST['addresslink'];
     $run2 = mysqli_query($con, "UPDATE `team` SET `address`='$addresslink' WHERE `mobile`='{$_SESSION['agentnumber']}'; ");
     if($run2){
       echo "<script>alert('Agent Address Link Updated Successfully')</script>";

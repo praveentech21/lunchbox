@@ -411,6 +411,7 @@
                   $delivery_team = mysqli_query($con,"select * from team");
                   while($row1 = mysqli_fetch_assoc($delivery_team)){
                   $students = mysqli_query($con,"select * from subscriptions where delivery_partner = {$row1['eid']}");
+                  $total_boxes_assigned = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from subscriptions where delivery_partner = {$row1['eid']}"))['count(*)'];
                 ?>
 
                 <h3 class="mb-0"><?php echo $row1['name'] ?></h3><br>
@@ -433,10 +434,9 @@
                             $day_to_day = mysqli_query($con,"select *,count(*) from delivary where tripid in (select tripid from trips where delivery_by = {$row1['eid']}) and month(date)='$this_month' and year(date)='$this_year' group by date order by date asc");
                             while($row = mysqli_fetch_assoc($day_to_day)){
                               $pickedup = $row['count(*)'];
-                              $not_picked =$total_scbscriptions - $pickedup;
-                              $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from delivary where date = '{$row['date']}' and status = 0"))['count(*)'];
+                              $not_picked =$total_boxes_assigned - $pickedup;
+                              $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from delivary where tripid in(select tripid from trips where delivery_by = {$row1['eid']} ) and date = '{$row['date']}' and status = 0"))['count(*)'];
                               $Delivered =$pickedup - $In_Transtion;
-
                           ?>
 
                         <tr>
@@ -469,12 +469,12 @@
                       <?php
                         $student_wise = mysqli_query($con,"select * from student where stdid in (select stdid from subscriptions where delivery_partner = {$row1['eid']}) ");
                         while($row = mysqli_fetch_assoc($student_wise)){
-                          $subscriptions = mysqli_query($con,"select pid from subscriptions where stdid ='{$row['stdid']} ");
-                          $parent = mysqli_fetch_assoc(mysqli_query($con,"select pname from parent where pid = '{$parent['pid']}'"));
+                          $subscriptions = mysqli_fetch_assoc(mysqli_query($con,"select pid from subscriptions where stdid ='{$row['stdid']}' "));
+                          $parent = mysqli_fetch_assoc(mysqli_query($con,"select pname from parent where pid = '{$subscriptions['pid']}'"));
                           $run1 = mysqli_fetch_assoc(mysqli_query($con,"select status,count(*) from delivary where stdid='{$row['stdid']}'"));
                           $pickedup = $run1['count(*)'];
-                          $not_picked =$this_month_working_days - $pickedup;
-                          $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from delivary where stdid = '{$row['stdid']}' and status = 0"))['count(*)'];
+                          $not_picked =$total_boxes_assigned - $pickedup;
+                          $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from delivary where stdid = '{$row['stdid']}' and status = 0 and month(date)='$this_month' and year(date)='$this_year'"))['count(*)'];
                           $Delivered =$pickedup - $In_Transtion;
                       ?>
                         <tr>

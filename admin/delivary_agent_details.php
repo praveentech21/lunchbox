@@ -1,3 +1,10 @@
+<?php
+  session_start();
+  // Calculation for this Month
+  if(empty($_SESSION['supid'])) header("location: login.php");
+  include("connect.php");
+  $delivery_team = mysqli_query($con,"select * from team");
+?>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -189,8 +196,7 @@
 
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
+            id="layout-navbar" >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
@@ -264,14 +270,18 @@
                         </tr>
                       </thead>
                       <tbody>
+                        <?php 
+                          while($row = mysqli_fetch_assoc($delivery_team)){
+                            $boxes = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from subscriptions where delivery_partner={$row['eid']}"));
+                            $schools = mysqli_fetch_assoc(mysqli_query($con,"select DISTINCT school_name from schools where sid in (select sid from student where stdid in ( select stdid from subscriptions where delivery_partner = {$row['eid']}))"));
+                        ?>
                         <tr>
-                          <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong>
-                          </td>
-                          <td>Albert Cook</td>
-                          <td><span class="badge bg-label-primary me-1">Active</span></td>
-                          <td>Shiva Bhavani School</td>
+                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $row['name'] ?></strong></td>
+                          <td><?php echo $row['mobile'] ?></td>
+                          <td><span class="badge bg-label-primary me-1"><?php echo $boxes['count(*)'] ?></span></td>
+                          <td><?php foreach($schools as $school) echo $school.', '; ?></td>
                         </tr>
+                        <?php } ?>
                       </tbody>
                     </table>
                   </div>
@@ -283,8 +293,13 @@
 
               <!-- Hoverable Table rows -->
               <h3 class="mb-0">Students to Delivery Agents</h3><br>
+              <?php  
+                $delivery_team = mysqli_query($con,"select * from team");
+                while($row = mysqli_fetch_assoc($delivery_team)){
+                  $students = mysqli_query($con,"select * from subscriptions where delivery_partner = {$row['eid']}");
+              ?>
               <div class="card">
-                <h5 class="card-header">Delivery Agent Name</h5>
+                <h5 class="card-header"><?php echo $row['name'] ?></h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-hover">
                     <thead>
@@ -298,47 +313,29 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
+                      <?php
+                        while($row1 = mysqli_fetch_assoc($students)){
+                          $student = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid = {$row1['stdid']}"));
+                          $parent = mysqli_fetch_assoc(mysqli_query($con,"select * from parent where pid = {$row1['pid']}"));
+                          $address = mysqli_fetch_assoc(mysqli_query($con,"select area from address where pid = {$row1['pid']}"));
+                          $school = mysqli_fetch_assoc(mysqli_query($con,"select school_name from schools where sid = {$student['school']}"));
+                      ?>
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>Albert Cook</td>
-                        <td><a href="tel:9052727402">9052727402</a></td>
-                        <td><span class="badge bg-label-success me-1">School</span></td>
-                        <td>Shiva Bhavani</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $student['sname'] ?></strong></td>
+                        <td><?php echo $parent['pname'] ?></td>
+                        <td><a href="tel:<?php echo $parent['pid'] ?>"><?php echo $parent['pid'] ?></a></td>
+                        <td><span class="badge bg-label-success me-1"><?php echo $school['school_name'] ?></span></td>
+                        <td><?php echo $address['area'] ?></td>
                         <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
                       </tr>
+                      <?php } ?>
                     </tbody>
                   </table>
                 </div>
               </div>
               <br>
-              <div class="card">
-                <h5 class="card-header">Delivery Agent Name</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>Student Name</th>
-                        <th>Parent Name</th>
-                        <th>Parent Mobile</th>
-                        <th>School</th>
-                        <th>Area</th>
-                        <th>View Profile</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>Albert Cook</td>
-                        <td><a href="tel:9052727402">9052727402</a></td>
-                        <td><span class="badge bg-label-success me-1">School</span></td>
-                        <td>Shiva Bhavani</td>
-                        <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <br>
+              <?php } ?>
+              
               <!--/ Hoverable Table rows -->
             </div>
             <!-- / Content -->

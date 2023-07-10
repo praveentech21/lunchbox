@@ -6,20 +6,28 @@
   $run1 = mysqli_query($con,"select * from parent where pid='0'");
   if(isset($_POST['getdetails'])){
     $mobile=$_POST['mobile'];
+    $_SESSION['mobile']=$mobile;
     $run1 = mysqli_query($con,"select * from parent where pid='$mobile'");
     if(mysqli_num_rows($run1)==0){
       echo "<script>alert('No Parent Found')</script>";
     }
   }
   if(isset($_POST['update'])){
+    $area=$_POST['area'];
+    $appartment=$_POST['appartment'];
+    $doorno=$_POST['doorno'];
+    $pincode=$_POST['pincode'];
     $addresslink=$_POST['addresslink'];
-    $run2 = mysqli_query($con,"update parent set address='$addresslink' where pid='$mobile'");
-    if($run2){
-      echo "<script>alert('Parent Address Updated')</script>";
-    }
-    else{
-      echo "<script>alert('Parent Address Not Updated')</script>";
-    }
+    $mobile=$_SESSION['mobile'];
+      $run2 = mysqli_query($con,"update address set area='$area',appartment='$appartment',doorno='$doorno',pincode='$pincode' where pid='{$_SESSION['mobile']}'");
+      $run3 = mysqli_query($con,"update parent set address='$addresslink' where pid='{$_SESSION['mobile']}'");
+      unset($_SESSION['mobile']);
+      if($run2){
+        echo "<script>alert('Address Updated')</script>";
+      }
+      else{
+        echo "<script>alert('Address Not Updated')</script>";
+      }
   }
 ?>
 <!DOCTYPE html>
@@ -285,7 +293,7 @@
                             type="text"
                             class="form-control"
                             id="defaultFormControlInput"
-                            placeholder="John Doe"
+                            placeholder="905 2727 402"
                             aria-describedby="defaultFormControlHelp"
                             name="mobile"
                           />
@@ -302,12 +310,58 @@
               <?php
               if(mysqli_num_rows($run1)>0){
                 $run1 = mysqli_fetch_assoc($run1);
+                $run2 = mysqli_fetch_assoc(mysqli_query($con,"select * from address where pid='{$run1['pid']}'"));  
               ?>
               <div class="row">
               <div class="col-md-6">
+                <form action="" method="post">
                   <div class="card mb-4">
-                    <h5 class="card-header">Update Parent Address Link</h5>
+                    <h5 class="card-header">Update Parent Address</h5>
                     <div class="card-body">
+                    <div>
+                        <label for="defaultFormControlInput" class="form-label">Area </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="defaultFormControlInput"
+                          placeholder="<?php echo $run2['area']; ?>"
+                          aria-describedby="defaultFormControlHelp"
+                          name="area"
+                        />
+                      </div>
+                      <div>
+                        <label for="defaultFormControlInput" class="form-label">Appartment</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="defaultFormControlInput"
+                          placeholder="<?php echo $run2['appartment']; ?>"
+                          aria-describedby="defaultFormControlHelp"
+                          name="appartment"
+                        />
+                      </div>
+                      <div>
+                        <label for="defaultFormControlInput" class="form-label">Door No and Address</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="defaultFormControlInput"
+                          placeholder="<?php echo $run2['doorno']; ?>"
+                          aria-describedby="defaultFormControlHelp"
+                          name="doorno"
+                        />
+                      </div>
+                      <div>
+                        <label for="defaultFormControlInput" class="form-label">Pincode</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="defaultFormControlInput"
+                          placeholder="<?php echo $run2['pincode']; ?>"
+                          aria-describedby="defaultFormControlHelp"
+                          name="pincode"
+                        />
+                      </div>
                       <div>
                         <label for="defaultFormControlInput" class="form-label">Link</label>
                         <input
@@ -327,6 +381,7 @@
                       </div>
                     </div>
                   </div>
+                </form>
                 </div>
               </div>
               <?php } ?>

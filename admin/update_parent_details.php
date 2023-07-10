@@ -1,12 +1,13 @@
 <?php
   session_start();
+  
   // Calculation for this Month
   if(empty($_SESSION['supid'])) header("location: login.php");
   include("connect.php");
   $run1 = mysqli_query($con,"select * from parent where pid='0'");
-  $pid=0;
   if(isset($_POST['getdetails'])){
     $pid=$_POST['pid'];
+    $_SESSION['pid']=$pid;
     $run1 = mysqli_query($con,"select * from parent where pid='$pid'");
     if(mysqli_num_rows($run1)==0){
       echo "<script>alert('No Parent Found')</script>";
@@ -18,8 +19,8 @@
     $altphone=$_POST['altphone'];
     $email=$_POST['email'];
     $pass=$_POST['pass'];
-    echo $mobile.$pname.$altphone.$email.$pass.$pid;
-    $run2 = mysqli_query($con,"update parent set pid='11654',pname='jkbbh',altphone='53',email='email',pass='pass' where pid='9052727402'");
+    $run2 = mysqli_query($con,"update parent set pid='$mobile',pname='$pname',altphone='$altphone',email='$email',pass='$pass' where pid='{$_SESSION['pid']}'");
+    unset($_SESSION['pid']);
     if($run2){
       echo "<script>alert('Parent Details Updated Successfully')</script>";
     }
@@ -329,7 +330,7 @@
                               class="form-control"
                               id="basic-icon-default-fullname"
                               placeholder="<?php echo $run1['pname']; ?>"
-                              aria-label="John Doe"
+                              aria-label="<?php echo $run1['pname']; ?>"
                               aria-describedby="basic-icon-default-fullname2"
                               name="pname"
                             />
@@ -346,7 +347,7 @@
                               id="basic-icon-default-phone"
                               class="form-control phone-mask"
                               placeholder="<?php echo $run1['pid']; ?>"
-                              aria-label="658 799 8941"
+                              aria-label="<?php echo $run1['pid']; ?>"
                               aria-describedby="basic-icon-default-phone2"
                               name="pid"
                             />

@@ -1,3 +1,11 @@
+<?php
+  session_start();
+  // Calculation for this Month
+  if(empty($_SESSION['supid'])) header("location: login.php");
+  include("connect.php");
+  $subscription = mysqli_query($con,"select * from subscriptions ");
+
+?>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -260,37 +268,37 @@
                         <th>Area</th>
                         <th>School</th>
                         <th>Delivary Agent</th>
-                        <th>View Profile</th>
+                        <th>Update</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
+                      <?php
+                        while($row = mysqli_fetch_assoc($subscription)){
+                          $student = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid = '{$row['stdid']}'"));
+                          $parent = mysqli_fetch_assoc(mysqli_query($con,"select pname from parent where pid = '{$row['pid']}'"));
+                          $address = mysqli_fetch_assoc(mysqli_query($con,"select area from address where pid = '{$row['pid']}'"));
+                          $school = mysqli_fetch_assoc(mysqli_query($con,"select school_name from schools where sid = '{$student['school']}'"));
+                          $team_members = mysqli_query($con,"select name,eid from team ");
+                          $team = array();
+                          while($row = mysqli_fetch_assoc($team_members)) $team[] = $row;
+
+                      ?>
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>Albert Cook</td>
-                        <td>China miram</td>
-                        <td><span class="badge bg-label-success me-1">School</span></td>
-                        <td><div class="btn-group dropup">
-                      <button
-                        class="btn btn-primary btn-sm dropdown-toggle"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Small button
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="javascript:void(0);">Action</a></li>
-                        <li><a class="dropdown-item" href="javascript:void(0);">Another action</a></li>
-                        <li><a class="dropdown-item" href="javascript:void(0);">Something else here</a></li>
-                        <li>
-                          <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
-                      </ul>
-                    </div></td>
-                        <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $student['sname'] ?></strong></td>
+                        <td><?php echo $parent['pname'] ?></td>
+                        <td><?php echo $address['area'] ?></td>
+                        <td><span class="badge bg-label-success me-1"><?php echo $school['school_name'] ?></span></td>
+                        <td><div class="mb-3">
+                        <select id="defaultSelect" class="form-select">
+                          <option>select agent</option>
+                          <?php foreach($team as $agent){ ?>
+                          <option value=<?php echo $agent['eid'] ?>><?php echo $agent['name'] ?></option>
+                          <?php } ?>
+                        </select>
+                      </div></td>                        
+                        <td><a href=""><span class="badge bg-label-info me-1">Allocate Agent</span></a></td>
                       </tr>
-                      
+                      <?php } ?>
                     </tbody>
                   </table>
                 </div>

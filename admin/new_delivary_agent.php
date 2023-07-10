@@ -1,3 +1,23 @@
+<?php
+  session_start();
+  // Calculation for this Month
+  if(empty($_SESSION['supid'])) header("location: login.php");
+  include("connect.php");
+  if(isset($_POST['submit'])){
+    $agentname=$_POST['agentname'];
+    $agentphone=$_POST['agentphone'];
+    $password=$_POST['password'];
+    $agent_type=$_POST['agent_type'];
+    $run=mysqli_query($con,"insert into team (name,mobile,pass,type) values ('$agentname','$agentphone','$password','$agent_type')");
+    if($run){
+      echo "<script>alert('New Delivery Agent Added Successfully')</script>";
+    }
+    else{
+      echo "<script>alert('Error Occured')</script>";
+    }
+  }
+
+?>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -189,8 +209,7 @@
 
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
+            id="layout-navbar" >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
@@ -257,11 +276,11 @@
                       <h5 class="mb-0">New Delivery Agent</h5>
                     </div>
                     <div class="card-body">
-                      <form>
+                      <form method="post" action="#">
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="basic-default-name" placeholder="Shiva Bhavani" />
+                            <input type="text" name="agentname" class="form-control" id="basic-default-name" placeholder="New Agent Name" />
                           </div>
                         </div>
                         <div class="row mb-3">
@@ -274,24 +293,25 @@
                               placeholder="905 2727 402"
                               aria-label="905 2727 402"
                               aria-describedby="basic-default-phone"
+                              name="agentphone"
                             />
                           </div>
                         </div>
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Password</label>
                           <div class="col-sm-10">
-                            <input type="password" class="form-control" id="basic-default-name" placeholder="************" />
+                            <input type="password" class="form-control" name="password" id="basic-default-name" placeholder="************" />
                           </div>
                         </div>
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Agent Type</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="basic-default-name" placeholder="Agent Type" />
+                            <input type="text" class="form-control" name="agent_type" id="basic-default-name" placeholder="Agent Type" />
                           </div>
                         </div>
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                           </div>
                         </div>
                       </form>

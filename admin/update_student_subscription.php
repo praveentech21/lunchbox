@@ -1,21 +1,21 @@
 <?php
+
   session_start();
   // Calculation for this Month
   if(empty($_SESSION['supid'])) header("location: login.php");
   include("connect.php");
   $run1 = mysqli_query($con,"select * from parent where pid='0'");
-  $pid=0;
   if(isset($_POST['getdetails'])){
-    global $pid;
-    $pid=$_POST['pid'];
-    $run1 = mysqli_query($con,"select * from parent where pid='$pid'");
+    $stdid=$_POST['stdid'];
+    $_SESSION['stdid']=$stdid;
+    $run1 = mysqli_query($con,"select * from student where stdid='$stdid'");
     if(mysqli_num_rows($run1)==0){
       echo "<script>alert('No Parent Found')</script>";
     }  
   }
   if(isset($_POST['update'])){
-    $subdate = $_POST['subdate']; 
-    $run2 = mysqli_query($con,"update student set subscription_date='$subdate' where stdid='$pid'");  
+    $subdate = $_POST['subdate'];
+    $run2 = mysqli_query($con,"UPDATE `student` SET `subscription_date` = '$subdate' WHERE `student`.`stdid` = '{$_SESSION['stdid']} '");
     if($run2){
       echo "<script>alert('Parent Details Updated Successfully')</script>";
     }
@@ -23,7 +23,6 @@
       echo "<script>alert('Parent Details Updation Failed')</script>";
     }
   }
-
 
 ?>
 <!DOCTYPE html>
@@ -226,7 +225,7 @@
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               
-              <h3 style="padding-top: 20px;">Bhimavaram Online</h3>
+              <h3 style="padding-top: 20px;">Update Student Subscription</h3>
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- User -->
@@ -280,17 +279,17 @@
             <div class="row">
               <div class="col-md-6">
                   <div class="card mb-4">
-                    <h5 class="card-header">Select Parent</h5>
+                    <h5 class="card-header">Select Student</h5>
                     <div class="card-body">
                       <div>
-                        <label for="defaultFormControlInput" class="form-label">Parent Mobile Number</label>
+                        <label for="defaultFormControlInput" class="form-label">Student ID</label>
                         <input
                           type="text"
                           class="form-control"
                           id="defaultFormControlInput"
-                          placeholder="905 2727 402"
+                          placeholder="get student id from student list"
                           aria-describedby="defaultFormControlHelp"
-                          name="pid"
+                          name="stdid"
                         />
                       </div>
                       <div class="mt-3">
@@ -311,11 +310,11 @@
             <div class="row">
             <div class="col-md-6">
                 <div class="card mb-4">
-                  <h5 class="card-header">Update Student Subscription</h5>
-                  <div class="card-body">
+                  <h5 class="card-header"><?php echo $run1['sname'] ?></h5>
+                  <div class="card-body"> 
                     <div>
                       <label for="defaultFormControlInput" class="form-label">Subscribed Date</label>
-                      <input class="form-control" name="subdate" type="date" value="2021-06-18" id="html5-date-input" />
+                      <input class="form-control" name="subdate"  type="date" id="html5-date-input"/>
                     </div>
                     <div class="mt-3">
                       <button type="submit" name="update" class="btn btn-primary">Update</button>

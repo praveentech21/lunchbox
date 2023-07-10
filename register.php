@@ -254,12 +254,12 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
             <fieldset class="nice-form-group">
                 <legend>Child Gender</legend>
                 <div class="nice-form-group">
-                  <input name="" type="radio" name="gender" id="boy" value=2 />
+                  <input name="gender" type="radio" name="gender" id="boy" value=2 />
                   <label for="boy">Boy</label>
                 </div>
         
                 <div class="nice-form-group">
-                  <input name="" type="radio" name="gender" id="girl" value=1 />
+                  <input name="gender" type="radio" name="gender" id="girl" value=1 />
                   <label for="girl">Girl</label>
                 </div>
 

@@ -6,16 +6,14 @@
   include("connect.php");
   $run1 = mysqli_query($con,"select * from parent where pid='0'");
   if(isset($_POST['getdetails'])){
-    $stdid=$_POST['stdid'];
-    $_SESSION['stdid']=$stdid;
-    $run1 = mysqli_query($con,"select * from student where stdid='$stdid'");
+    $pid=$_POST['pid'];
+    $run1 = mysqli_query($con,"select * from parent where pid='$pid'");
     if(mysqli_num_rows($run1)==0){
       echo "<script>alert('No Parent Found')</script>";
     }  
   }
   if(isset($_POST['update'])){
-    $subdate = $_POST['subdate'];
-    $run2 = mysqli_query($con,"UPDATE `student` SET `subscription_date` = '$subdate' WHERE `student`.`stdid` = '{$_SESSION['stdid']} '");
+    $run2 = mysqli_query($con,"UPDATE `student` SET `subscription_date` = '{$_POST['subdate']}' WHERE `student`.`stdid` = '{$_POST['stdid']}'");
     if($run2){
       echo "<script>alert('Parent Details Updated Successfully')</script>";
     }
@@ -225,7 +223,7 @@
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               
-              <h3 style="padding-top: 20px;">Update Student Subscription</h3>
+              <h3 style="padding-top: 20px;">Bhimavaram Online</h3>
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- User -->
@@ -279,17 +277,17 @@
             <div class="row">
               <div class="col-md-6">
                   <div class="card mb-4">
-                    <h5 class="card-header">Select Student</h5>
+                    <h5 class="card-header">Update Student Subscription</h5>
                     <div class="card-body">
                       <div>
-                        <label for="defaultFormControlInput" class="form-label">Student ID</label>
+                        <label for="defaultFormControlInput" class="form-label">Parent Mobile Number</label>
                         <input
                           type="text"
                           class="form-control"
                           id="defaultFormControlInput"
-                          placeholder="get student id from student list"
+                          placeholder="905 2727 402"
                           aria-describedby="defaultFormControlHelp"
-                          name="stdid"
+                          name="pid"
                         />
                       </div>
                       <div class="mt-3">
@@ -303,18 +301,21 @@
 
             <?php
               if(mysqli_num_rows($run1)>0){
-                $run1 = mysqli_fetch_assoc($run1);
+                $subsctiption_details = mysqli_fetch_assoc(mysqli_query($con,"select * from subscriptions where pid='$pid'"));
+                $student_details = mysqli_query($con,"select * from student where stdid='{$subsctiption_details['stdid']}'");
+                while($row = mysqli_fetch_assoc($student_details)){
               ?>
 
             <form action="#" method="post">
             <div class="row">
             <div class="col-md-6">
                 <div class="card mb-4">
-                  <h5 class="card-header"><?php echo $run1['sname'] ?></h5>
+                  <h5 class="card-header"><?php echo $row['sname'] ?></h5>
                   <div class="card-body"> 
                     <div>
                       <label for="defaultFormControlInput" class="form-label">Subscribed Date</label>
                       <input class="form-control" name="subdate"  type="date" id="html5-date-input"/>
+                      <input type="hidden" name="stdid" value="<?php echo $row['stdid'] ?>">
                     </div>
                     <div class="mt-3">
                       <button type="submit" name="update" class="btn btn-primary">Update</button>
@@ -324,7 +325,7 @@
               </div>
             </div>
             </form>
-            <?php } ?>
+            <?php }} ?>
           </div>
             <!-- / Content -->
 

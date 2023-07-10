@@ -288,15 +288,18 @@
                         <td><?php echo $parent['pname'] ?></td>
                         <td><?php echo $address['area'] ?></td>
                         <td><span class="badge bg-label-success me-1"><?php echo $school['school_name'] ?></span></td>
-                        <td><div class="mb-3">
-                        <select id="defaultSelect" class="form-select">
+                        <form action="allocate_agent.php" method="get">
+                        <input type="hidden" name="stdid" value=<?php echo $student['stdid'] ?>>
+                        <td><div>
+                        <select id="smallSelect" name="agent" class="form-select form-select-sm">
                           <option>select agent</option>
                           <?php foreach($team as $agent){ ?>
                           <option value=<?php echo $agent['eid'] ?>><?php echo $agent['name'] ?></option>
                           <?php } ?>
                         </select>
                       </div></td>                        
-                        <td><a href=""><span class="badge bg-label-info me-1">Allocate Agent</span></a></td>
+                        <td><input type="submit" class="btn btn-sm btn-outline-success"></td>
+                        </form>
                       </tr>
                       <?php } ?>
                     </tbody>

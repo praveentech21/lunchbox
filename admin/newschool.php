@@ -1,3 +1,23 @@
+<?php
+
+  session_start();
+  // Calculation for this Month
+  if(empty($_SESSION['supid'])) header("location: login.php");
+  include("connect.php");
+  if(isset($_POST['submit'])){
+    $school_name=$_POST['school_name'];
+    $school_address=$_POST['school_address'];
+    $run1 = mysqli_query($con, "INSERT INTO `schools`(`school_name`, `school_address`) VALUES ('$school_name','$school_address')");
+    if($run1){
+      echo "<script>alert('School Added Successfully')</script>";
+    }
+    else{
+      echo "<script>alert('Error Occured')</script>";
+    }
+  }
+  
+
+?>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -189,8 +209,7 @@
 
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
+            id="layout-navbar" >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
@@ -256,11 +275,11 @@
                       <small class="text-muted float-end">Default label</small>
                     </div>
                     <div class="card-body">
-                      <form>
+                      <form method="post" action="#">
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">School Name</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="basic-default-name" placeholder="West Berry" />
+                            <input type="text" name="school_name" class="form-control" id="basic-default-name" placeholder="West Berry" />
                           </div>
                         </div>
                         <div class="row mb-3">
@@ -272,12 +291,13 @@
                               placeholder="Your Address "
                               aria-label="Your Address "
                               aria-describedby="basic-icon-default-message2"
+                              name="school_address"
                             ></textarea>
                           </div>
                         </div>
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Add School</button>
                           </div>
                         </div>
                       </form>

@@ -1,3 +1,25 @@
+<?php
+  session_start();
+  if(empty($_SESSION['supid'])) header("location: login.php");
+  include("connect.php");
+  $run1 = mysqli_query($con, "SELECT * FROM `team` WHERE `mobile`='0'");
+  if (isset($_POST['getdetails'])) {
+    $agentnumber = $_POST['agentnumber'];
+    $_SESSION['agentnumber'] = $agentnumber;
+    $run1 = mysqli_query($con, "SELECT * FROM `team` WHERE `mobile`='$agentnumber'");
+    if(mysqli_num_rows($run1)==0)  echo "<script>alert('No Agent Found')</script>";
+  }
+  if(isset($_POST['update'])){
+    echo  $addresslink = $_POST['addresslink'];
+    $run2 = mysqli_query($con, "UPDATE `team` SET `address`='$addresslink' WHERE `mobile`='{$_SESSION['agentnumber']}'; ");
+    if($run2){
+      echo "<script>alert('Agent Address Link Updated Successfully')</script>";
+    }
+    else{
+      echo "<script>alert('Error Occured')</script>";
+    }
+  }
+?>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -14,7 +36,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>DUpdate Agent Address Link</title>
+    <title>Update Agent Address Link</title>
 
     <meta name="description" content="" />
 
@@ -189,8 +211,7 @@
 
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
+            id="layout-navbar" >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
@@ -253,43 +274,60 @@
 
               <div class="col-md-6">
                   <div class="card mb-4">
-                    <h5 class="card-header">Select Parent</h5>
+                    <h5 class="card-header">Select Agent</h5>
+                    <form action="#" method="post">
                     <div class="card-body">
                       <div>
-                        <label for="defaultFormControlInput" class="form-label">Parent Mobile Number</label>
+                        <label for="defaultFormControlInput" class="form-label">Agent Mobile Number</label>
                         <input
                           type="text"
                           class="form-control"
                           id="defaultFormControlInput"
-                          placeholder="John Doe"
+                          placeholder="905 2727 402"
                           aria-describedby="defaultFormControlHelp"
+                          name="agentnumber"
                         />
                       </div>
                       <div class="mt-3">
-                        <button type="button" class="btn btn-primary">Get Details</button>
+                        <button type="submit" name="getdetails" class="btn btn-primary">Get Details</button>
                       </div>
                     </div>
+                    </form>
                   </div>
-                </div>
+              </div>
 
               </div>
+              <?php if(mysqli_num_rows($run1)>0) {?>
               <div class="row">
               <div class="col-md-6">
                   <div class="card mb-4">
-                    <h5 class="card-header">Update Student Subscription</h5>
+                    <h5 class="card-header">Update Agent Track Link</h5>
                     <div class="card-body">
+                    <form action="#" method="post">
                       <div>
-                        <label for="defaultFormControlInput" class="form-label">Subscribed Date</label>
-                        <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" />
+                        <label for="defaultFormControlInput" class="form-label">Deleviry Agent Link</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="defaultFormControlInput"
+                          placeholder="Agent Address Link"
+                          aria-describedby="defaultFormControlHelp"
+                          name="addresslink"
+                        />
+                        <div id="defaultFormControlHelp" class="form-text">
+                          Set google embede link of location here.
+                        </div>
                       </div>
                       <div class="mt-3">
-                        <button type="button" class="btn btn-primary">Update</button>
+                        <button type="submit" name="update" class="btn btn-primary">Update</button>
                       </div>
+                    </form>
                     </div>
                   </div>
-                </div>
               </div>
-              </div>
+            </div>
+            <?php }?>              
+            </div>
               <!-- / Content -->
 
             </div>

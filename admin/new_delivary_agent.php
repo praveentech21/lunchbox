@@ -306,7 +306,11 @@
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Agent Type</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" name="agent_type" id="basic-default-name" placeholder="Agent Type" />
+                          <select class="form-select" id="exampleFormControlSelect1" require name="agent_type" aria-label="Default select example">
+                          <option selected>Open this select menu</option>
+                          <option value="1">Founder</option>
+                          <option value="2">Partner</option>
+                        </select>
                           </div>
                         </div>
                         <div class="row justify-content-end">

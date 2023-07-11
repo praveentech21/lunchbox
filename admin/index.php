@@ -331,7 +331,7 @@
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="BHavani/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                              <img src="Bhavani/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
                             </div>
                             <div class="dropdown">
                                 <i class="bx bx-dots-vertical-rounded"></i>
@@ -348,7 +348,7 @@
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="BHavani/img/icons/unicons/cc-warning.png" alt="Credit Card" class="rounded" />
+                              <img src="Bhavani/img/icons/unicons/cc-warning.png" alt="Credit Card" class="rounded" />
                             </div>
                             <div class="dropdown">
                                 <i class="bx bx-dots-vertical-rounded"></i>
@@ -366,7 +366,7 @@
                           <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
                             <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="BHavani/img/icons/unicons/cc-success.png" alt="Credit Card" class="rounded" />
+                              <img src="Bhavani/img/icons/unicons/cc-success.png" alt="Credit Card" class="rounded" />
                             </div>
                               <div class="card-title">
                                 <h5 class="text-nowrap mb-2">Delivered Boxes</h5>

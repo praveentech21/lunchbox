@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2023 at 07:05 PM
+-- Generation Time: Jul 11, 2023 at 01:55 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `lunchbox`
+-- Database: `bolunchbox`
 --
 
 -- --------------------------------------------------------
@@ -101,7 +101,7 @@ CREATE TABLE `student` (
   `sec` varchar(15) NOT NULL DEFAULT 'A',
   `gender` int(11) NOT NULL,
   `photo` varchar(70) NOT NULL,
-  `subscription_date` date NOT NULL
+  `subscription_date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

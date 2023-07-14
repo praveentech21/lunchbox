@@ -101,6 +101,13 @@
               </a>
             </li>
 
+            <li class="menu-item">
+              <a href="allocate_student.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                <div data-i18n="Analytics">Allocate</div>
+              </a>
+            </li>
+
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Our Leads</span>
             </li>
@@ -326,6 +333,40 @@
                 <!-- Data Cards Here Shiva -->
                 <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
                   <div class="row">
+                  <div class="col-6 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <img src="Bhavani/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                            </div>
+                            <div class="dropdown">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </div>
+                          </div>
+                          <span class="d-block mb-1">Not Picked Up</span>
+                          <h3 class="card-title text-nowrap mb-2"><?php echo $total_not_pickes; ?> Boxes</h3>
+                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> <?php echo $not_picked_percentage ?> %</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <img src="Bhavani/img/icons/unicons/cc-warning.png" alt="Credit Card" class="rounded" />
+                            </div>
+                            <div class="dropdown">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </div>
+                          </div>
+                          <span class="fw-semibold d-block mb-1">In Transition</span>
+                          <h3 class="card-title mb-2"><?php echo $total_In_Transtion; ?> Boxes</h3>
+                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> <?php echo $In_Transtion_percentage; ?> %</small>
+                        </div>
+                      </div>
+                    </div>
                     <div class="col-6 mb-4">
                       <div class="card">
                         <div class="card-body">
@@ -360,7 +401,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 mb-4">
+                    <!-- <div class="col-12 mb-4">
                       <div class="card">
                         <div class="card-body">
                           <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
@@ -372,15 +413,15 @@
                                 <h5 class="text-nowrap mb-2">Delivered Boxes</h5>
                               </div>
                               <div class="mt-sm-auto">
-                                <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> <?php echo $Delivered_percentage; ?> %</small>
-                                <h3 class="mb-0"><?php echo $total_Delivered; ?> Boxes</h3>
+                                <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> <?php //echo $Delivered_percentage; ?> %</small>
+                                <h3 class="mb-0"><?php //echo $total_Delivered; ?> Boxes</h3>
                               </div>
                             </div>
                             <div id="profileReportChart"></div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <!--/ Data Cards Here Shiva -->
@@ -498,7 +539,7 @@
               <!--/ Boxes Details ends Here Shiva -->   
 
             <!-- This Month Delivery Agent Report Starts Here Shiva -->
-            <hr class="my-5" />
+            <!-- <hr class="my-5" />
             <div class="card">  
                 <h5 class="card-header">This Month Delivery Agent Report</h5>
                 <div class="table-responsive text-nowrap">
@@ -514,36 +555,36 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
                       <?php
-                        $delivery_team = mysqli_query($con,"select * from team");
-                        while($row1 = mysqli_fetch_assoc($delivery_team)){
-                          $run1 = mysqli_query($con,"select count(*) from trips where delivery_by='{$row1['eid']}' and month(date)='$this_month' and year(date)='$this_year'");
-                          $total_scbscriptions_of_agent = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from subscriptions where delivery_partner='{$row1['eid']}'"))['count(*)'];
-                          $pickedup = mysqli_fetch_assoc($run1)['count(*)'];
-                          $not_picked =($total_scbscriptions_of_agent * $this_month_working_days) - $pickedup;
-                          $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select *,count(*) from trips where delivery_by='{$row1['eid']}' and month(date)='$this_month' and year(date)='$this_year' and drop_time is null"))['count(*)'];
-                          $Delivered =$pickedup - $In_Transtion;
-                          $delivery_agent = mysqli_fetch_assoc(mysqli_query($con,"select * from team where eid='{$row1['eid']}'"));
+                        // $delivery_team = mysqli_query($con,"select * from team");
+                        // while($row1 = mysqli_fetch_assoc($delivery_team)){
+                        //   $run1 = mysqli_query($con,"select count(*) from trips where delivery_by='{$row1['eid']}' and month(date)='$this_month' and year(date)='$this_year'");
+                        //   $total_scbscriptions_of_agent = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from subscriptions where delivery_partner='{$row1['eid']}'"))['count(*)'];
+                        //   $pickedup = mysqli_fetch_assoc($run1)['count(*)'];
+                        //   $not_picked =($total_scbscriptions_of_agent * $this_month_working_days) - $pickedup;
+                        //   $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select *,count(*) from trips where delivery_by='{$row1['eid']}' and month(date)='$this_month' and year(date)='$this_year' and drop_time is null"))['count(*)'];
+                        //   $Delivered =$pickedup - $In_Transtion;
+                        //   $delivery_agent = mysqli_fetch_assoc(mysqli_query($con,"select * from team where eid='{$row1['eid']}'"));
                       ?>
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $delivery_agent['name'] ?></strong></td>
-                        <td><a href="tel:<?php echo $delivery_agent['mobile'] ?>"></a><?php echo $delivery_agent['mobile'] ?></td>
-                        <td><span class="badge bg-label-warning me-1"><?php echo $not_picked ?> Boxes</span></td>
-                        <td><span class="badge bg-label-primary me-1"><?php echo $In_Transtion ?> Boxes</span></td>
-                        <td><span class="badge bg-label-success me-1"><?php echo $Delivered ?> Boxes</span></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php //echo $delivery_agent['name'] ?></strong></td>
+                        <td><a href="tel:<?php //echo $delivery_agent['mobile'] ?>"></a><?php //echo $delivery_agent['mobile'] ?></td>
+                        <td><span class="badge bg-label-warning me-1"><?php //echo $not_picked ?> Boxes</span></td>
+                        <td><span class="badge bg-label-primary me-1"><?php //echo $In_Transtion ?> Boxes</span></td>
+                        <td><span class="badge bg-label-success me-1"><?php //echo $Delivered ?> Boxes</span></td>
                       </tr>
-                      <?php } ?>
+                      <?php // } ?>
                     </tbody>
                   </table>
                 </div>
             </div>
-            <hr class="my-5" />
+            <hr class="my-5" /> -->
               <!--/ This Month Delivery Agent Report Ends Here Shiva -->
 
               <!-- Monthly Report Starts Here Shiva -->
 
-              <div class="row">
+              <!-- <div class="row"> -->
                 <!-- Day to Day Delivery Analysis -->
-                <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+                <!-- <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
                   <div class="card">
                   <h5 class="card-header">Day to Day Delivery Analysis</h5>
                   <div class="card-body">
@@ -559,31 +600,31 @@
                         </thead>
                         <tbody>
                           <?php
-                            $day_to_day = mysqli_query($con,"select *,count(*) from delivary where month(date)='$this_month' and year(date)='$this_year' group by date order by date asc");
-                            while($row = mysqli_fetch_assoc($day_to_day)){
-                              $pickedup = $row['count(*)'];
-                              $not_picked =$total_scbscriptions - $pickedup;
-                              $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from delivary where date = '{$row['date']}' and status = 0"))['count(*)'];
-                              $Delivered =$pickedup - $In_Transtion;
+                            // $day_to_day = mysqli_query($con,"select *,count(*) from delivary where month(date)='$this_month' and year(date)='$this_year' group by date order by date asc");
+                            // while($row = mysqli_fetch_assoc($day_to_day)){
+                            //   $pickedup = $row['count(*)'];
+                            //   $not_picked =$total_scbscriptions - $pickedup;
+                            //   $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from delivary where date = '{$row['date']}' and status = 0"))['count(*)'];
+                            //   $Delivered =$pickedup - $In_Transtion;
 
                           ?>
                           <tr>
-                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $row['date'] ?></strong></td>
-                            <td><span class="badge bg-label-warning me-1"><?php echo $not_picked ?> Boxes</span></td>
-                            <td><span class="badge bg-label-primary me-1"><?php echo $In_Transtion ?> Boxes</span></td>
-                            <td><span class="badge bg-label-success me-1"><?php echo $Delivered ?> Boxes</span></td>
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php // echo $row['date'] ?></strong></td>
+                            <td><span class="badge bg-label-warning me-1"><?php //echo $not_picked ?> Boxes</span></td>
+                            <td><span class="badge bg-label-primary me-1"><?php //echo $In_Transtion ?> Boxes</span></td>
+                            <td><span class="badge bg-label-success me-1"><?php //echo $Delivered ?> Boxes</span></td>
                           </tr>
-                          <?php } ?>
+                          <?php //} ?>
                         </tbody>
                       </table>
                     </div>
                   </div>
                   </div>
-                </div>
+                </div> -->
                 <!--/ Day to Day Delivery Analysis -->
 
                 <!-- Subscribed Parents -->
-                <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
+                <!-- <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
                   <div class="row">
                     <div class="col-12 mb-4">
                       <div class="card">
@@ -599,15 +640,15 @@
                       </thead>
                       <tbody>
                         <?php
-                          $subscribed_parents = mysqli_query($con,"select *,count(*) from subscriptions group by pid");
-                          while($row = mysqli_fetch_assoc($subscribed_parents)){
-                            $run1 = mysqli_fetch_assoc(mysqli_query($con,"select * from parent where pid='{$row['pid']}'"));
+                          // $subscribed_parents = mysqli_query($con,"select *,count(*) from subscriptions group by pid");
+                          // while($row = mysqli_fetch_assoc($subscribed_parents)){
+                          //   $run1 = mysqli_fetch_assoc(mysqli_query($con,"select * from parent where pid='{$row['pid']}'"));
                         ?>
                         <tr>
-                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $run1['pname'] ?></strong></td>
-                          <td><span class="badge bg-label-info me-1"><?php echo $row['count(*)'] ?> Childs</span></td>
+                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php //echo $run1['pname'] ?></strong></td>
+                          <td><span class="badge bg-label-info me-1"><?php //echo $row['count(*)'] ?> Childs</span></td>
                         </tr>
-                        <?php } ?>
+                        <?php // } ?>
                       </tbody>
                     </table>
                   </div>
@@ -615,12 +656,12 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!--/ Subscribed Parents -->
 
                 
                 <!-- Student Wise Deliverary Analysis -->
-                <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+                <!-- <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
                   <div class="card">
                   <h5 class="card-header">Student Wise Deliverary Analysis</h5>
                   <div class="card-body">
@@ -636,33 +677,33 @@
                         </thead>
                         <tbody>
                           <?php
-                            $student_wise = mysqli_query($con,"select * from student ");
-                            while($row = mysqli_fetch_assoc($student_wise)){
-                              $run1 = mysqli_fetch_assoc(mysqli_query($con,"select status,count(*) from delivary where stdid='{$row['stdid']}'"));
-                              $pickedup = $run1['count(*)'];
-                              $not_picked =$this_month_working_days - $pickedup;
-                              $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from delivary where stdid = '{$row['stdid']}' and status = 0"))['count(*)'];
-                              $Delivered =$pickedup - $In_Transtion;
+                            // $student_wise = mysqli_query($con,"select * from student ");
+                            // while($row = mysqli_fetch_assoc($student_wise)){
+                            //   $run1 = mysqli_fetch_assoc(mysqli_query($con,"select status,count(*) from delivary where stdid='{$row['stdid']}'"));
+                            //   $pickedup = $run1['count(*)'];
+                            //   $not_picked =$this_month_working_days - $pickedup;
+                            //   $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from delivary where stdid = '{$row['stdid']}' and status = 0"))['count(*)'];
+                            //   $Delivered =$pickedup - $In_Transtion;
                           ?>
                           <tr>
-                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $row['sname'] ?></strong></td>
-                            <td><span class="badge bg-label-warning me-1"><?php echo $not_picked ?> Pending</span></td>
-                            <td><span class="badge bg-label-primary me-1"><?php echo $In_Transtion ?> Active</span></td>
-                            <td><span class="badge bg-label-success me-1"><?php echo $Delivered ?> Scheduled</span></td>
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php //echo $row['sname'] ?></strong></td>
+                            <td><span class="badge bg-label-warning me-1"><?php //echo $not_picked ?> Pending</span></td>
+                            <td><span class="badge bg-label-primary me-1"><?php //echo $In_Transtion ?> Active</span></td>
+                            <td><span class="badge bg-label-success me-1"><?php //echo $Delivered ?> Scheduled</span></td>
                           </tr>
-                          <?php } ?>
+                          <?php // } ?>
                         </tbody>
                       </table>
                     </div>
                   </div>
                   </div>
-                </div>
+                </div> -->
                 <!--/ Student Wise Deliverary Analysis -->
                 
             </div>
             <!--/ Monthly Report Ends Here Shiva -->
               
-            </div>
+            <!-- </div> -->
             <!-- / Content -->
 
             <!-- Footer -->

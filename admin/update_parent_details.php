@@ -294,6 +294,7 @@
                             id="defaultFormControlInput"
                             placeholder="905 2727 402"
                             aria-describedby="defaultFormControlHelp"
+                            type="number"
                             name="pid"
                           />
                         </div>
@@ -343,7 +344,7 @@
                               ><i class="bx bx-phone"></i
                             ></span>
                             <input
-                              type="text"
+                              type="number"
                               id="basic-icon-default-phone"
                               class="form-control phone-mask"
                               placeholder="<?php echo $run1['pid']; ?>"
@@ -360,7 +361,7 @@
                               ><i class="bx bx-phone"></i
                             ></span>
                             <input
-                              type="text"
+                              type="number"
                               id="basic-icon-default-phone"
                               class="form-control phone-mask"
                               placeholder="<?php echo $run1['altphone']; ?>"
@@ -375,7 +376,7 @@
                           <div class="input-group input-group-merge">
                             <span class="input-group-text"><i class="bx bx-envelope"></i></span>
                             <input
-                              type="text"
+                              type ="email"
                               id="basic-icon-default-email"
                               class="form-control"
                               placeholder="<?php echo $run1['email']; ?>"
@@ -391,7 +392,7 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-lock-open-alt"></i>
                           </span>
                             <input
-                              type="text"
+                              type="password"
                               class="form-control"
                               id="basic-icon-default-fullname"
                               placeholder="..........."

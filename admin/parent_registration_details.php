@@ -273,11 +273,12 @@
                           $subscribed_parents = mysqli_query($con,"select *,count(*) from subscriptions group by pid");
                           while($row = mysqli_fetch_assoc($subscribed_parents)){
                             $run1 = mysqli_fetch_assoc(mysqli_query($con,"select * from parent where pid='{$row['pid']}'"));
+                            $address = mysqli_fetch_assoc(mysqli_query($con,"select * from address where pid = '{$row['pid']}'"))
                         ?>
                       <tr>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $run1['pname'] ?></strong></td>
-                        <td><?php echo $run1['pid'] ?></td>
-                        <td><?php echo $run1['email'] ?></td>
+                        <td><a href="tel:<?php echo $run1['pid'] ?>"><?php echo $run1['pid'] ?></a></td>
+                        <td><?php echo $address['area'] ?></td>
                         <td><?php echo $row['count(*)'] ?></td>
                         <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
                       </tr>

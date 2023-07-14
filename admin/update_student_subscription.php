@@ -282,7 +282,7 @@
                       <div>
                         <label for="defaultFormControlInput" class="form-label">Parent Mobile Number</label>
                         <input
-                          type="text"
+                          type="number"
                           class="form-control"
                           id="defaultFormControlInput"
                           placeholder="905 2727 402"
@@ -301,21 +301,20 @@
 
             <?php
               if(mysqli_num_rows($run1)>0){
-                $subsctiption_details = mysqli_fetch_assoc(mysqli_query($con,"select * from subscriptions where pid='$pid'"));
-                $student_details = mysqli_query($con,"select * from student where stdid='{$subsctiption_details['stdid']}'");
-                while($row = mysqli_fetch_assoc($student_details)){
+                $subsctiption_details = mysqli_query($con,"select * from subscriptions where pid='$pid'");
+                while($row = mysqli_fetch_assoc($subsctiption_details)){
+                $student_details = mysqli_fetch_assoc(mysqli_query($con,"select * from student where stdid='{$row['stdid']}'"));
               ?>
-
             <form action="#" method="post">
             <div class="row">
             <div class="col-md-6">
                 <div class="card mb-4">
-                  <h5 class="card-header"><?php echo $row['sname'] ?></h5>
+                  <h5 class="card-header"><?php echo $student_details['sname'] ?></h5>
                   <div class="card-body"> 
                     <div>
                       <label for="defaultFormControlInput" class="form-label">Subscribed Date</label>
                       <input class="form-control" name="subdate"  type="date" id="html5-date-input"/>
-                      <input type="hidden" name="stdid" value="<?php echo $row['stdid'] ?>">
+                      <input type="hidden" name="stdid" value="<?php echo $student_details['stdid'] ?>">
                     </div>
                     <div class="mt-3">
                       <button type="submit" name="update" class="btn btn-primary">Update</button>

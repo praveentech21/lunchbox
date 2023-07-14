@@ -290,7 +290,7 @@
                         <div>
                           <label for="defaultFormControlInput" class="form-label">Parent Mobile Number</label>
                           <input
-                            type="text"
+                            type="number"
                             class="form-control"
                             id="defaultFormControlInput"
                             placeholder="905 2727 402"
@@ -354,7 +354,7 @@
                       <div>
                         <label for="defaultFormControlInput" class="form-label">Pincode</label>
                         <input
-                          type="text"
+                          type="number"
                           class="form-control"
                           id="defaultFormControlInput"
                           placeholder="<?php echo $run2['pincode']; ?>"

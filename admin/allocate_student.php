@@ -1,24 +1,25 @@
 <?php
   session_start();
+  // Calculation for this Month
   if(empty($_SESSION['supid'])) header("location: login.php");
   include("connect.php");
-  $run1 = mysqli_query($con, "SELECT * FROM `team` WHERE `mobile`='0'");
-  if (isset($_POST['getdetails'])) {
-    $agentnumber = $_POST['agentnumber'];
-    $_SESSION['agentnumber'] = $agentnumber;
-    $run1 = mysqli_query($con, "SELECT * FROM `team` WHERE `mobile`='$agentnumber'");
-    if(mysqli_num_rows($run1)==0)  echo "<script>alert('No Agent Found')</script>";
-  }
-  if(isset($_POST['update'])){
-    $addresslink = $_POST['addresslink'];
-    $run2 = mysqli_query($con, "UPDATE `team` SET `address`='$addresslink' WHERE `mobile`='{$_SESSION['agentnumber']}'; ");
-    if($run2){
-      echo "<script>alert('Agent Address Link Updated Successfully')</script>";
-    }
-    else{
-      echo "<script>alert('Error Occured')</script>";
-    }
-  }
+  $subscriptions = mysqli_query($con,"select *,count(*) from subscriptions");
+  $team = mysqli_query($con,"select * from team");
+  $date = date("Y-m-d");
+  $total_scbscriptions = mysqli_fetch_assoc($subscriptions)['count(*)'];
+  $total_not_pickes = 0;
+  $total_In_Transtion = 0;
+  $total_Delivered = 0;
+  $not_picked_students = mysqli_query($con,"select * from subscriptions where stdid not in (select stdid from delivary where date='$date')");
+  $picked_students = mysqli_query($con,"select * from delivary where date='$date'");
+
+  // Calculation for this Month agent Report
+  $this_month = date("m");
+  $this_year = date("Y");
+  $this_month_working_days = mysqli_num_rows(mysqli_query($con,"SELECT count(*) FROM `delivary` WHERE month(date) = $this_month and year(date) = $this_year GROUP BY date; "));
+
+  // Calculation for day to day analysis
+
 ?>
 <!DOCTYPE html>
 <html
@@ -36,7 +37,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Update Agent Address Link</title>
+    <title>Lunch Box Dashboard</title>
 
     <meta name="description" content="" />
 
@@ -81,7 +82,7 @@
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
+          <div class="app-brand demo ">
             <a href="index.php" class="app-brand-link">
               <span class="app-brand-text demo menu-text fw-bolder ms-2">Lunch Box</span>
             </a>
@@ -97,6 +98,13 @@
               <a href="index.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
+              </a>
+            </li>
+
+            <li class="menu-item active">
+              <a href="allocate_student.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                <div data-i18n="Analytics">Allocate</div>
               </a>
             </li>
 
@@ -183,7 +191,7 @@
                     <div data-i18n="Basic Inputs">Delivary Agent Report</div>
                   </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="updating_delivary_agent_link.php" class="menu-link">
                     <div data-i18n="Input groups">Update Agent Link</div>
                   </a>
@@ -270,68 +278,65 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-            <div class="row">
-
-              <div class="col-md-6">
-                  <div class="card mb-4">
-                    <h5 class="card-header">Select Agent</h5>
-                    <form action="#" method="post">
-                    <div class="card-body">
-                      <div>
-                        <label for="defaultFormControlInput" class="form-label">Agent Mobile Number</label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="defaultFormControlInput"
-                          placeholder="905 2727 402"
-                          aria-describedby="defaultFormControlHelp"
-                          name="agentnumber"
-                        />
-                      </div>
-                      <div class="mt-3">
-                        <button type="submit" name="getdetails" class="btn btn-primary">Get Details</button>
-                      </div>
-                    </div>
-                    </form>
-                  </div>
-              </div>
-
-              </div>
-              <?php if(mysqli_num_rows($run1)>0) {?>
               <div class="row">
-              <div class="col-md-6">
+                <div class="col-md-6">
                   <div class="card mb-4">
-                    <h5 class="card-header">Update Agent Track Link</h5>
+                    <h5 class="card-header">Allocate Students to Agent</h5>
                     <div class="card-body">
-                    <form action="#" method="post">
                       <div>
-                        <label for="defaultFormControlInput" class="form-label">Deleviry Agent Link</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="defaultFormControlInput"
-                          placeholder="Agent Address Link"
-                          aria-describedby="defaultFormControlHelp"
-                          name="addresslink"
-                        />
-                        <div id="defaultFormControlHelp" class="form-text">
-                          Set google embede link of location here.
-                        </div>
+                        <label for="smallSelect" class="form-label">Select Agent</label>
+                        <select id="smallSelect" class="form-select form-select-sm">
+                          <option>Select Agent</option>
+                          <option value="9581981888">jagadish</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
                       </div>
-                      <div class="mt-3">
-                        <button type="submit" name="update" class="btn btn-primary">Update</button>
-                      </div>
-                    </form>
+
                     </div>
                   </div>
+                </div>   
               </div>
+              <div id="students_to_agent"></div>
+              <!-- Hoverable Table rows -->
+              <div class="card" >
+                <h5 class="card-header">Allocating Delivery Agent to Students</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Student Name</th>
+                        <th>Parent Name</th>
+                        <th>Area</th>
+                        <th>School</th>
+                        <th>Delivary Agent</th>
+                        <th>Update</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong> echo $student['sname'] </strong></td>
+                        <td> echo $parent['pname'] </td>
+                        <td> echo $address['area'] </td>
+                        <td><span class="badge bg-label-success me-1">echo $school['school_name'] </span></td>
+                        <form action="allocate_agent.php" method="get">
+                        <input type="hidden" name="stdid">
+                        <td><div>
+                        <select id="smallSelect" name="agent" class="form-select form-select-sm">
+                          <option>select agent</option>
+                        </select>
+                      </div></td>                        
+                        <td><input type="submit" class="btn btn-sm btn-outline-success"></td>
+                        </form>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!--/ Hoverable Table rows -->
             </div>
-            <?php }?>              
-            </div>
-              <!-- / Content -->
-
-            </div>
-            <!-- / Content -->
+            <!--/ Monthly Report Ends Here Shiva -->
+              
 
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
@@ -382,5 +387,35 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+      const smallSelect = document.getElementById('smallSelect');
+      const students = document.getElementById('students_to_agent');
+
+      smallSelect.addEventListener("change",function(){
+        const agents_selected =smallSelect.value;
+
+        //Making xml https request
+        const std_dets = new XMLHttpRequest();
+        std_dets.open("GET","get_student_details.php?agent="+agents_selected,true);
+        std_dets.onreadystatechange =function(){
+          if( std_dets.readyState === 4 & std_dets.status === 200){
+            const data_students = JSON.parse(std_dets.responseText);
+            console.log(data_students);
+            // Sending Data to display ie to students_to_agent container
+            sendtodisplay(data_students);
+          }
+        };
+        std_dets.send();
+      });
+      function sendtodisplay(data){
+        students.innerHTML = data;
+        // for(let i = 0; i <data.length; i++){
+        //   const item = data[i];
+        // }
+
+      }    
+
+
+    </script>
   </body>
 </html>

@@ -83,7 +83,7 @@ $students = mysqli_query($con, "select * from student ");
 
   </div>
   <!-- Content wrapper -->
-  <?php include 'footer.php'; ?>
+  <?php include 'fotter.php'; ?>
 
 </body>
 

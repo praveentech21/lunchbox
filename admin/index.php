@@ -133,65 +133,28 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
                 </div>
               </div>
             </div>
-            <div class="col-6 mb-4">
+            <div class="col-12 mb-4">
               <div class="card">
                 <div class="card-body">
-                  <div class="card-title d-flex align-items-start justify-content-between">
-                    <div class="avatar flex-shrink-0">
-                      <img src="Bhavani/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
-                    </div>
-                    <div class="dropdown">
-                      <i class="bx bx-dots-vertical-rounded"></i>
-                    </div>
-                  </div>
-                  <span class="d-block mb-1">Not Picked Up</span>
-                  <h3 class="card-title text-nowrap mb-2"><?php echo $total_not_pickes; ?> Boxes</h3>
-                  <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i>
-                    <?php echo $not_picked_percentage ?> %</small>
-                </div>
-              </div>
-            </div>
-            <div class="col-6 mb-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="card-title d-flex align-items-start justify-content-between">
-                    <div class="avatar flex-shrink-0">
-                      <img src="Bhavani/img/icons/unicons/cc-warning.png" alt="Credit Card" class="rounded" />
-                    </div>
-                    <div class="dropdown">
-                      <i class="bx bx-dots-vertical-rounded"></i>
-                    </div>
-                  </div>
-                  <span class="fw-semibold d-block mb-1">In Transition</span>
-                  <h3 class="card-title mb-2"><?php echo $total_In_Transtion; ?> Boxes</h3>
-                  <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
-                    <?php echo $In_Transtion_percentage; ?> %</small>
-                </div>
-              </div>
-            </div>
-            <!-- <div class="col-12 mb-4">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
-                            <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
-                            <div class="avatar flex-shrink-0">
-                              <img src="Bhavani/img/icons/unicons/cc-success.png" alt="Credit Card" class="rounded" />
-                            </div>
-                              <div class="card-title">
-                                <h5 class="text-nowrap mb-2">Delivered Boxes</h5>
-                              </div>
-                              <div class="mt-sm-auto">
-                                <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> <?php //echo $Delivered_percentage; 
-                                                                                                                      ?> %</small>
-                                <h3 class="mb-0"><?php //echo $total_Delivered; 
-                                                  ?> Boxes</h3>
-                              </div>
-                            </div>
-                            <div id="profileReportChart"></div>
-                          </div>
-                        </div>
+                  <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+                    <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                      <div class="avatar flex-shrink-0">
+                        <img src="Bhavani/img/icons/unicons/cc-success.png" alt="Credit Card" class="rounded" />
                       </div>
-                    </div> -->
+                      <div class="card-title">
+                        <h5 class="text-nowrap mb-2">Delivered Boxes</h5>
+                      </div>
+                      <div class="mt-sm-auto">
+                        <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i>
+                          <?php echo $Delivered_percentage; ?> %</small>
+                        <h3 class="mb-0"><?php echo $total_Delivered; ?> Boxes</h3>
+                      </div>
+                    </div>
+                    <div id="profileReportChart"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <!--/ Data Cards Here Shiva -->

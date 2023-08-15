@@ -163,8 +163,8 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
       <!-- Boxes Details starts Here Shiva -->
       <div class="row">
         <!-- Not Picked Boxes -->
-        <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
-          <div class="card h-100">
+        <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4" style="height: 550px; overflow:hidden">
+          <div class="card h-100" style=" overflow-y: auto;">
             <div div class="card-header d-flex align-items-center justify-content-between">
               <h5 class="card-title m-0 me-2">Not Picked Boxes</h5>
             </div>
@@ -174,7 +174,7 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
               $run2 = mysqli_fetch_assoc(mysqli_query($con, "select * from parent where pid='{$run1['pid']}'"));
               $run3 = mysqli_fetch_assoc(mysqli_query($con, "select * from student where stdid='{$stdid['stdid']}'"));
             ?>
-              <div class="card-body">
+              <div class="card-body" style="padding-bottom :0%" >
                 <ul class="p-0 m-0">
                   <li class="d-flex mb-4 pb-1">
                     <div class="avatar flex-shrink-0 me-3">
@@ -198,8 +198,8 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
         <!--/ Not Picked Boxes -->
 
         <!-- In Transition Boxes -->
-        <div class="col-md-6 col-lg-4 order-1 mb-4">
-          <div class="card h-100">
+        <div class="col-md-6 col-lg-4 order-1 mb-4" style="height: 550px; overflow:hidden">
+          <div class="card h-100" style=" overflow-y: auto;">
             <div class="card-header d-flex align-items-center justify-content-between">
               <h5 class="card-title m-0 me-2">In Transition Boxes</h5>
             </div>
@@ -210,7 +210,7 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
                 $run2 = mysqli_fetch_assoc(mysqli_query($con, "select * from parent where pid='{$run1['pid']}'"));
                 $run3 = mysqli_fetch_assoc(mysqli_query($con, "select * from student where stdid='{$stdid['stdid']}'"));
             ?>
-                <div class="card-body">
+                <div class="card-body" style="padding-bottom :0%">
                   <ul class="p-0 m-0">
                     <li class="d-flex">
                       <div class="avatar flex-shrink-0 me-3">
@@ -235,8 +235,8 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
         <!--/ In Transition Boxes -->
 
         <!-- Delivered Boxes -->
-        <div class="col-md-6 col-lg-4 order-2 mb-4">
-          <div class="card h-100">
+        <div class="col-md-6 col-lg-4 order-2 mb-4" style="height: 550px; overflow:hidden">
+          <div class="card h-100"  style=" overflow-y: auto;">
             <div class="card-header d-flex align-items-center justify-content-between">
               <h5 class="card-title m-0 me-2">Delivered Boxes</h5>
             </div>
@@ -247,7 +247,7 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
                 $run2 = mysqli_fetch_assoc(mysqli_query($con, "select * from parent where pid='{$run1['pid']}'"));
                 $run3 = mysqli_fetch_assoc(mysqli_query($con, "select * from student where stdid='{$stdid['stdid']}'"));
             ?>
-                <div class="card-body">
+                <div class="card-body" style="padding-bottom :0%">
                   <ul class="p-0 m-0">
                     <li class="d-flex mb-4 pb-1">
                       <div class="avatar flex-shrink-0 me-3">

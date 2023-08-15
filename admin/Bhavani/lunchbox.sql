@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2023 at 01:55 PM
+-- Generation Time: Aug 15, 2023 at 07:37 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bolunchbox`
+-- Database: `test`
 --
 
 -- --------------------------------------------------------
@@ -77,15 +77,6 @@ CREATE TABLE `schools` (
   `school_address` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `schools`
---
-
-INSERT INTO `schools` (`sid`, `school_name`, `track_address`, `school_address`) VALUES
-(1, 'Westberry School', NULL, 'Pedamiram, Bhimavaram\r\n'),
-(2, 'Bhavans', NULL, 'Munshi Marg, Three Town, Bhimvaram\r\n'),
-(3, 'Eurokids', NULL, 'Beside Chandrika Family Restaurant, Sriram Nagar, Bhimavaram\r\n');
-
 -- --------------------------------------------------------
 
 --
@@ -131,17 +122,6 @@ CREATE TABLE `team` (
   `address` varchar(150) DEFAULT NULL,
   `photo` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `team`
---
-
-INSERT INTO `team` (`eid`, `name`, `mobile`, `pass`, `type`, `address`, `photo`) VALUES
-(1, 'Jagadeesh', '9581981888', '9581981888', 'F', NULL, NULL),
-(2, 'sanjay', '6304679588', '6304679588', 'P', NULL, NULL),
-(3, 'siva', '8466075576', '8466075576', 'F', NULL, NULL),
-(4, 'ganesh', '8143234177', '8143234177', 'P', NULL, NULL),
-(5, 'dada', '9182555783', '9182555783', 'P', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -221,25 +201,25 @@ ALTER TABLE `trips`
 -- AUTO_INCREMENT for table `schools`
 --
 ALTER TABLE `schools`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `stdid` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `stdid` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `team`
 --
 ALTER TABLE `team`
-  MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `trips`
 --
 ALTER TABLE `trips`
-  MODIFY `tripid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `tripid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

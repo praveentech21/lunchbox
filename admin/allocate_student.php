@@ -3,22 +3,17 @@ session_start();
 // Calculation for this Month
 if (empty($_SESSION['supid'])) header("location: login.php");
 include("connect.php");
-$subscriptions = mysqli_query($con, "select *,count(*) from subscriptions");
-$team = mysqli_query($con, "select * from team");
-$date = date("Y-m-d");
-$total_scbscriptions = mysqli_fetch_assoc($subscriptions)['count(*)'];
-$total_not_pickes = 0;
-$total_In_Transtion = 0;
-$total_Delivered = 0;
-$not_picked_students = mysqli_query($con, "select * from subscriptions where stdid not in (select stdid from delivary where date='$date')");
-$picked_students = mysqli_query($con, "select * from delivary where date='$date'");
+// Agent Deatils
+$agent = mysqli_query($con, "select * from team");
 
-// Calculation for this Month agent Report
-$this_month = date("m");
-$this_year = date("Y");
-$this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) FROM `delivary` WHERE month(date) = $this_month and year(date) = $this_year GROUP BY date; "));
+$students = mysqli_query($con, "select * from student");
 
-// Calculation for day to day analysis
+if(isset($_POST['allocate_student_to_agent'])){
+  $students_to_assign = $_POST['students_to_assign'];
+  foreach($students_to_assign as $std){
+    mysqli_query($con, "update subscriptions set delivery_partner = '{$_POST['agent']}' where stdid = '{$std}'");    
+  }
+}
 
 ?>
 <!DOCTYPE html>
@@ -35,64 +30,65 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card mb-4">
-            <h5 class="card-header">Allocate Students to Agent</h5>
-            <div class="card-body">
-              <div>
-                <label for="smallSelect" class="form-label">Select Agent</label>
-                <select id="smallSelect" class="form-select form-select-sm">
-                  <option>Select Agent</option>
-                  <option value="9581981888">jagadish</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+      <form action="#" method="post">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mb-4">
+              <h5 class="card-header">Allocate Students to Agent</h5>
+              <div class="card-body">
+                <div>
+                  <label for="smallSelect" class="form-label">Select Agent</label>
+                  <select id="smallSelect" name="agent" class="form-select form-select-sm" required>
+                    <option value="">Select Agent</option>
+                    <?php while ($row = mysqli_fetch_assoc($agent)) { ?>
+                      <option value="<?php echo $row['eid'] ?>"><?php echo $row['name'] ?></option>
+                    <?php } ?>
+                  </select> <br>
+                  <button type="submit" class="btn btn-primary" name="allocate_student_to_agent">Allocate to Agent</button>
+                </div>
               </div>
-
             </div>
           </div>
         </div>
-      </div>
-      <div id="students_to_agent"></div>
-      <!-- Hoverable Table rows -->
-      <div class="card">
-        <h5 class="card-header">Allocating Delivery Agent to Students</h5>
-        <div class="table-responsive text-nowrap">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Student Name</th>
-                <th>Parent Name</th>
-                <th>Area</th>
-                <th>School</th>
-                <th>Delivary Agent</th>
-                <th>Update</th>
-              </tr>
-            </thead>
-            <tbody class="table-border-bottom-0">
-              <tr>
-                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong> echo
-                    $student['sname'] </strong></td>
-                <td> echo $parent['pname'] </td>
-                <td> echo $address['area'] </td>
-                <td><span class="badge bg-label-success me-1">echo $school['school_name'] </span></td>
-                <form action="allocate_agent.php" method="get">
-                  <input type="hidden" name="stdid">
-                  <td>
-                    <div>
-                      <select id="smallSelect" name="agent" class="form-select form-select-sm">
-                        <option>select agent</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td><input type="submit" class="btn btn-sm btn-outline-success"></td>
-                </form>
-              </tr>
-            </tbody>
-          </table>
+
+        <!-- Hoverable Table rows -->
+        <div class="card">
+          <h5 class="card-header">Allocating Delivery Agent to Students</h5>
+          <div class="table-responsive text-nowrap">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Parent Name</th>
+                  <th>Area</th>
+                  <th>School</th>
+                  <th>Present Agent</th>
+                  <th>Update</th>
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                <?php while ($student = mysqli_fetch_assoc($students)) { 
+                  $sub = mysqli_fetch_assoc(mysqli_query($con, "select * from subscriptions where stdid ='{$student['stdid']}'"));
+                  $parent = mysqli_fetch_assoc(mysqli_query($con, "select * from parent where pid = '{$sub['pid']}'"));
+                  $address = mysqli_fetch_assoc(mysqli_query($con, "select * from address where pid = '{$sub['pid']}'"));
+                  $del_agent = mysqli_fetch_assoc(mysqli_query($con, "select name from team where eid = '{$sub['delivery_partner']}'"))['name'];
+                  $school = mysqli_fetch_assoc(mysqli_query($con, "select school_name from schools where sid = '{$student['school']}'"))['school_name'];
+                  ?>
+                  <tr>
+                    <td><strong> <?php echo $student['sname'] ?></strong></td>
+                    <td><?php echo $parent['pname'] ?></td>
+                    <td><?php echo $address['area'] ?></td>
+                    <td><?php echo $school ?></td>
+                    <td><?php echo $del_agent ?></td>
+                    <td><input type="checkbox" name="students_to_assign[]" id="<?php echo $student['stdid'] ?>" value="<?php echo $student['stdid'] ?>"> <label for="<?php echo $student['stdid'] ?>"> Select</label></td>
+                  </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+
+          </div>
         </div>
-      </div>
+      </form>
       <!--/ Hoverable Table rows -->
     </div>
     <!--/ Monthly Report Ends Here Shiva -->

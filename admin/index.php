@@ -3,485 +3,325 @@ session_start();
 // Calculation for this Month
 if (empty($_SESSION['supid'])) header("location: login.php");
 include("connect.php");
-$subscriptions = mysqli_query($con, "select *,count(*) from subscriptions");
-$team = mysqli_query($con, "select * from team");
-$date = date("Y-m-d");
-$total_scbscriptions = mysqli_fetch_assoc($subscriptions)['count(*)'];
-$total_not_pickes = 0;
-$total_In_Transtion = 0;
-$total_Delivered = 0;
-$not_picked_students = mysqli_query($con, "select * from subscriptions where stdid not in (select stdid from delivary where date='$date')");
-$picked_students = mysqli_query($con, "select * from delivary where date='$date'");
-
-// Calculation for this Month agent Report
-$this_month = date("m");
-$this_year = date("Y");
-$this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) FROM `delivary` WHERE month(date) = $this_month and year(date) = $this_year GROUP BY date; "));
-
-// Calculation for day to day analysis
+$students = mysqli_query($con, "select * from student ");
+$delivery_team = mysqli_query($con, "select * from team");
 
 ?>
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="Bhavani/" data-template="vertical-menu-template-free">
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="Bhavani/"
+    data-template="vertical-menu-template-free">
 
 <head>
-  <?php include 'bhavani.php'; ?>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Then load Bootstrap JavaScript -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <?php include 'bhavani.php'; ?>
+    <style>
+    .nav-tabs .nav-link.active {
+        font-weight: bold;
+        background-color: transparent;
+        border-bottom: 3px solid #03b0d4;
+        border-right: none;
+        border-left: none;
+        border-top: none;
+    }
+    </style>
+    <style>
+    /* Modal styles */
+.modal .modal-dialog {
+    max-width: 90%; /* Adjust the maximum width as needed */
+    margin: 10vh auto; /* Center the modal vertically and horizontally */
+}
+.modal .modal-content {
+    border-radius: 3px;
+    font-size: 14px;
+}
+.modal .modal-header, .modal .modal-footer {
+    padding: 10px 15px; /* Adjust padding for header and footer */
+}
+.modal .modal-body {
+    max-height: 60vh; /* Set the maximum height for the body */
+    overflow-y: auto; /* Allow vertical scrolling if content exceeds max height */
+    padding: 0 15px; /* Adjust padding as needed */
+}
+.modal .modal-footer {
+    background: #ecf0f1;
+    border-radius: 0 0 3px 3px;
+    padding: 10px 15px; /* Adjust padding for footer */
+}
+.modal .modal-title {
+    display: inline-block;
+    font-size: 18px; /* Increase font size for title */
+}
+.modal .form-control {
+    border-radius: 2px;
+    box-shadow: none;
+    border-color: #dddddd;
+    font-size: 14px; /* Adjust font size for input fields */
+}
+.modal textarea.form-control {
+    resize: vertical;
+}
+.modal .btn {
+    border-radius: 2px;
+    min-width: 100px;
+    font-size: 14px; /* Adjust font size for buttons */
+}
+.modal form label {
+    font-weight: normal;
+}
+#successAlert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+/* ... Existing styles ... */
+/* Hide the warning messages initially */
+#nameError,
+#mobileError,
+#emailError {
+    display: none;
+}
+/* Custom styles for invalid input fields */
+input.is-invalid {
+    border-color: red !important;
+}
+
+    </style>
+
 </head>
 
 <body>
-  <?php include 'header.php'; ?>
+    <?php include 'header.php'; ?>
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content -->
 
-  <!-- Content wrapper -->
-  <div class="content-wrapper">
-    <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="row">
 
-    <div class="container-xxl flex-grow-1 container-p-y">
-      <!-- Today Report Starts Here Shiva -->
-      <div class="row">
+                <section>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 text-center ">
+                                <nav class="nav-justified ">
+                                    <div class="nav nav-tabs " id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="pop1-tab" data-toggle="tab" href="#pop1"
+                                            role="tab" aria-controls="pop1" aria-selected="true">Parent Details</a>
+                                        <a class="nav-item nav-link" id="pop2-tab" data-toggle="tab" href="#pop2"
+                                            role="tab" aria-controls="pop2" aria-selected="false">Student Details</a>
+                                        <a class="nav-item nav-link" id="pop3-tab" data-toggle="tab" href="#pop3"
+                                            role="tab" aria-controls="pop3" aria-selected="false">Newly Launched</a>
+                                    </div>
+                                </nav>
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="pop1" role="tabpanel"
+                                        aria-labelledby="pop1-tab">
+                                        <!-- Hoverable Table rows -->
+                                        <div class="card">
+                                            <h5 class="card-header">Subscribed Parent Details</h5>
+                                            <div class="table-responsive text-nowrap">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Mobile</th>
+                                                            <th>Email</th>
+                                                            <th>No. of Childs</th>
+                                                            <th>View Profile</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-border-bottom-0">
+                                                        <?php
+                            $subscribed_parents = mysqli_query($con, "select *,count(*) from subscriptions group by pid");
+                            while ($row = mysqli_fetch_assoc($subscribed_parents)) {
+                              $run1 = mysqli_fetch_assoc(mysqli_query($con, "select * from parent where pid='{$row['pid']}'"));
+                              $address = mysqli_fetch_assoc(mysqli_query($con, "select * from address where pid = '{$row['pid']}'"))
+                            ?>
+                                                        <tr>
+                                                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                                                <strong><?php echo $run1['pname'] ?></strong>
+                                                            </td>
+                                                            <td><a
+                                                                    href="tel:<?php echo $run1['pid'] ?>"><?php echo $run1['pid'] ?></a>
+                                                            </td>
+                                                            <td><?php echo $address['area'] ?></td>
+                                                            <td><?php echo $row['count(*)'] ?></td>
+
+                                                            <td><a href='#editEmployeeModal' class='edit'
+                                                                    data-toggle='modal' data-sno=\$sno\><i
+                                                                        class='material-icons' data-toggle='tooltip'
+                                                                        title='Edit'>&#xE254;</i></a></td>
+                                                        </tr>
+
+                                                        <?php } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--/ Hoverable Table rows -->
+                                    <div class="tab-pane fade" id="pop2" role="tabpanel" aria-labelledby="pop2-tab">
+                                        <!-- Hoverable Table rows -->
+                                        <div class="card">
+                                            <h5 class="card-header">Student Details</h5>
+                                            <div class="table-responsive text-nowrap">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Student Name</th>
+                                                            <th>Parent Name</th>
+                                                            <th>Parent Mobile</th>
+                                                            <th>School</th>
+                                                            <th>SUbscribed On</th>
+                                                            <th>View Profile</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-border-bottom-0">
+                                                        <?php
+                            while ($row = mysqli_fetch_assoc($students)) {
+                              $pid = mysqli_fetch_assoc(mysqli_query($con, "select pid from subscriptions where stdid = {$row['stdid']}"));
+                              $parent = mysqli_fetch_assoc(mysqli_query($con, "select pname from parent where pid='{$pid['pid']}'"));
+                              $school = mysqli_fetch_assoc(mysqli_query($con, "select school_name from schools where sid='{$row['school']}'"));
+                              $date = date_create($row['subscription_date']);
+                              $date = date_format($date, "d-m-Y");
+                            ?>
+                                                        <tr>
+                                                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                                                <strong><?php echo $row['sname'] ?></strong>
+                                                            </td>
+                                                            <td><?php echo $parent['pname'] ?></td>
+                                                            <td><a
+                                                                    href="tel:<?php echo $pid['pid'] ?>"><?php echo $pid['pid'] ?></a>
+                                                            </td>
+                                                            <td><span
+                                                                    class="badge bg-label-success me-1"><?php echo $school['school_name'] ?></span>
+                                                            </td>
+                                                            <td>Subscribed On : <?php echo $date ?></td>
+                                                            <td><a href=""><span class="badge bg-label-info me-1">View
+                                                                        Profile</span></a></td>
+                                                        </tr>
+                                                        <?php } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!--/ Hoverable Table rows -->
+                                    </div>
+                                    <div class="tab-pane fade" id="pop3" role="tabpanel" aria-labelledby="pop3-tab">
+                                        <!-- Bordered Table -->
+                                        <div class="card">
+                                            <h5 class="card-header">Delivary Agent Details</h5>
+                                            <div class="card-body">
+                                                <div class="table-responsive text-nowrap">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Agent Name</th>
+                                                                <th>Mobile</th>
+                                                                <th>No of Boxes</th>
+                                                                <!-- <th>Schools</th> -->
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                while ($row = mysqli_fetch_assoc($delivery_team)) {
+                  $boxes = mysqli_fetch_assoc(mysqli_query($con, "select count(*) from subscriptions where delivery_partner={$row['eid']}"));
+                  // $schools = mysqli_fetch_assoc(mysqli_query($con, "select DISTINCT school_name from schools where sid in (select sid from student where stdid in ( select stdid from subscriptions where delivery_partner = {$row['eid']}))"));
+                ?>
+                                                            <tr>
+                                                                <td><i
+                                                                        class="fab fa-angular fa-lg text-danger me-3"></i>
+                                                                    <strong><?php echo $row['name'] ?></strong>
+                                                                </td>
+                                                                <td><?php echo $row['mobile'] ?></td>
+                                                                <td><span
+                                                                        class="badge bg-label-primary me-1"><?php echo $boxes['count(*)'] ?></span>
+                                                                </td>
+                                                            </tr>
+                                                            <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/ Bordered Table -->
 
 
-        <!-- Today Delivary Agent Report Starts Here Shiva -->
-        <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
-          <div class="card">
-            <h5 class="card-header">Today Delivary Agent Report</h5>
-            <div class="card-body">
-              <div class="table-responsive text-nowrap">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>Agent Name</th>
-                      <th>Mobile</th>
-                      <th>Not Picked Up </th>
-                      <th>In Transition</th>
-                      <th>Delivered</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    while ($row = mysqli_fetch_assoc($team)) {
-                      $run1 = mysqli_query($con, "select count(*) from trips where delivery_by='{$row['eid']}' and date='$date'");
-                      $total_scbscriptions_of_agent = mysqli_fetch_assoc(mysqli_query($con, "select count(*) from subscriptions where delivery_partner='{$row['eid']}'"))['count(*)'];
-                      $pickedup = mysqli_fetch_assoc($run1)['count(*)'];
-                      $not_picked = $total_scbscriptions_of_agent - $pickedup;
-                      $In_Transtion = mysqli_fetch_assoc(mysqli_query($con, "select *,count(*) from trips where delivery_by='{$row['eid']}' and date='$date' and drop_time is null"))['count(*)'];
-                      $Delivered = $pickedup - $In_Transtion;
-                      $total_not_pickes += $not_picked;
-                      $total_In_Transtion += $In_Transtion;
-                      $total_Delivered += $Delivered;
-                    ?>
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                          <strong><?php echo $row['name'] ?></strong>
-                        </td>
-                        <td><a href="tel:<?php echo $row['mobile'] ?>"><?php echo $row['mobile'] ?></a>
-                        </td>
-                        <td><span class="badge bg-label-warning me-1"><?php echo $not_picked ?>
-                            Boxes</span></td>
-                        <td><span class="badge bg-label-primary me-1"><?php echo $In_Transtion ?>
-                            Boxes</span></td>
-                        <td><span class="badge bg-label-success me-1"><?php echo $Delivered ?>
-                            Boxes</span></td>
-                      </tr>
-                    <?php }
-                    $not_picked_percentage = ($total_not_pickes / $total_scbscriptions) * 100;
-                    $In_Transtion_percentage = ($total_In_Transtion / $total_scbscriptions) * 100;
-                    $Delivered_percentage = ($total_Delivered / $total_scbscriptions) * 100;
-                    ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--/ Today Delivary Agent Report Ends Here Shiva -->
-        <!-- Data Cards Here Shiva -->
-        <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
-          <div class="row">
-            <div class="col-6 mb-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="card-title d-flex align-items-start justify-content-between">
-                    <div class="avatar flex-shrink-0">
-                      <img src="Bhavani/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
-                    </div>
-                    <div class="dropdown">
-                      <i class="bx bx-dots-vertical-rounded"></i>
-                    </div>
-                  </div>
-                  <span class="d-block mb-1">Not Picked Up</span>
-                  <h3 class="card-title text-nowrap mb-2"><?php echo $total_not_pickes; ?> Boxes</h3>
-                  <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i>
-                    <?php echo $not_picked_percentage ?> %</small>
-                </div>
-              </div>
-            </div>
-            <div class="col-6 mb-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="card-title d-flex align-items-start justify-content-between">
-                    <div class="avatar flex-shrink-0">
-                      <img src="Bhavani/img/icons/unicons/cc-warning.png" alt="Credit Card" class="rounded" />
-                    </div>
-                    <div class="dropdown">
-                      <i class="bx bx-dots-vertical-rounded"></i>
-                    </div>
-                  </div>
-                  <span class="fw-semibold d-block mb-1">In Transition</span>
-                  <h3 class="card-title mb-2"><?php echo $total_In_Transtion; ?> Boxes</h3>
-                  <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
-                    <?php echo $In_Transtion_percentage; ?> %</small>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 mb-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
-                    <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
-                      <div class="avatar flex-shrink-0">
-                        <img src="Bhavani/img/icons/unicons/cc-success.png" alt="Credit Card" class="rounded" />
-                      </div>
-                      <div class="card-title">
-                        <h5 class="text-nowrap mb-2">Delivered Boxes</h5>
-                      </div>
-                      <div class="mt-sm-auto">
-                        <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i>
-                          <?php echo $Delivered_percentage; ?> %</small>
-                        <h3 class="mb-0"><?php echo $total_Delivered; ?> Boxes</h3>
-                      </div>
-                    </div>
-                    <div id="profileReportChart"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--/ Data Cards Here Shiva -->
-      </div>
-      <!-- Today Report Ends Here Shiva -->
-      <!-- Boxes Details starts Here Shiva -->
-      <div class="row">
-        <!-- Not Picked Boxes -->
-        <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4" style="height: 550px; overflow:hidden">
-          <div class="card h-100" style=" overflow-y: auto;">
-            <div div class="card-header d-flex align-items-center justify-content-between">
-              <h5 class="card-title m-0 me-2">Not Picked Boxes</h5>
-            </div>
-            <?php
-            foreach ($not_picked_students as $stdid) {
-              $run1 = mysqli_fetch_assoc(mysqli_query($con, "select pid from subscriptions where stdid='{$stdid['stdid']}'"));
-              $run2 = mysqli_fetch_assoc(mysqli_query($con, "select * from parent where pid='{$run1['pid']}'"));
-              $run3 = mysqli_fetch_assoc(mysqli_query($con, "select * from student where stdid='{$stdid['stdid']}'"));
-            ?>
-              <div class="card-body" style="padding-bottom :0%" >
-                <ul class="p-0 m-0">
-                  <li class="d-flex mb-4 pb-1">
-                    <div class="avatar flex-shrink-0 me-3">
-                      <img src="../Upload/<?php echo $run3['photo'] ?>" height="76px" width="76px" alt="User" class="rounded" />
-                    </div>
-                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                      <div class="me-2">
-                        <small class="text-muted d-block mb-1"><?php echo $run3['sname'] ?></small>
-                        <h6 class="mb-0"><?php echo $run2['pname'] ?></h6>
-                      </div>
-                      <div class="user-progress d-flex align-items-center gap-1">
-                        <a href="tel:<?php echo $run2['pid'] ?>"><button type="button" class="btn btn-info">Call</button></a>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            <?php } ?>
-          </div>
-        </div>
-        <!--/ Not Picked Boxes -->
+                                    </div>
 
-        <!-- In Transition Boxes -->
-        <div class="col-md-6 col-lg-4 order-1 mb-4" style="height: 550px; overflow:hidden">
-          <div class="card h-100" style=" overflow-y: auto;">
-            <div class="card-header d-flex align-items-center justify-content-between">
-              <h5 class="card-title m-0 me-2">In Transition Boxes</h5>
-            </div>
-            <?php
-            foreach ($picked_students as $stdid) {
-              if ($stdid['status'] == 0) {
-                $run1 = mysqli_fetch_assoc(mysqli_query($con, "select pid from subscriptions where stdid='{$stdid['stdid']}'"));
-                $run2 = mysqli_fetch_assoc(mysqli_query($con, "select * from parent where pid='{$run1['pid']}'"));
-                $run3 = mysqli_fetch_assoc(mysqli_query($con, "select * from student where stdid='{$stdid['stdid']}'"));
-            ?>
-                <div class="card-body" style="padding-bottom :0%">
-                  <ul class="p-0 m-0">
-                    <li class="d-flex">
-                      <div class="avatar flex-shrink-0 me-3">
-                        <img src="../Upload/<?php echo $run3['photo'] ?>" alt="User" class="rounded" />
-                      </div>
-                      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                        <div class="me-2">
-                          <small class="text-muted d-block mb-1"><?php echo $run3['sname'] ?></small>
-                          <h6 class="mb-0"><?php echo $run2['pname'] ?></h6>
+                                </div>
+                            </div>
                         </div>
-                        <div class="user-progress d-flex align-items-center gap-1">
-                          <a href="tel:<?php echo $run2['pid'] ?>"><button type="button" class="btn btn-info">call</button></a>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-            <?php }
-            } ?>
-          </div>
-        </div>
-        <!--/ In Transition Boxes -->
-
-        <!-- Delivered Boxes -->
-        <div class="col-md-6 col-lg-4 order-2 mb-4" style="height: 550px; overflow:hidden">
-          <div class="card h-100"  style=" overflow-y: auto;">
-            <div class="card-header d-flex align-items-center justify-content-between">
-              <h5 class="card-title m-0 me-2">Delivered Boxes</h5>
+                    </div>
+                </section>
             </div>
-            <?php
-            foreach ($picked_students as $stdid) {
-              if ($stdid['status'] == 1) {
-                $run1 = mysqli_fetch_assoc(mysqli_query($con, "select pid from subscriptions where stdid='{$stdid['stdid']}'"));
-                $run2 = mysqli_fetch_assoc(mysqli_query($con, "select * from parent where pid='{$run1['pid']}'"));
-                $run3 = mysqli_fetch_assoc(mysqli_query($con, "select * from student where stdid='{$stdid['stdid']}'"));
-            ?>
-                <div class="card-body" style="padding-bottom :0%">
-                  <ul class="p-0 m-0">
-                    <li class="d-flex mb-4 pb-1">
-                      <div class="avatar flex-shrink-0 me-3">
-                        <img src="../Upload/<?php echo $run3['photo'] ?>" alt="User" class="rounded" />
-                      </div>
-                      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                        <div class="me-2">
-                          <small class="text-muted d-block mb-1"><?php echo $run3['sname'] ?></small>
-                          <h6 class="mb-0"><?php echo $run2['pname'] ?></h6>
-                        </div>
-                        <div class="user-progress d-flex align-items-center gap-1">
-                          <a href="tel:<?php echo $run2['pid'] ?>"><button type="button" class="btn btn-info">call</button></a>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-            <?php }
-            } ?>
-          </div>
-        </div>
-        <!--/ Delivered Boxes -->
-      </div>
-      <!--/ Boxes Details ends Here Shiva -->
 
-      <!-- This Month Delivery Agent Report Starts Here Shiva -->
-      <!-- <hr class="my-5" />
-            <div class="card">  
-                <h5 class="card-header">This Month Delivery Agent Report</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Agent Name</th>
-                        <th>Mobile Number</th>
-                        <th>Not Picked</th>
-                        <th>In Transition</th>
-                        <th>Delivared</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      <?php
-                      // $delivery_team = mysqli_query($con,"select * from team");
-                      // while($row1 = mysqli_fetch_assoc($delivery_team)){
-                      //   $run1 = mysqli_query($con,"select count(*) from trips where delivery_by='{$row1['eid']}' and month(date)='$this_month' and year(date)='$this_year'");
-                      //   $total_scbscriptions_of_agent = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from subscriptions where delivery_partner='{$row1['eid']}'"))['count(*)'];
-                      //   $pickedup = mysqli_fetch_assoc($run1)['count(*)'];
-                      //   $not_picked =($total_scbscriptions_of_agent * $this_month_working_days) - $pickedup;
-                      //   $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select *,count(*) from trips where delivery_by='{$row1['eid']}' and month(date)='$this_month' and year(date)='$this_year' and drop_time is null"))['count(*)'];
-                      //   $Delivered =$pickedup - $In_Transtion;
-                      //   $delivery_agent = mysqli_fetch_assoc(mysqli_query($con,"select * from team where eid='{$row1['eid']}'"));
-                      ?>
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php //echo $delivery_agent['name'] 
-                                                                                          ?></strong></td>
-                        <td><a href="tel:<?php //echo $delivery_agent['mobile'] 
-                                          ?>"></a><?php //echo $delivery_agent['mobile'] 
-                                                  ?></td>
-                        <td><span class="badge bg-label-warning me-1"><?php //echo $not_picked 
-                                                                      ?> Boxes</span></td>
-                        <td><span class="badge bg-label-primary me-1"><?php //echo $In_Transtion 
-                                                                      ?> Boxes</span></td>
-                        <td><span class="badge bg-label-success me-1"><?php //echo $Delivered 
-                                                                      ?> Boxes</span></td>
-                      </tr>
-                      <?php // } 
-                      ?>
-                    </tbody>
-                  </table>
+        </div>
+        <!-- / Content -->
+
+        <div id="editEmployeeModal" class="modal fade">
+    <div class="modal-dialog" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header">
+            <div class="card mb-4">
+                                                <div
+                                                    class="card-header d-flex justify-content-between align-items-center">
+                                                    <h5 class="mb-0">Update Parent
+                                                        Details</h5>
+                                                </div>
+            </div>
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                <div class="popup-overlay" id="popupOverlay">
+                    <div class="popup-container">
+                        <div class="popup-content">
+                            <span class="close-button" id="closeButton">&times;</span>
+                            <form id="editForm" method="post" action="#">
+                                <div class="row">
+                                    <!-- ... Existing form content ... -->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <hr class="my-5" /> -->
-      <!--/ This Month Delivery Agent Report Ends Here Shiva -->
-
-      <!-- Monthly Report Starts Here Shiva -->
-
-      <!-- <div class="row"> -->
-      <!-- Day to Day Delivery Analysis -->
-      <!-- <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
-                  <div class="card">
-                  <h5 class="card-header">Day to Day Delivery Analysis</h5>
-                  <div class="card-body">
-                    <div class="table-responsive text-nowrap">
-                      <table class="table table-bordered">
-                        <thead>
-                          <tr>
-                            <th>Date</th>
-                            <th>Not Picked Up </th>
-                            <th>In Transition</th>
-                            <th>Delivered</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php
-                          // $day_to_day = mysqli_query($con,"select *,count(*) from delivary where month(date)='$this_month' and year(date)='$this_year' group by date order by date asc");
-                          // while($row = mysqli_fetch_assoc($day_to_day)){
-                          //   $pickedup = $row['count(*)'];
-                          //   $not_picked =$total_scbscriptions - $pickedup;
-                          //   $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from delivary where date = '{$row['date']}' and status = 0"))['count(*)'];
-                          //   $Delivered =$pickedup - $In_Transtion;
-
-                          ?>
-                          <tr>
-                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php // echo $row['date'] 
-                                                                                              ?></strong></td>
-                            <td><span class="badge bg-label-warning me-1"><?php //echo $not_picked 
-                                                                          ?> Boxes</span></td>
-                            <td><span class="badge bg-label-primary me-1"><?php //echo $In_Transtion 
-                                                                          ?> Boxes</span></td>
-                            <td><span class="badge bg-label-success me-1"><?php //echo $Delivered 
-                                                                          ?> Boxes</span></td>
-                          </tr>
-                          <?php //} 
-                          ?>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  </div>
-                </div> -->
-      <!--/ Day to Day Delivery Analysis -->
-
-      <!-- Subscribed Parents -->
-      <!-- <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
-                  <div class="row">
-                    <div class="col-12 mb-4">
-                      <div class="card">
-                      <h5 class="card-header">Subscribed Parents</h5>
-                        <div class="card-body">
-                        <div class="table-responsive text-nowrap">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Parent Name</th>
-                          <th>No of Child</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        // $subscribed_parents = mysqli_query($con,"select *,count(*) from subscriptions group by pid");
-                        // while($row = mysqli_fetch_assoc($subscribed_parents)){
-                        //   $run1 = mysqli_fetch_assoc(mysqli_query($con,"select * from parent where pid='{$row['pid']}'"));
-                        ?>
-                        <tr>
-                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php //echo $run1['pname'] 
-                                                                                            ?></strong></td>
-                          <td><span class="badge bg-label-info me-1"><?php //echo $row['count(*)'] 
-                                                                      ?> Childs</span></td>
-                        </tr>
-                        <?php // } 
-                        ?>
-                      </tbody>
-                    </table>
-                  </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-      <!--/ Subscribed Parents -->
+            <div class="modal-footer">
+                <!-- Footer content -->
+            </div>
+        </div>
+    </div>
+</div>
 
 
-      <!-- Student Wise Deliverary Analysis -->
-      <!-- <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
-                  <div class="card">
-                  <h5 class="card-header">Student Wise Deliverary Analysis</h5>
-                  <div class="card-body">
-                    <div class="table-responsive text-nowrap">
-                      <table class="table table-bordered">
-                        <thead>
-                          <tr>
-                            <th>Student Name</th>
-                            <th>Not Picked Up </th> 
-                            <th>In Transition</th>
-                            <th>Delivered</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php
-                          // $student_wise = mysqli_query($con,"select * from student ");
-                          // while($row = mysqli_fetch_assoc($student_wise)){
-                          //   $run1 = mysqli_fetch_assoc(mysqli_query($con,"select status,count(*) from delivary where stdid='{$row['stdid']}'"));
-                          //   $pickedup = $run1['count(*)'];
-                          //   $not_picked =$this_month_working_days - $pickedup;
-                          //   $In_Transtion = mysqli_fetch_assoc(mysqli_query($con,"select count(*) from delivary where stdid = '{$row['stdid']}' and status = 0"))['count(*)'];
-                          //   $Delivered =$pickedup - $In_Transtion;
-                          ?>
-                          <tr>
-                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php //echo $row['sname'] 
-                                                                                              ?></strong></td>
-                            <td><span class="badge bg-label-warning me-1"><?php //echo $not_picked 
-                                                                          ?> Pending</span></td>
-                            <td><span class="badge bg-label-primary me-1"><?php //echo $In_Transtion 
-                                                                          ?> Active</span></td>
-                            <td><span class="badge bg-label-success me-1"><?php //echo $Delivered 
-                                                                          ?> Scheduled</span></td>
-                          </tr>
-                          <?php // } 
-                          ?>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  </div>
-                </div> -->
-      <!--/ Student Wise Deliverary Analysis -->
+
+        <!-- Footer -->
+        <footer class="content-footer footer bg-footer-theme">
+            <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
+                    ©
+                    <script>
+                    document.write(new Date().getFullYear());
+                    </script>
+                    , made with ❤️ by
+                    <a href="https://github.com/praveentech21" target="_blank" class="footer-link fw-bolder">Sai
+                        Praveen</a>
+                </div>
+
+            </div>
+        </footer>
+        <!-- / Footer -->
 
     </div>
-    <!--/ Monthly Report Ends Here Shiva -->
+    <!-- Content wrapper -->
 
-    <!-- </div> -->
-    <!-- / Content -->
-
-    <!-- Footer -->
-    <footer class="content-footer footer bg-footer-theme">
-      <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-        <div class="mb-2 mb-md-0">
-          ©
-          <script>
-            document.write(new Date().getFullYear());
-          </script>
-          , made with ❤️ by
-          <a href="https://github.com/praveentech21" target="_blank" class="footer-link fw-bolder">Sai
-            Praveen</a>
-        </div>
-
-      </div>
-    </footer>
-    <!-- / Footer -->
-
-  </div>
-  <!-- Content wrapper -->
-
-  <?php include 'fotter.php'; ?>
+    <?php include 'fotter.php'; ?>
 </body>
 
 </html>

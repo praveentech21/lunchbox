@@ -9,10 +9,13 @@ $agent = mysqli_query($con, "select * from team");
 $students = mysqli_query($con, "select * from student");
 
 if(isset($_POST['allocate_student_to_agent'])){
-  $students_to_assign = $_POST['students_to_assign'];
-  foreach($students_to_assign as $std){
-    mysqli_query($con, "update subscriptions set delivery_partner = '{$_POST['agent']}' where stdid = '{$std}'");    
+  if($students_to_assign = $_POST['students_to_assign']){
+    foreach($students_to_assign as $std){
+      mysqli_query($con, "update subscriptions set delivery_partner = '{$_POST['agent']}' where stdid = '{$std}'");    
+    }
   }
+  else echo "<script>alert('Please Select Students to Assign')</script>";
+  
 }
 
 ?>

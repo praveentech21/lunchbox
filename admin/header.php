@@ -17,7 +17,7 @@
             
             <!-- Layouts -->
             <li class="menu-item">
-              <a href="index.php" class="menu-link">
+              <a href="dashbord.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -30,8 +30,15 @@
               </a>
             </li>
 
+            <li class="menu-item">
+              <a href="index.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                <div data-i18n="Analytics">Console</div>
+              </a>
+            </li>
+
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Our Leads</span>
+              <span class="menu-header-text">one to one</span>
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">

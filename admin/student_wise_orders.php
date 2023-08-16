@@ -58,7 +58,7 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
                     <strong><?php echo $row['sname'] ?></strong>
                   </td>
                   <td><?php echo $address['area'] ?></td>
-                  <td><?php echo $delivery_agent['name'] ?></td>
+                  <td><?php if(!empty($delivery_agent['name'])) echo $delivery_agent['name']; else echo "No Agent Allocated" ?></td>
                   <td><span class="badge bg-label-warning me-1"><?php echo $not_picked ?> Pending</span>
                   </td>
                   <td><span class="badge bg-label-primary me-1"><?php echo $In_Transtion ?> Active</span>

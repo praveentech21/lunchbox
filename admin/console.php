@@ -13,14 +13,11 @@ $schools = mysqli_query($con, "select * from schools");
 
 <head>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Then load Bootstrap JavaScript -->
-    <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <?php include 'bhavani.php'; ?>
     <style>
         .nav-tabs .nav-link.active {
             font-weight: bold;
@@ -30,9 +27,7 @@ $schools = mysqli_query($con, "select * from schools");
             border-left: none;
             border-top: none;
         }
-    </style>
 
-    <style>
         /* Modal styles */
         .modal .modal-dialog {
             max-width: 400px;
@@ -97,8 +92,7 @@ $schools = mysqli_query($con, "select * from schools");
         input.is-invalid {
             border-color: red !important;
         }
-    </style>
-    <style>
+
         .popup {
             display: none;
             position: fixed;
@@ -132,6 +126,7 @@ $schools = mysqli_query($con, "select * from schools");
         }
     </style>
 
+    <?php include 'bhavani.php'; ?>
 
 
 </head>
@@ -303,13 +298,14 @@ $schools = mysqli_query($con, "select * from schools");
             <div class="modal-content">
                 <form method="post" action="update_member.php" id="editForm">
                     <div class="modal-body">
-                        <h5 class="mb-0">Update Parent Details</h5>
+                        <h5 class="mb-0">Update Parent Details</h5><br>
                         <div class="mb-3">
                             <label class="form-label" for="basic-icon-default-fullname">Parent
                                 Name</label>
                             <div class="input-group input-group-merge">
                                 <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
                                 <input type="text" class="form-control" id="pname" aria-describedby="basic-icon-default-fullname2" name="pname" />
+                                <input type="hidden" name="pid" id="pid">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -353,8 +349,8 @@ $schools = mysqli_query($con, "select * from schools");
                             </div>
                         </div class="mb-3"> <br>
                         <div class="mb-3">
+                            <a href=""><input type="submit" name="updateparent" value="submit" class="btn btn-primary"></a>
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <a href=""><input type="submit" name="update" value="submit" class="btn btn-primary"></a>
                         </div>
                     </div>
                 </form>
@@ -381,28 +377,29 @@ $schools = mysqli_query($con, "select * from schools");
                 </div>
                 <hr class="my-0" />
                 <div class="card-body">
-                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                    <form id="formAccountSettings" method="POST" action="update_member.php">
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label for="firstName" class="form-label">Student Name</label>
                                 <input class="form-control" type="text" id="sname" name="sname" autofocus />
+                                <input type="hidden" name="stdid" id="stdid">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="lastName" class="form-label">Roll Number</label>
                                 <input class="form-control" type="text" name="rollno" id="rollno" />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label" for="country">school</label>
-                                <select id="country" class="select2 form-select">
+                                <label class="form-label" for="school">school</label>
+                                <select id="school" name="school" class="select2 form-select">
                                     <option value="">Select school</option>
                                     <?php while ($rowa = mysqli_fetch_assoc($schools)) { ?>
-                                        <option value="<?php echo $rowa['sid'] ?>" <?php if ($rowa['sid'] == $row['school']) echo "selected"  ?>><?php echo $row['school_name'] ?></option>
+                                        <option value="<?php echo $rowa['sid'] ?>"  ><?php echo $rowa['school_name'] ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="organization" class="form-label">Parent Name</label>
-                                <input type="text" class="form-control" id="s_pname" name="s_pname" />
+                                <input type="text" disabled class="form-control" id="s_pname" name="s_pname" />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="address" class="form-label">Class</label>
@@ -413,8 +410,13 @@ $schools = mysqli_query($con, "select * from schools");
                                 <input class="form-control" type="text" id="section" name="section" />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="address" class="form-label">Gender</label>
-                                <input type="text" class="form-control" id="gender" name="gender" />
+                                <label for="gender" class="form-label">Gender</label>
+                                <select id="gender" name="gender" class="select2 form-select">
+                                    <option value="">Select Gender</option>
+                                    <option value="1">Female</option>
+                                    <option value="2">Male</option>
+                                    <option value="3">Other</option>
+                                </select>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="state" class="form-label">subscriped Date</label>
@@ -422,7 +424,7 @@ $schools = mysqli_query($con, "select * from schools");
                             </div>
                         </div>
                         <div class="mt-2">
-                            <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                            <button type="submit" name="updatestudent" class="btn btn-primary me-2">Save changes</button>
                             <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                         </div>
                     </form>
@@ -524,8 +526,18 @@ $schools = mysqli_query($con, "select * from schools");
 
                 if (gender == 2) {
                     gender = "Male"
-                } else {
-                    gender = "Femal"
+                } else if(gender == 1){
+                    gender = "Female"
+                }else {
+                    gender = "Other"
+                }
+
+                if(school == 1){
+                    school = "Westberry School"
+                }else if(school == 2){
+                    school = "Bhavans"
+                }else if(school == 3){
+                    school = "Eurokids"
                 }
 
                 $("#stdnamelabel").html(sname);
@@ -536,65 +548,37 @@ $schools = mysqli_query($con, "select * from schools");
                 $("#class").val(classs);
                 $("#section").val(section);
                 $("#country").val(school);
-                $("#subdate").val(subdate);
+                $("#subdate").val(subdate); 
                 $("#gender").val(gender);
                 $("#subdate").val(subscription);
                 $("#s_pname").val(pname);
+                $("#stdid").val(stdid);
+                // since this is a droupdow i want the correct option to be selected
+                // 
+                var selectedSchool = school; // Replace with the actual selected school name
+
+var schoolDropdown = document.getElementById("school");
+for (var i = 0; i < schoolDropdown.options.length; i++) {
+    if (schoolDropdown.options[i].text === selectedSchool) {
+        schoolDropdown.selectedIndex = i;
+        break;
+    }
+}
+
+var selectedGender = gender; // Replace with the actual selected school name
+
+var schoolGender = document.getElementById("gender");
+for (var i = 0; i < schoolGender.options.length; i++) {
+    if (schoolGender.options[i].text === selectedGender) {
+        schoolGender.selectedIndex = i;
+        break;
+    }
+}
+
+
             });
 
-            $("#editForm").submit(function(event) {
-                event.preventDefault(); // Prevent the form from submitting via the browser
 
-                // Send the form data to the server using AJAX
-                $.ajax({
-                    type: "POST",
-                    url: "update_member.php",
-                    data: $(this).serialize(), // Serialize the form data
-                    dataType: "json",
-                    success: function(data) {
-                        if (data.success) {
-                            alert(data.success); // Display the success message sent from the server
-                            // You might want to refresh the page or update the table here
-
-                            // Close the edit modal
-                            $("#editEmployeeModal").modal("hide");
-                        } else {
-                            alert(data.error); // Display the specific error message from the server
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.log("AJAX Error:", error);
-                        alert("Error updating member. Please check the console for more information.");
-                    },
-                });
-            });
-
-            $("#formAccountSettings").submit(function(event) {
-                event.preventDefault(); // Prevent the form from submitting via the browser
-
-                // Send the form data to the server using AJAX
-                $.ajax({
-                    type: "POST",
-                    url: "update_member.php", // Adjust the URL to the correct PHP file
-                    data: $(this).serialize(), // Serialize the form data
-                    dataType: "json",
-                    success: function(data) {
-                        if (data.success) {
-                            alert(data.success); // Display the success message sent from the server
-                            // You might want to refresh the page or update the table here
-
-                            // Close the popup
-                            $(".popup").hide();
-                        } else {
-                            alert(data.error); // Display the specific error message from the server
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.log("AJAX Error:", error);
-                        alert("Error updating member. Please check the console for more information.");
-                    },
-                });
-            });
         });
     </script>
 

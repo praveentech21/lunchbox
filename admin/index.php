@@ -306,7 +306,7 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
                   <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
                     <strong><?php echo $delivery_agent['name'] ?></strong>
                   </td>
-                  <td><a href="tel:<?php echo $delivery_agent['mobile'] ?>"></a><?php echo $delivery_agent['mobile'] ?>
+                  <td><a href="tel:<?php echo $delivery_agent['mobile'] ?>"><?php echo $delivery_agent['mobile'] ?></a>
                   </td>
                     <td><span class="badge bg-label-info me-1"><?php echo $no_of_boxes ?> Boxes</span>  
                   <td><span class="badge bg-label-warning me-1"><?php echo $not_picked ?> Boxes</span>
@@ -376,7 +376,8 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th>Student Name</th>
+                    <th>Student Name</th>
+                    <th>Delivery Agent</th>
                       <th>Not Picked Up </th>
                       <th>In Transition</th>
                       <th>Delivered</th>
@@ -386,6 +387,8 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
                     <?php
                     $student_wise = mysqli_query($con, "select * from student ");
                     while ($row = mysqli_fetch_assoc($student_wise)) {
+                      $subscriptions_datails = mysqli_fetch_assoc(mysqli_query($con, "select delivery_partner from subscriptions where stdid='{$row['stdid']}'"));
+                      $delivery_agent_name = mysqli_fetch_assoc(mysqli_query($con, "select name from team where eid='{$subscriptions_datails['delivery_partner']}'"))['name'];
                       $run1 = mysqli_fetch_assoc(mysqli_query($con, "select status,count(*) from delivary where stdid='{$row['stdid']}'"));
                       $pickedup = $run1['count(*)'];
                       $not_picked = $this_month_working_days - $pickedup;
@@ -396,6 +399,7 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
                           <strong><?php echo $row['sname'] ?></strong>
                         </td>
+                        <td><?php if(!empty($delivery_agent_name)) echo $delivery_agent_name; else echo "No Agent allocated till Now" ?></td>
                         <td><span class="badge bg-label-warning me-1"><?php echo $not_picked ?>
                             Pending</span></td>
                         <td><span class="badge bg-label-primary me-1"><?php echo $In_Transtion ?>

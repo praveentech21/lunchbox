@@ -5,6 +5,7 @@ if (empty($_SESSION['supid'])) header("location: login.php");
 include("connect.php");
 $students = mysqli_query($con, "select * from student ");
 $delivery_team = mysqli_query($con, "select * from team");
+$schools = mysqli_query($con, "select * from schools");
 
 ?>
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ $delivery_team = mysqli_query($con, "select * from team");
 <head>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Then load Bootstrap JavaScript -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -97,6 +98,41 @@ $delivery_team = mysqli_query($con, "select * from team");
             border-color: red !important;
         }
     </style>
+    <style>
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            max-width: 80%;
+            max-height: 80%;
+            /* Set a maximum height for the content */
+            overflow: auto;
+            /* Enable scrolling if content exceeds max-height */
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+
+
 
 </head>
 
@@ -141,7 +177,6 @@ $delivery_team = mysqli_query($con, "select * from team");
                                                         $subscribed_parents = mysqli_query($con, "select *,count(*) from subscriptions group by pid");
                                                         while ($row = mysqli_fetch_assoc($subscribed_parents)) {
                                                             $run1 = mysqli_fetch_assoc(mysqli_query($con, "select * from parent where pid='{$row['pid']}'"));
-                                                            $parent_detail = mysqli_fetch_assoc(mysqli_query($con, "select * from parent where pid='{$row['pid']}'"));
                                                             $address = mysqli_fetch_assoc(mysqli_query($con, "select * from address where pid = '{$row['pid']}'"))
                                                         ?>
                                                             <tr>
@@ -153,84 +188,10 @@ $delivery_team = mysqli_query($con, "select * from team");
                                                                 <td><?php echo $address['area'] ?></td>
                                                                 <td><?php echo $row['count(*)'] ?></td>
 
-                                                                <td><a href='#editEmployeeModal' class='edit' data-toggle='modal'  >edit</a></td>
+                                                                <td>
+                                                                    <a href='#editEmployeeModal' class='edit' data-toggle='modal' data-addresslink="<?php echo $run1['address'] ?>" data-pid="<?php echo $run1['pid'] ?>" data-pname="<?php echo $run1['pname'] ?>" data-altphone="<?php echo $run1['altphone'] ?>" data-email="<?php echo $run1['email'] ?>" data-pincode="<?php echo $address['pincode'] ?>" data-doorno="<?php echo $address['doorno'] ?>" data-appartment="<?php echo $address['appartment'] ?>" data-area="<?php echo $address['area'] ?>">edit</a>
+                                                                </td>
                                                             </tr>
-                                                            <!-- Edit Modal HTML -->
-                                                            <div id="editEmployeeModal" class="modal fade">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <form id="editForm" >
-                                                                            <div class="modal-body">
-                                                                                <h5 class="mb-0">Update Parent Details</h5>
-                                                                                <div class="card-body">
-                                                                                    <form method="post" action="#">
-                                                                                        <div class="mb-3">
-                                                                                            <label class="form-label" for="basic-icon-default-fullname">Parent
-                                                                                                Name</label>
-                                                                                            <div class="input-group input-group-merge">
-                                                                                                <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
-                                                                                                <input type="text" class="form-control" id="basic-icon-default-fullname pname" aria-describedby="basic-icon-default-fullname2" name="pname" />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="mb-3">
-                                                                                            <label class="form-label" for="basic-icon-default-phone">Phone
-                                                                                                Number</label>
-                                                                                            <div class="input-group input-group-merge">
-                                                                                                <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-phone"></i></span>
-                                                                                                <input type="number" id="pid basic-icon-default-phone" class="form-control phone-mask" aria-label="<?php echo $parent_detail['pid']; ?>" aria-describedby="basic-icon-default-phone2" name="pid" />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="mb-3">
-                                                                                            <label class="form-label" for="basic-icon-default-phone">Alternative
-                                                                                                Phone</label>
-                                                                                            <div class="input-group input-group-merge">
-                                                                                                <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-phone"></i></span>
-                                                                                                <input type="number" id="altphone basic-icon-default-phone" class="form-control phone-mask" aria-label="658 799 8941" aria-describedby="basic-icon-default-phone2" name="altphone" />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="mb-3">
-                                                                                            <label class="form-label" for="basic-icon-default-email">Email</label>
-                                                                                            <div class="input-group input-group-merge">
-                                                                                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                                                                                <input type="email" id="email basic-icon-default-email" class="form-control" aria-label="john.doe" aria-describedby="basic-icon-default-email2" name="email" />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <label for="defaultFormControlInput" class="form-label">Area
-                                                                                            </label>
-                                                                                            <input type="text" class="form-control" id="area defaultFormControlInput" aria-describedby="defaultFormControlHelp" name="area" />
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <label for="defaultFormControlInput" class="form-label">Appartment</label>
-                                                                                            <input type="text" class="form-control" id="appartment defaultFormControlInput" aria-describedby="defaultFormControlHelp" name="appartment" />
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <label for="defaultFormControlInput" class="form-label">Door No
-                                                                                                and Address</label>
-                                                                                            <input type="text" class="form-control" id="doorno defaultFormControlInput" aria-describedby="defaultFormControlHelp" name="doorno" />
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <label for="defaultFormControlInput" class="form-label">Pincode</label>
-                                                                                            <input type="number" class="form-control" id="pincode defaultFormControlInput" aria-describedby="defaultFormControlHelp" name="pincode" />
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <label for="defaultFormControlInput" class="form-label">Link</label>
-                                                                                            <input type="text" class="form-control" id="addresslink defaultFormControlInput" aria-describedby="defaultFormControlHelp" name="addresslink" />
-                                                                                            <div id="defaultFormControlHelp" class="form-text">
-                                                                                                Set google embede link of
-                                                                                                location here.
-                                                                                            </div>
-                                                                                        </div> <br>
-                                                                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                                                                        <button type="submit" name="update" class="btn btn-primary">Update</button>
-                                                                                    </form>
-                                                                                </div>
-                                                                            </div>
-                                                                    </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Edit Modal HTML -->
 
                                                         <?php } ?>
                                             </div>
@@ -277,9 +238,9 @@ $delivery_team = mysqli_query($con, "select * from team");
                                                             </td>
                                                             <td><span class="badge bg-label-success me-1"><?php echo $school['school_name'] ?></span>
                                                             </td>
-                                                            <td>Subscribed On : <?php echo $date ?></td>
-                                                            <td><a href=""><span class="badge bg-label-info me-1">View
-                                                                        Profile</span></a></td>
+                                                            <td><?php echo $date ?></td>
+                                                            <td><a href="#" class="open-popup" data-target="popup-1" data-stdid="<?php echo $row['stdid'] ?>" data-sname="<?php echo $row['sname'] ?>" data-rollno="<?php echo $row['rollno'] ?>" data-school="<?php echo $row['school'] ?>" data-pname="<?php echo $parent['pname'] ?>" data-gender="<?php echo $row['gender'] ?>" data-subscription="<?php echo $row['subscription_date'] ?>" data-class="<?php echo $row['sclass'] ?>" data-section="<?php echo $row['sec'] ?>"><span class="badge bg-label-info me-1">View Profile</span></a></td>
+
                                                         </tr>
                                                     <?php } ?>
                                                 </tbody>
@@ -307,7 +268,6 @@ $delivery_team = mysqli_query($con, "select * from team");
                                                         <?php
                                                         while ($row = mysqli_fetch_assoc($delivery_team)) {
                                                             $boxes = mysqli_fetch_assoc(mysqli_query($con, "select count(*) from subscriptions where delivery_partner={$row['eid']}"));
-                                                            // $schools = mysqli_fetch_assoc(mysqli_query($con, "select DISTINCT school_name from schools where sid in (select sid from student where stdid in ( select stdid from subscriptions where delivery_partner = {$row['eid']}))"));
                                                         ?>
                                                             <tr>
                                                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
@@ -337,9 +297,143 @@ $delivery_team = mysqli_query($con, "select * from team");
     </div>
     <!-- / Content -->
 
+    <!-- Edit Modal HTML -->
+    <div id="editEmployeeModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="update_member.php" id="editForm">
+                    <div class="modal-body">
+                        <h5 class="mb-0">Update Parent Details</h5>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-icon-default-fullname">Parent
+                                Name</label>
+                            <div class="input-group input-group-merge">
+                                <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
+                                <input type="text" class="form-control" id="pname" aria-describedby="basic-icon-default-fullname2" name="pname" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-icon-default-phone">Alternative
+                                Phone</label>
+                            <div class="input-group input-group-merge">
+                                <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-phone"></i></span>
+                                <input type="text" id="altphone" class="form-control phone-mask" aria-describedby="basic-icon-default-phone2" name="altphone" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-icon-default-email">Email</label>
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
+                                <input type="email" id="email" class="form-control" aria-label="john.doe" aria-describedby="basic-icon-default-email2" name="email" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="defaultFormControlInput" class="form-label">Area
+                            </label>
+                            <input type="text" class="form-control" id="area" aria-describedby="defaultFormControlHelp" name="area" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="defaultFormControlInput" class="form-label">Appartment</label>
+                            <input type="text" class="form-control" id="appartment" aria-describedby="defaultFormControlHelp" name="appartment" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="defaultFormControlInput" class="form-label">Door No
+                                and Address</label>
+                            <input type="text" class="form-control" id="doorno" aria-describedby="defaultFormControlHelp" name="doorno" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="defaultFormControlInput" class="form-label">Pincode</label>
+                            <input type="text" class="form-control" id="pincode" aria-describedby="defaultFormControlHelp" name="pincode" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="defaultFormControlInput" class="form-label">Link</label>
+                            <input type="text" class="form-control" id="addresslink" aria-describedby="defaultFormControlHelp" name="addresslink" />
+                            <div id="defaultFormControlHelp" class="form-text">
+                                Set google embede link of location here.
+                            </div>
+                        </div class="mb-3"> <br>
+                        <div class="mb-3">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                            <a href=""><input type="submit" name="update" value="submit" class="btn btn-primary"></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Modal HTML -->
 
+    <!-- phpup of student profile starts here shiva -->
+    <div class="popup" id="popup-1">
+        <div class="popup-content">
 
+            <div class="card mb-4">
+                <h5 class="card-header">Student Details</h5>
+                <!-- Account -->
+                <div class="card-body">
+                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                        <img src="Bhavani/img/avatars/1.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                        <div class="button-wrapper">
+                            <label for="upload" id="stdnamelabel" class=" me-2 mb-4" tabindex="0"></label>
+                            <p class="text-muted mb-0" id="sonof"></p>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-0" />
+                <div class="card-body">
+                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label for="firstName" class="form-label">Student Name</label>
+                                <input class="form-control" type="text" id="sname" name="sname" autofocus />
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="lastName" class="form-label">Roll Number</label>
+                                <input class="form-control" type="text" name="rollno" id="rollno" />
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label" for="country">school</label>
+                                <select id="country" class="select2 form-select">
+                                    <option value="">Select school</option>
+                                    <?php while ($rowa = mysqli_fetch_assoc($schools)) { ?>
+                                        <option value="<?php echo $rowa['sid'] ?>" <?php if ($rowa['sid'] == $row['school']) echo "selected"  ?>><?php echo $row['school_name'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="organization" class="form-label">Parent Name</label>
+                                <input type="text" class="form-control" id="s_pname" name="s_pname" />
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="address" class="form-label">Class</label>
+                                <input type="text" class="form-control" id="class" name="class" />
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="state" class="form-label">Section </label>
+                                <input class="form-control" type="text" id="section" name="section" />
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="address" class="form-label">Gender</label>
+                                <input type="text" class="form-control" id="gender" name="gender" />
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="state" class="form-label">subscriped Date</label>
+                                <input class="form-control" type="date" id="subdate" name="subdate" />
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                            <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /Account -->
+            </div>
 
+            <a href="#" class="close-popup">Close</a>
+        </div>
+    </div>
+    <!-- phpup of student profile ends here shiva -->
     <!-- Footer -->
     <footer class="content-footer footer bg-footer-theme">
         <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -359,54 +453,112 @@ $delivery_team = mysqli_query($con, "select * from team");
 
     </div>
     <!-- Content wrapper -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const openPopupLinks = document.querySelectorAll(".open-popup");
+            const closePopupButtons = document.querySelectorAll(".close-popup");
+            const popups = document.querySelectorAll(".popup");
+
+            openPopupLinks.forEach((link) => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const targetPopupId = link.getAttribute("data-target");
+                    const targetPopup = document.getElementById(targetPopupId);
+                    targetPopup.style.display = "block";
+                });
+            });
+
+            closePopupButtons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    const popup = button.closest(".popup");
+                    popup.style.display = "none";
+                });
+            });
+
+            popups.forEach((popup) => {
+                popup.addEventListener("click", (e) => {
+                    if (e.target === popup) {
+                        popup.style.display = "none";
+                    }
+                });
+            });
+        });
+    </script>
+
     <script>
         $(document).ready(function() {
-            
-            
+            $(document).on("click", ".edit", function() {
+                var parentPname = $(this).data('pname');
+                var parentAltphone = $(this).data('altphone');
+                var parentEmail = $(this).data('email');
+                var parentPincode = $(this).data('pincode');
+                var parentDoorno = $(this).data('doorno');
+                var parentAppartment = $(this).data('appartment');
+                var parentArea = $(this).data('area');
+                var parentAddresslink = $(this).data('addresslink');
+                var pid = $(this).data('pid');
 
-            // Function to update the error message and apply the red border to the input field
+                $("#pname").val(parentPname);
+                $("#altphone").val(parentAltphone);
+                $("#email").val(parentEmail);
+                $("#pincode").val(parentPincode);
+                $("#doorno").val(parentDoorno);
+                $("#appartment").val(parentAppartment);
+                $("#area").val(parentArea);
+                $("#addresslink").val(parentAddresslink);
+                $("#pid").val(pid);
+            });
 
+            $(document).on("click", ".open-popup", function() {
+                var stdid = $(this).data("stdid");
+                var sname = $(this).data("sname");
+                var rollno = $(this).data("rollno");
+                var school = $(this).data("school");
+                var pname = $(this).data("pname");
+                var classs = $(this).data("class");
+                var section = $(this).data("section");
+                var subdate = $(this).data("subdate");
+                var gender = $(this).data("gender");
+                var subscription = $(this).data("subscription");
+
+                if (gender == 2) {
+                    gender = "Male"
+                } else {
+                    gender = "Femal"
+                }
+
+                $("#stdnamelabel").html(sname);
+                $("#sonof").html(pname);
+
+                $("#sname").val(sname);
+                $("#rollno").val(rollno);
+                $("#class").val(classs);
+                $("#section").val(section);
+                $("#country").val(school);
+                $("#subdate").val(subdate);
+                $("#gender").val(gender);
+                $("#subdate").val(subscription);
+                $("#s_pname").val(pname);
+            });
 
             $("#editForm").submit(function(event) {
-                event.preventDefault();
-                var addresslink = $("#addresslink").val();
-                var pname = $("#pname").val();
-                var pid = $("#pid").val();
-                var altphone = $("#altphone").val();
-                var email = $("#email").val();
-                var pass = $("#pass").val();
-                var area = $("#area").val();
-                var appartment = $("#appartment").val();
-                var doorno = $("#doorno").val();
-                var pincode = $("#pincode").val();
-                
+                event.preventDefault(); // Prevent the form from submitting via the browser
 
-                // Send the updated data to the server using AJAX
+                // Send the form data to the server using AJAX
                 $.ajax({
                     type: "POST",
                     url: "update_member.php",
-                    data: {
-                        addresslink : addresslink,
-                        pname: pname,
-                        pid: pid,
-                        altphone: altphone,
-                        email: email,
-                        pass: pass,
-                        area: area,
-                        appartment: appartment,
-                        doorno: doorno,
-                        pincode: pincode,
-                    },
+                    data: $(this).serialize(), // Serialize the form data
                     dataType: "json",
                     success: function(data) {
                         if (data.success) {
-                            // Update the table with the edited member data
-                            updateTableWithEditedMember(data.editedMember);
+                            alert(data.success); // Display the success message sent from the server
+                            // You might want to refresh the page or update the table here
 
                             // Close the edit modal
-                            $("#editMemberModal").modal("hide"); // Close the modal after a successful update
+                            $("#editEmployeeModal").modal("hide");
                         } else {
-                            // Handle the error case if needed
                             alert(data.error); // Display the specific error message from the server
                         }
                     },
@@ -417,28 +569,35 @@ $delivery_team = mysqli_query($con, "select * from team");
                 });
             });
 
+            $("#formAccountSettings").submit(function(event) {
+                event.preventDefault(); // Prevent the form from submitting via the browser
 
-            // Function to update the table with edited member data and perform an action
-            function updateTableWithEditedMember(editedMember) {
-                var tableBody = $("#membersTableBody");
-                var editedRow = tableBody.find("tr[data-sno='" + editedMember.sno + "']");
+                // Send the form data to the server using AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "update_member.php", // Adjust the URL to the correct PHP file
+                    data: $(this).serialize(), // Serialize the form data
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.success) {
+                            alert(data.success); // Display the success message sent from the server
+                            // You might want to refresh the page or update the table here
 
-                // Update the table row with the edited data
-                editedRow.find("td.course-title").html("<b>" + editedMember.name + "</b>");
-                editedRow.find("td:nth-child(3)").text(editedMember.mobile ? editedMember.mobile : "");
-                editedRow.find("td:nth-child(4)").text(editedMember.email ? editedMember.email : "");
-
-                // Show the success alert
-                $("#updateSuccessAlert").fadeIn().delay(1000).fadeOut();
-
-                // Reload the page after the modal is closed following an update
-                $(document).on("hidden.bs.modal", "#editMemberModal", function() {
-                    location.reload(); // Reload the page
+                            // Close the popup
+                            $(".popup").hide();
+                        } else {
+                            alert(data.error); // Display the specific error message from the server
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("AJAX Error:", error);
+                        alert("Error updating member. Please check the console for more information.");
+                    },
                 });
-            }
-
+            });
         });
     </script>
+
     <?php include 'fotter.php'; ?>
 </body>
 

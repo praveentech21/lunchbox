@@ -17,7 +17,7 @@
             
             <!-- Layouts -->
             <li class="menu-item">
-              <a href="dashbord.php" class="menu-link">
+              <a href="index.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -31,7 +31,7 @@
             </li>
 
             <li class="menu-item">
-              <a href="index.php" class="menu-link">
+              <a href="console.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
                 <div data-i18n="Analytics">Console</div>
               </a>

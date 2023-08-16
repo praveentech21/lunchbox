@@ -6,7 +6,7 @@ include("connect.php");
 // Agent Deatils
 $agent = mysqli_query($con, "select * from team");
 
-$students = mysqli_query($con, "select * from student");
+$students = mysqli_query($con, "SELECT * FROM `student` JOIN subscriptions WHERE student.stdid = subscriptions.stdid ORDER BY subscriptions.delivery_partner ASC");
 
 if(isset($_POST['allocate_student_to_agent'])){
   if($students_to_assign = $_POST['students_to_assign']){
@@ -81,9 +81,9 @@ if(isset($_POST['allocate_student_to_agent'])){
                     <td><strong> <?php echo $student['sname'] ?></strong></td>
                     <td><?php echo $parent['pname'] ?></td>
                     <td><?php echo $address['area'] ?></td>
-                    <td><?php echo $school ?></td>
-                    <td><?php echo $del_agent ?></td>
-                    <td><input type="checkbox" name="students_to_assign[]" id="<?php echo $student['stdid'] ?>" value="<?php echo $student['stdid'] ?>"> <label for="<?php echo $student['stdid'] ?>"> Select</label></td>
+                    <td><?php echo $school; ?></td>
+                    <td><?php if($sub['delivery_partner'] == 0) echo "No Agent Asigned"; else echo $del_agent ?></td>
+                    <td><?php if($sub['delivery_partner'] != 0){   ?><a href="remove_agent.php?agent=<?php echo $student['stdid'] ?>" >Remove</a> <?php } else { ?><input type="checkbox" name="students_to_assign[]" id="<?php echo $student['stdid'] ?>" value="<?php echo $student['stdid'] ?>"> <label for="<?php echo $student['stdid'] ?>"> Select</label> <?php } ?>  </td>
                   </tr>
                 <?php } ?>
               </tbody>

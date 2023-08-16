@@ -124,6 +124,13 @@ $schools = mysqli_query($con, "select * from schools");
             top: 10px;
             right: 10px;
         }
+
+        .card-header .float-end {
+            margin-top: -10px;
+            /* Adjust this value as needed */
+            margin-right: -10px;
+            /* Adjust this value as needed */
+        }
     </style>
 
     <?php include 'bhavani.php'; ?>
@@ -184,7 +191,7 @@ $schools = mysqli_query($con, "select * from schools");
                                                                 <td><?php echo $row['count(*)'] ?></td>
 
                                                                 <td>
-                                                                    <a href='#editEmployeeModal' class='edit' data-toggle='modal' data-addresslink="<?php echo $run1['address'] ?>" data-pid="<?php echo $run1['pid'] ?>" data-pname="<?php echo $run1['pname'] ?>" data-altphone="<?php echo $run1['altphone'] ?>" data-email="<?php echo $run1['email'] ?>" data-pincode="<?php echo $address['pincode'] ?>" data-doorno="<?php echo $address['doorno'] ?>" data-appartment="<?php echo $address['appartment'] ?>" data-area="<?php echo $address['area'] ?>">edit</a>
+                                                                    <a href='#editEmployeeModal' class='edit' data-toggle='modal' data-addresslink="<?php echo $run1['address'] ?>" data-pid="<?php echo $run1['pid'] ?>" data-pname="<?php echo $run1['pname'] ?>" data-altphone="<?php echo $run1['altphone'] ?>" data-email="<?php echo $run1['email'] ?>" data-pincode="<?php echo $address['pincode'] ?>" data-doorno="<?php echo $address['doorno'] ?>" data-appartment="<?php echo $address['appartment'] ?>" data-area="<?php echo $address['area'] ?>"><span class="badge bg-label-info me-1">View Profile</span></a>
                                                                 </td>
                                                             </tr>
 
@@ -247,7 +254,11 @@ $schools = mysqli_query($con, "select * from schools");
                                 <div class="tab-pane fade" id="pop3" role="tabpanel" aria-labelledby="pop3-tab">
                                     <!-- Bordered Table -->
                                     <div class="card">
-                                        <h5 class="card-header">Delivary Agent Details</h5>
+                                        <h5 class="card-header">Delivary Agent Details
+                                            <div class="float-end">
+                                                <a href="new_delivary_agent.php"><button class="btn btn-success me-2">Add</button></a>
+                                            </div>
+                                        </h5>
                                         <div class="card-body">
                                             <div class="table-responsive text-nowrap">
                                                 <table class="table table-bordered">
@@ -256,7 +267,7 @@ $schools = mysqli_query($con, "select * from schools");
                                                             <th>Agent Name</th>
                                                             <th>Mobile</th>
                                                             <th>No of Boxes</th>
-                                                            <!-- <th>Schools</th> -->
+                                                            <th>Edit</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -271,6 +282,7 @@ $schools = mysqli_query($con, "select * from schools");
                                                                 <td><?php echo $row['mobile'] ?></td>
                                                                 <td><span class="badge bg-label-primary me-1"><?php echo $boxes['count(*)'] ?></span>
                                                                 </td>
+                                                                <td><a href="#" class="open-popup" data-target="popup-2" data-agentname="<?php echo $row['name'] ?>" data-noofboxes="<?php echo $boxes['count(*)'] ?>" data-agentmobile="<?php echo $row['mobile'] ?>" data-eid="<?php echo $row['eid'] ?>" data-agentlink="<?php echo $row['address'] ?>"><span class="badge bg-label-info me-1">View Profile</span></a></td>
                                                             </tr>
                                                         <?php } ?>
 
@@ -292,7 +304,7 @@ $schools = mysqli_query($con, "select * from schools");
     </div>
     <!-- / Content -->
 
-    <!-- Edit Modal HTML -->
+    <!-- Parent Popup Starts here shiva -->
     <div id="editEmployeeModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -357,7 +369,7 @@ $schools = mysqli_query($con, "select * from schools");
             </div>
         </div>
     </div>
-    <!-- Edit Modal HTML -->
+    <!-- Parent Popup Ends here shiva  -->
 
     <!-- phpup of student profile starts here shiva -->
     <div class="popup" id="popup-1">
@@ -393,7 +405,7 @@ $schools = mysqli_query($con, "select * from schools");
                                 <select id="school" name="school" class="select2 form-select">
                                     <option value="">Select school</option>
                                     <?php while ($rowa = mysqli_fetch_assoc($schools)) { ?>
-                                        <option value="<?php echo $rowa['sid'] ?>"  ><?php echo $rowa['school_name'] ?></option>
+                                        <option value="<?php echo $rowa['sid'] ?>"><?php echo $rowa['school_name'] ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -435,7 +447,56 @@ $schools = mysqli_query($con, "select * from schools");
             <a href="#" class="close-popup">Close</a>
         </div>
     </div>
-    <!-- phpup of student profile ends here shiva -->
+    <!-- phpup of student profile Ends here shiva -->
+
+    <!-- phpup of Delivery Agent profile starts here shiva -->
+    <div class="popup" id="popup-2">
+        <div class="popup-content">
+
+            <div class="card mb-4">
+                <h5 class="card-header" id="agentlable">Student Details</h5>
+                <!-- Account -->
+                <div class="card-body">
+                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                        <img src="Bhavani/img/avatars/1.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                        <div class="button-wrapper">
+                            <p class="mb-0" id="agentmobilelable"></p>
+                            <p class="mb-0" id="noofboxestoagent"></p>
+                            <a href="" class="mb-0" id="agentlinklable"></a>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-0" />
+                <div class="card-body">
+                    <form id="deliveragent" method="POST" action="update_member.php">
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label for="firstName" class="form-label">Agent Name</label>
+                                <input class="form-control" type="text" id="agentname" name="agentname" autofocus />
+                                <input type="hidden" name="eid" id="eid">
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="lastName" class="form-label">Mobile Number</label>
+                                <input class="form-control" type="text" name="agentmobile" id="agentmobile" />
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="lastName" class="form-label">Agent Link</label>
+                                <input class="form-control" type="text" name="agentlink" id="agentlink" />
+                            </div>
+                            <div class="mt-2">
+                                <button type="submit" name="updateagentdetails" class="btn btn-primary me-2">Save changes</button>
+                                <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                            </div>
+                    </form>
+                </div>
+                <!-- /Account -->
+            </div>
+
+            <a href="#" class="close-popup">Close</a>
+        </div>
+    </div>
+    <!-- popup of Delivery Agent profile Ends here shiva -->
+
     <!-- Footer -->
     <footer class="content-footer footer bg-footer-theme">
         <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -526,17 +587,17 @@ $schools = mysqli_query($con, "select * from schools");
 
                 if (gender == 2) {
                     gender = "Male"
-                } else if(gender == 1){
+                } else if (gender == 1) {
                     gender = "Female"
-                }else {
+                } else {
                     gender = "Other"
                 }
 
-                if(school == 1){
+                if (school == 1) {
                     school = "Westberry School"
-                }else if(school == 2){
+                } else if (school == 2) {
                     school = "Bhavans"
-                }else if(school == 3){
+                } else if (school == 3) {
                     school = "Eurokids"
                 }
 
@@ -548,7 +609,7 @@ $schools = mysqli_query($con, "select * from schools");
                 $("#class").val(classs);
                 $("#section").val(section);
                 $("#country").val(school);
-                $("#subdate").val(subdate); 
+                $("#subdate").val(subdate);
                 $("#gender").val(gender);
                 $("#subdate").val(subscription);
                 $("#s_pname").val(pname);
@@ -557,23 +618,45 @@ $schools = mysqli_query($con, "select * from schools");
                 // 
                 var selectedSchool = school; // Replace with the actual selected school name
 
-var schoolDropdown = document.getElementById("school");
-for (var i = 0; i < schoolDropdown.options.length; i++) {
-    if (schoolDropdown.options[i].text === selectedSchool) {
-        schoolDropdown.selectedIndex = i;
-        break;
-    }
-}
+                var schoolDropdown = document.getElementById("school");
+                for (var i = 0; i < schoolDropdown.options.length; i++) {
+                    if (schoolDropdown.options[i].text === selectedSchool) {
+                        schoolDropdown.selectedIndex = i;
+                        break;
+                    }
+                }
 
-var selectedGender = gender; // Replace with the actual selected school name
+                var selectedGender = gender; // Replace with the actual selected school name
 
-var schoolGender = document.getElementById("gender");
-for (var i = 0; i < schoolGender.options.length; i++) {
-    if (schoolGender.options[i].text === selectedGender) {
-        schoolGender.selectedIndex = i;
-        break;
-    }
-}
+                var schoolGender = document.getElementById("gender");
+                for (var i = 0; i < schoolGender.options.length; i++) {
+                    if (schoolGender.options[i].text === selectedGender) {
+                        schoolGender.selectedIndex = i;
+                        break;
+                    }
+                }
+
+                // for Delivery Agent Starts Here Shiva
+
+                var agentname = $(this).data("agentname");
+                var agentmobile = $(this).data("agentmobile");
+                var noofboxes = $(this).data("noofboxes");
+                var eid = $(this).data("eid");
+                var agentlink = $(this).data("agentlink");
+
+                $("#agentlable").html(agentname);
+                $("#agentmobilelable").html("Mobile : " + agentmobile);
+                $("#noofboxestoagent").html("No of boxes Deliver : " + noofboxes);
+                $("#agentlinklable").html(agentlink);
+                $("#agentlinklable").attr("href", agentlink);
+
+
+                $("#agentname").val(agentname);
+                $("#agentmobile").val(agentmobile);
+                $("#eid").val(eid);
+                $("#agentlink").val(agentlink);
+
+
 
 
             });

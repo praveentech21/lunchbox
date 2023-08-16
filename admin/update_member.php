@@ -52,4 +52,19 @@ include 'connect.php'; // Adjust the file name as per your configuration
         }
         
     }
+    elseif (isset($_POST['updateagentdetails'])){
+        $agentmobile = $_POST['agentmobile'];
+        $agentname = $_POST['agentname'];
+        $eid = $_POST['eid'];
+
+        $stmt = $con->prepare("UPDATE `team` SET `name`=?,`mobile`=? WHERE `eid` =?");
+        $stmt->bind_param("sss", $agentname, $agentmobile, $eid);
+        if ($stmt->execute()) {
+            header("Location: console.php#pop3");
+        } else {
+            $response = array("error" => "Error updating agent details");
+            echo "<script>alert('Agent Details Updation Failed')</script>  ";
+        }
+
+    }
 ?>

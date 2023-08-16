@@ -141,6 +141,7 @@ $delivery_team = mysqli_query($con, "select * from team");
                                                         $subscribed_parents = mysqli_query($con, "select *,count(*) from subscriptions group by pid");
                                                         while ($row = mysqli_fetch_assoc($subscribed_parents)) {
                                                             $run1 = mysqli_fetch_assoc(mysqli_query($con, "select * from parent where pid='{$row['pid']}'"));
+                                                            $parent_detail = mysqli_fetch_assoc(mysqli_query($con, "select * from parent where pid='{$row['pid']}'"));
                                                             $address = mysqli_fetch_assoc(mysqli_query($con, "select * from address where pid = '{$row['pid']}'"))
                                                         ?>
                                                             <tr>
@@ -152,13 +153,13 @@ $delivery_team = mysqli_query($con, "select * from team");
                                                                 <td><?php echo $address['area'] ?></td>
                                                                 <td><?php echo $row['count(*)'] ?></td>
 
-                                                                <td><a href='#editEmployeeModal' class='edit' data-toggle='modal' data-sno=\$sno\>edit</a></td>
+                                                                <td><a href='#editEmployeeModal' class='edit' data-toggle='modal'  >edit</a></td>
                                                             </tr>
                                                             <!-- Edit Modal HTML -->
                                                             <div id="editEmployeeModal" class="modal fade">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
-                                                                        <form id="editForm" novalidate>
+                                                                        <form id="editForm" >
                                                                             <div class="modal-body">
                                                                                 <h5 class="mb-0">Update Parent Details</h5>
                                                                                 <div class="card-body">
@@ -168,15 +169,15 @@ $delivery_team = mysqli_query($con, "select * from team");
                                                                                                 Name</label>
                                                                                             <div class="input-group input-group-merge">
                                                                                                 <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
-                                                                                                <input type="text" class="form-control" id="basic-icon-default-fullname" placeholder="<?php echo $run1['pname']; ?>" aria-describedby="basic-icon-default-fullname2" name="pname" />
+                                                                                                <input type="text" class="form-control" id="basic-icon-default-fullname pname" aria-describedby="basic-icon-default-fullname2" name="pname" />
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="mb-3">
                                                                                             <label class="form-label" for="basic-icon-default-phone">Phone
-                                                                                                No</label>
+                                                                                                Number</label>
                                                                                             <div class="input-group input-group-merge">
                                                                                                 <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-phone"></i></span>
-                                                                                                <input type="number" id="basic-icon-default-phone" class="form-control phone-mask" placeholder="<?php echo $run1['pid']; ?>" aria-label="<?php echo $run1['pid']; ?>" aria-describedby="basic-icon-default-phone2" name="pid" />
+                                                                                                <input type="number" id="pid basic-icon-default-phone" class="form-control phone-mask" aria-label="<?php echo $parent_detail['pid']; ?>" aria-describedby="basic-icon-default-phone2" name="pid" />
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="mb-3">
@@ -184,45 +185,37 @@ $delivery_team = mysqli_query($con, "select * from team");
                                                                                                 Phone</label>
                                                                                             <div class="input-group input-group-merge">
                                                                                                 <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-phone"></i></span>
-                                                                                                <input type="number" id="basic-icon-default-phone" class="form-control phone-mask" placeholder="<?php echo $run1['altphone']; ?>" aria-label="658 799 8941" aria-describedby="basic-icon-default-phone2" name="altphone" />
+                                                                                                <input type="number" id="altphone basic-icon-default-phone" class="form-control phone-mask" aria-label="658 799 8941" aria-describedby="basic-icon-default-phone2" name="altphone" />
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="mb-3">
                                                                                             <label class="form-label" for="basic-icon-default-email">Email</label>
                                                                                             <div class="input-group input-group-merge">
                                                                                                 <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                                                                                <input type="email" id="basic-icon-default-email" class="form-control" placeholder="<?php echo $run1['email']; ?>" aria-label="john.doe" aria-describedby="basic-icon-default-email2" name="email" />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="mb-3">
-                                                                                            <label class="form-label" for="basic-icon-default-fullname">Password</label>
-                                                                                            <div class="input-group input-group-merge">
-                                                                                                <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-lock-open-alt"></i>
-                                                                                                </span>
-                                                                                                <input type="password" class="form-control" id="basic-icon-default-fullname" placeholder="..........." aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" name="pass" />
+                                                                                                <input type="email" id="email basic-icon-default-email" class="form-control" aria-label="john.doe" aria-describedby="basic-icon-default-email2" name="email" />
                                                                                             </div>
                                                                                         </div>
                                                                                         <div>
                                                                                             <label for="defaultFormControlInput" class="form-label">Area
                                                                                             </label>
-                                                                                            <input type="text" class="form-control" id="defaultFormControlInput" placeholder="<?php echo $run2['area']; ?>" aria-describedby="defaultFormControlHelp" name="area" />
+                                                                                            <input type="text" class="form-control" id="area defaultFormControlInput" aria-describedby="defaultFormControlHelp" name="area" />
                                                                                         </div>
                                                                                         <div>
                                                                                             <label for="defaultFormControlInput" class="form-label">Appartment</label>
-                                                                                            <input type="text" class="form-control" id="defaultFormControlInput" placeholder="<?php echo $run2['appartment']; ?>" aria-describedby="defaultFormControlHelp" name="appartment" />
+                                                                                            <input type="text" class="form-control" id="appartment defaultFormControlInput" aria-describedby="defaultFormControlHelp" name="appartment" />
                                                                                         </div>
                                                                                         <div>
                                                                                             <label for="defaultFormControlInput" class="form-label">Door No
                                                                                                 and Address</label>
-                                                                                            <input type="text" class="form-control" id="defaultFormControlInput" placeholder="<?php echo $run2['doorno']; ?>" aria-describedby="defaultFormControlHelp" name="doorno" />
+                                                                                            <input type="text" class="form-control" id="doorno defaultFormControlInput" aria-describedby="defaultFormControlHelp" name="doorno" />
                                                                                         </div>
                                                                                         <div>
                                                                                             <label for="defaultFormControlInput" class="form-label">Pincode</label>
-                                                                                            <input type="number" class="form-control" id="defaultFormControlInput" placeholder="<?php echo $run2['pincode']; ?>" aria-describedby="defaultFormControlHelp" name="pincode" />
+                                                                                            <input type="number" class="form-control" id="pincode defaultFormControlInput" aria-describedby="defaultFormControlHelp" name="pincode" />
                                                                                         </div>
                                                                                         <div>
                                                                                             <label for="defaultFormControlInput" class="form-label">Link</label>
-                                                                                            <input type="text" class="form-control" id="defaultFormControlInput" placeholder="<?php echo $run1['address']; ?>" aria-describedby="defaultFormControlHelp" name="addresslink" />
+                                                                                            <input type="text" class="form-control" id="addresslink defaultFormControlInput" aria-describedby="defaultFormControlHelp" name="addresslink" />
                                                                                             <div id="defaultFormControlHelp" class="form-text">
                                                                                                 Set google embede link of
                                                                                                 location here.
@@ -368,44 +361,41 @@ $delivery_team = mysqli_query($con, "select * from team");
     <!-- Content wrapper -->
     <script>
         $(document).ready(function() {
-
+            
+            
 
             // Function to update the error message and apply the red border to the input field
-            function updateErrorMessage(inputElement, isValid, errorMessage, errorElementId) {
-                if (!isValid) {
-                    $(`#${errorElementId}`).text(errorMessage).show();
-                    $(inputElement).addClass("is-invalid");
-                } else {
-                    $(`#${errorElementId}`).hide();
-                    $(inputElement).removeClass("is-invalid");
-                }
-            }
+
 
             $("#editForm").submit(function(event) {
                 event.preventDefault();
-                var editId = $("#editId").val();
-                var editName = $("#editName").val();
-                var editMobile = $("#editMobile").val();
-                var editEmail = $("#editEmail").val();
-
-                if (!editName) {
-                    updateErrorMessage(document.getElementById("editName"), false, "Member name cannot be empty.", "editNameError");
-                    return;
-                }
-
-                var emails = editEmail.split(',').map(function(email) {
-                    return email.trim();
-                });
+                var addresslink = $("#addresslink").val();
+                var pname = $("#pname").val();
+                var pid = $("#pid").val();
+                var altphone = $("#altphone").val();
+                var email = $("#email").val();
+                var pass = $("#pass").val();
+                var area = $("#area").val();
+                var appartment = $("#appartment").val();
+                var doorno = $("#doorno").val();
+                var pincode = $("#pincode").val();
+                
 
                 // Send the updated data to the server using AJAX
                 $.ajax({
                     type: "POST",
                     url: "update_member.php",
                     data: {
-                        sno: editId,
-                        name: editName,
-                        mobile: editMobile,
-                        email: emails,
+                        addresslink : addresslink,
+                        pname: pname,
+                        pid: pid,
+                        altphone: altphone,
+                        email: email,
+                        pass: pass,
+                        area: area,
+                        appartment: appartment,
+                        doorno: doorno,
+                        pincode: pincode,
                     },
                     dataType: "json",
                     success: function(data) {
@@ -447,21 +437,6 @@ $delivery_team = mysqli_query($con, "select * from team");
                 });
             }
 
-            // Handle Edit button click
-            $(document).on("click", ".edit", function() {
-                var sno = $(this).data("sno");
-                var name = $(this).closest("tr").find("td:nth-child(2)").text();
-                var mobile = $(this).closest("tr").find("td:nth-child(3)").text();
-                var email = $(this).closest("tr").find("td:nth-child(4)").text();
-
-                $("#editId").val(sno);
-                $("#editSno").val(sno);
-                $("#editName").val(name);
-                $("#editMobile").val(mobile);
-                $("#editEmail").val(email);
-            });
-
-            // Existing JavaScript code for Delete button click and other functionalities...
         });
     </script>
     <?php include 'fotter.php'; ?>

@@ -8,7 +8,7 @@
         }
         else{
             echo "<script>alert('Agent Removal Failed')</script>";
-            header("location:allocate_student       .php");
+            header("location:allocate_student.php");
         }
 
     }

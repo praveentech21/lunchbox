@@ -65,7 +65,7 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
                   </td>
                   <td><span class="badge bg-label-success me-1"><?php echo $Delivered ?> Scheduled</span>
                   </td>
-                  <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
+                  <td><a href="student_profile.php?stdid=<?php echo $row['stdid'] ?>"><span class="badge bg-label-info me-1">View Profile</span></a></td>
                 </tr>
               <?php } ?>
             </tbody>

@@ -209,8 +209,8 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
 
             <div class="nice-form-group">
                 <label>Child School</label>
-                <select name="school">
-                  <option value=0>Please select Your Child School</option>
+                <select name="school" required>
+                  <option value="">Please select Your Child School</option>
                   <option value=1>West Berry</option>
                   <option value=2>Bhavanis</option>
                   <option value=3>Euro Kids</option>

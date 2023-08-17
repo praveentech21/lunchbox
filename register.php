@@ -2,6 +2,7 @@
 
 include "connect.php";
 session_start();
+$schools = mysqli_query($con, "select * from schools");
 if (isset($_POST['submit']) && isset($_FILES['photo'])) {
 
     $image_name=$_FILES['photo']['name'];
@@ -211,9 +212,9 @@ if (isset($_POST['submit']) && isset($_FILES['photo'])) {
                 <label>Child School</label>
                 <select name="school" required>
                   <option value="">Please select Your Child School</option>
-                  <option value=1>West Berry</option>
-                  <option value=2>Bhavanis</option>
-                  <option value=3>Euro Kids</option>
+                  <?php while($row = mysqli_fetch_assoc($schools)){ ?>
+                  <option value= <?php echo $row['sid'] ?> ><?php echo $row['school_name'] ?></option>
+                  <?php } ?>
                 </select>
             </div>
 

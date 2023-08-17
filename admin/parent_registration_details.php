@@ -47,7 +47,7 @@ include("connect.php");
                   <td><a href="tel:<?php echo $run1['pid'] ?>"><?php echo $run1['pid'] ?></a></td>
                   <td><?php echo $address['area'] ?></td>
                   <td><?php echo $row['count(*)'] ?></td>
-                  <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
+                  <td><a href="parent_profile.php?parent=<?php echo $run1['pid'] ?>"><span class="badge bg-label-info me-1">View Profile</span></a></td>
                 </tr>
               <?php } ?>
             </tbody>

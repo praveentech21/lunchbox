@@ -53,7 +53,7 @@ $students = mysqli_query($con, "select * from student ");
                   <td><span class="badge bg-label-success me-1"><?php echo $school['school_name'] ?></span>
                   </td>
                   <td>Subscribed On : <?php echo $date ?></td>
-                  <td><a href=""><span class="badge bg-label-info me-1">View Profile</span></a></td>
+                  <td><a href="student_profile.php?stdid=<?php echo $row['stdid'] ?>"><span class="badge bg-label-info me-1">View Profile</span></a></td>
                 </tr>
               <?php } ?>
             </tbody>

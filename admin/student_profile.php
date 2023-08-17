@@ -1,3 +1,23 @@
+<?php 
+    if(!isset($_GET['stdid'])) header("location:console.php");
+
+    include 'connect.php'; 
+    $student = mysqli_fetch_assoc(mysqli_query($con, "select * from student where stdid = '{$_GET['stdid']}'"));
+    $school = mysqli_fetch_assoc(mysqli_query($con, "select school_name from schools where sid = '{$student['school']}'"))['school_name'];
+    $subscr = mysqli_fetch_assoc(mysqli_query($con, "select * from subscriptions where stdid = '{$_GET['stdid']}'"));
+    $parent_name = mysqli_fetch_assoc(mysqli_query($con, "select pname from parent where pid = '{$subscr['pid']}'"))['pname'];
+    $delivery_agent = mysqli_fetch_assoc(mysqli_query($con, "select name from team where eid = '{$subscr['delivery_partner']}'"))['name'];
+    $schools = mysqli_query($con, "select * from schools");
+    $delivered = mysqli_num_rows(mysqli_query($con, "select * from delivary where stdid = '{$subscr['stdid']}' and status = 1"));
+    $in_transit = mysqli_num_rows(mysqli_query($con, "select * from delivary where stdid = '{$subscr['stdid']}' and status = 0"));
+    $this_month = date("m");
+$this_year = date("Y");
+$working_days_of_this_month = mysqli_query($con, "SELECT `date` FROM `delivary` WHERE month(date) = $this_month and year(date) = $this_year GROUP BY `date` order by date asc");
+$total_working_days = mysqli_num_rows($working_days_of_this_month);
+
+    $not_pickedup = $total_working_days - $in_transit - $delivered;
+
+?>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="Bhavani/"
     data-template="vertical-menu-template-free">
@@ -16,7 +36,7 @@
             <div class="row">
 
                 <div class="card mb-4">
-                    <h5 class="card-header">Profile Details</h5>
+                    <h5 class="card-header">Name</h5>
                     <!-- Account -->
                     <div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -28,180 +48,126 @@
                           width="100"
                           id="uploadedAvatar"
                         />
-                        <div class="button-wrapper">
-                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">Upload new photo</span>
-                            <i class="bx bx-upload d-block d-sm-none"></i>
-                            <input
-                              type="file"
-                              id="upload"
-                              class="account-file-input"
-                              hidden
-                              accept="image/png, image/jpeg"
-                            />
-                          </label>
-                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                          </button>
-
-                          <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                        </div>
+                        <div class="card-body">
+                                <p>School : <b><?php echo "$school" ?></b> </p>
+                                <p>Roll Number : <b><?php echo $student['rollno'] ?></b></p>
+                                <p>Delivery Agent : <b><?php echo $delivery_agent ?></b></p>
+                            </div>
                       </div>
                     </div>
                     <hr class="my-0" />
                     <div class="card-body">
-                      <form id="formAccountSettings" method="POST" onsubmit="return false">
+                      <form id="formAccountSettings" method="POST" action="update_member.php">
                         <div class="row">
                           <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">First Name</label>
+                            <label for="sname" class="form-label">Student Name</label>
                             <input
                               class="form-control"
                               type="text"
-                              id="firstName"
-                              name="firstName"
-                              value="John"
+                              id="sname"
+                              name="sname"
+                              value="<?php echo $student['sname'] ?>"
                               autofocus
                             />
+                            <input type="hidden" name="stdid" value="$student['sname']">
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input class="form-control" type="text" name="lastName" id="lastName" value="Doe" />
+                            <label for="rollno" class="form-label">Roll Number</label>
+                            <input class="form-control" type="text" name="rollno" id="rollno" value="<?php echo $student['rollno'] ?>" />
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
+                            <label class="form-label" for="school">School</label>
+                            <select id="school" name="school" class="select2 form-select">
+                              <option value="">Select school</option>
+                              <?php while ($row = mysqli_fetch_assoc($schools)) { ?>
+                                <option value="<?php echo $row['sid'] ?>" <?php if($row['sid'] == $student['school']) echo "selected" ?> ><?php echo $row['school_name'] ?></option>
+                                <?php } ?>
+                            </select>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="pname" class="form-label">Parent Name</label>
                             <input
                               class="form-control"
                               type="text"
-                              id="email"
-                              name="email"
-                              value="john.doe@example.com"
-                              placeholder="john.doe@example.com"
+                              id="pname"
+                              name="pname"
+                              disabled
+                              value="<?php echo $parent_name ?>"
                             />
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="organization" class="form-label">Organization</label>
+                            <label for="class" class="form-label">Class</label>
                             <input
                               type="text"
                               class="form-control"
-                              id="organization"
-                              name="organization"
-                              value="ThemeSelection"
+                              id="class"
+                              name="class"
+                              value="<?php echo $student['sclass'] ?>"
                             />
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label class="form-label" for="phoneNumber">Phone Number</label>
+                            <label class="form-label" for="section">Section</label>
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text">US (+1)</span>
                               <input
                                 type="text"
-                                id="phoneNumber"
-                                name="phoneNumber"
+                                id="section"
+                                name="section"
                                 class="form-control"
-                                placeholder="202 555 0111"
+                                value="<?php echo $student['sec'] ?>"
                               />
                             </div>
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
+                            <label class="form-label" for="gender">Gender</label>
+                            <select id="gender" name="gender" class="select2 form-select">
+                              <option value="">Select</option>
+                              <option value="2" <?php if($student['gender'] == '2') echo 'selected' ?> >Boys</option>
+                              <option value="1" <?php if($student['gender'] == '1') echo 'selected' ?> >Girls</option>
+                              <option value="0" <?php if($student['gender'] == '0') echo 'selected' ?> >Others</option>
+                            </select>
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="state" class="form-label">State</label>
-                            <input class="form-control" type="text" id="state" name="state" placeholder="California" />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="zipCode" class="form-label">Zip Code</label>
+                            <label for="subdate" class="form-label">Subscription Date</label>
                             <input
                               type="text"
                               class="form-control"
-                              id="zipCode"
-                              name="zipCode"
-                              placeholder="231465"
-                              maxlength="6"
+                              id="subdate"
+                              name="subdate"
+                              value="<?php echo $student['subscription_date'] ?>"
                             />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="country">Country</label>
-                            <select id="country" class="select2 form-select">
-                              <option value="">Select</option>
-                              <option value="Australia">Australia</option>
-                              <option value="Bangladesh">Bangladesh</option>
-                              <option value="Belarus">Belarus</option>
-                              <option value="Brazil">Brazil</option>
-                              <option value="Canada">Canada</option>
-                              <option value="China">China</option>
-                              <option value="France">France</option>
-                              <option value="Germany">Germany</option>
-                              <option value="India">India</option>
-                              <option value="Indonesia">Indonesia</option>
-                              <option value="Israel">Israel</option>
-                              <option value="Italy">Italy</option>
-                              <option value="Japan">Japan</option>
-                              <option value="Korea">Korea, Republic of</option>
-                              <option value="Mexico">Mexico</option>
-                              <option value="Philippines">Philippines</option>
-                              <option value="Russia">Russian Federation</option>
-                              <option value="South Africa">South Africa</option>
-                              <option value="Thailand">Thailand</option>
-                              <option value="Turkey">Turkey</option>
-                              <option value="Ukraine">Ukraine</option>
-                              <option value="United Arab Emirates">United Arab Emirates</option>
-                              <option value="United Kingdom">United Kingdom</option>
-                              <option value="United States">United States</option>
-                            </select>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="language" class="form-label">Language</label>
-                            <select id="language" class="select2 form-select">
-                              <option value="">Select Language</option>
-                              <option value="en">English</option>
-                              <option value="fr">French</option>
-                              <option value="de">German</option>
-                              <option value="pt">Portuguese</option>
-                            </select>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="timeZones" class="form-label">Timezone</label>
-                            <select id="timeZones" class="select2 form-select">
-                              <option value="">Select Timezone</option>
-                              <option value="-12">(GMT-12:00) International Date Line West</option>
-                              <option value="-11">(GMT-11:00) Midway Island, Samoa</option>
-                              <option value="-10">(GMT-10:00) Hawaii</option>
-                              <option value="-9">(GMT-09:00) Alaska</option>
-                              <option value="-8">(GMT-08:00) Pacific Time (US & Canada)</option>
-                              <option value="-8">(GMT-08:00) Tijuana, Baja California</option>
-                              <option value="-7">(GMT-07:00) Arizona</option>
-                              <option value="-7">(GMT-07:00) Chihuahua, La Paz, Mazatlan</option>
-                              <option value="-7">(GMT-07:00) Mountain Time (US & Canada)</option>
-                              <option value="-6">(GMT-06:00) Central America</option>
-                              <option value="-6">(GMT-06:00) Central Time (US & Canada)</option>
-                              <option value="-6">(GMT-06:00) Guadalajara, Mexico City, Monterrey</option>
-                              <option value="-6">(GMT-06:00) Saskatchewan</option>
-                              <option value="-5">(GMT-05:00) Bogota, Lima, Quito, Rio Branco</option>
-                              <option value="-5">(GMT-05:00) Eastern Time (US & Canada)</option>
-                              <option value="-5">(GMT-05:00) Indiana (East)</option>
-                              <option value="-4">(GMT-04:00) Atlantic Time (Canada)</option>
-                              <option value="-4">(GMT-04:00) Caracas, La Paz</option>
-                            </select>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="currency" class="form-label">Currency</label>
-                            <select id="currency" class="select2 form-select">
-                              <option value="">Select Currency</option>
-                              <option value="usd">USD</option>
-                              <option value="euro">Euro</option>
-                              <option value="pound">Pound</option>
-                              <option value="bitcoin">Bitcoin</option>
-                            </select>
+                            <small>Date formate yyyy - mm -DD</small>
                           </div>
                         </div>
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2">Save changes</button>
-                          <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                          <button type="submit" name="updatestudent" class="btn btn-primary me-2">Save changes</button>
                         </div>
                       </form>
                     </div>
+                    <div class="card">
+                            <h5 class="card-header">This Month Delivery Report</h5>
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            while($rama = mysqli_fetch_assoc($working_days_of_this_month)){
+                                                $check_status_of_box = mysqli_fetch_assoc(mysqli_query($con, "select status from delivary where stdid = '{$_GET['stdid']}' and date = '{$rama['date']}'"));
+                                        ?>
+                                        <tr>
+                                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $rama['date'] ?></strong></td>
+                                            <td><?php if(empty($check_status_of_box)) echo '<span class="badge bg-label-warning me-1">Not Picked</span>'; elseif($check_status_of_box == 0) echo '<span class="badge bg-label-primary me-1">In Transtion</span>'; else echo '<span class="badge bg-label-success me-1">Completed</span>'; ?></td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     <!-- /Account -->
                   </div>
 

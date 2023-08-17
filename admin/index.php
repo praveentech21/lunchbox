@@ -326,10 +326,10 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
       <!-- Monthly Report Starts Here Shiva -->
 
       <div class="row" >
-        <!-- Day to Day Delivery Analysis -->
+        <!-- This Month Day to Day Delivery Analysis -->
         <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
           <div class="card">
-            <h5 class="card-header">Day to Day Delivery Analysis</h5>
+            <h5 class="card-header">This Month Day to Day Delivery Analysis</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
@@ -370,7 +370,7 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
           </div>
           <br>
           <div class="card">
-            <h5 class="card-header">Student Wise Deliverary Analysis</h5>
+            <h5 class="card-header">This Month Student Wise Deliverary Analysis</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
@@ -415,7 +415,7 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
           </div>
 
         </div>
-        <!--/ Day to Day Delivery Analysis -->
+        <!--/ This Month Day to Day Delivery Analysis -->
 
         <!-- Subscribed Parents -->
         <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">

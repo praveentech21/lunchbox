@@ -83,7 +83,7 @@ if(isset($_POST['allocate_student_to_agent'])){
                     <td><?php echo '<span class="badge bg-label-primary me-1">'.$address['area'].'</span>' ?></td>
                     <td><?php echo '<span class="badge bg-label-success me-1">'.$school.'</span>'; ?></td>
                     <td><?php if($sub['delivery_partner'] == 0) echo '<span class="badge bg-label-info me-1">No Agent Asigned</span>'; else echo '<span class="badge bg-label-info me-1">'.$del_agent.'</span>' ?></td>
-                    <td><?php if($sub['delivery_partner'] != 0){   ?><a href="remove_agent.php?agent=<?php echo $student['stdid'] ?>" >Remove</a> <?php } else { ?><input type="checkbox" name="students_to_assign[]" id="<?php echo $student['stdid'] ?>" value="<?php echo $student['stdid'] ?>"> <label for="<?php echo $student['stdid'] ?>"> Select</label> <?php } ?>  </td>
+                    <td><?php if($sub['delivery_partner'] != 0){   ?><a href="remove_agent.php?agent=<?php echo $student['stdid'] ?>" >Deallocate</a> <?php } else { ?><input type="checkbox" name="students_to_assign[]" id="<?php echo $student['stdid'] ?>" value="<?php echo $student['stdid'] ?>"> <label for="<?php echo $student['stdid'] ?>"> Select</label> <?php } ?>  </td>
                   </tr>
                 <?php } ?>
               </tbody>

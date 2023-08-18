@@ -138,7 +138,7 @@ if(empty($_SESSION["uname"])){
                         echo '<h3>Parent Name:'.$run1["pname"].'</h3>
                         <h3>Parent Mobile:'.$pid.'</h3>';
                         if(isset($run1["address"]))
-                        echo '<h3>Parent Address:'.$run1["address"].'</h3>';
+                         '<h3>Parent Address:'.$run1["address"].'</h3>';
                     ?>
                 </div>
                 <div class="row">

@@ -430,11 +430,11 @@ $this_month_working_days = mysqli_num_rows(mysqli_query($con, "SELECT count(*) F
                         <tr>
                           <th>Parent Name</th>
                           <th>No of Child</th>
-                        </tr>
+                        </tr> 
                       </thead>
                       <tbody>
                         <?php
-                        $subscribed_parents = mysqli_query($con, "select *,count(*) from subscriptions group by pid");
+                        $subscribed_parents = mysqli_query($con, "select *,count(*) from subscriptions group by pid ORDER BY COUNT(*) DESC");
                         while ($row = mysqli_fetch_assoc($subscribed_parents)) {
                           $run1 = mysqli_fetch_assoc(mysqli_query($con, "select * from parent where pid='{$row['pid']}'"));
                         ?>
